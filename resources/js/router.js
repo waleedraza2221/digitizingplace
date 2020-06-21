@@ -3,7 +3,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 //import { component } from 'vue/types/umd';
 import LoginComponent from './components/LoginComponent';
+import RolesComponent from './components/RolesComponent';
 import AdminComponent from './components/AdminComponent';
+
+
 
 Vue.use(VueRouter)
 
@@ -25,9 +28,24 @@ const routes=[
 
         path:'/admin',
         component:AdminComponent,
-        name:'Admin'
+        name:'Admin',
+        children:[{
+
+            path:'roles',
+            component:RolesComponent,
+            name:'Roles'
+
+        }],
+        beforeEnter: (to, from, next) => {
+            if(localStorage.getItem('token')){
+                next();
+            }else{
+                next('/login');
+            }
+          }
 
     }
+  
 
 
 
