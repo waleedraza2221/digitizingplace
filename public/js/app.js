@@ -2026,6 +2026,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -20093,8 +20094,10 @@ var render = function() {
         [
           _c(
             "v-container",
-            { staticClass: "fill-height" },
+            {},
             [
+              _c("router-view"),
+              _vm._v(" "),
               _c(
                 "v-row",
                 { attrs: { justify: "center", align: "center" } },
@@ -20102,8 +20105,6 @@ var render = function() {
                   _c(
                     "v-col",
                     [
-                      _c("router-view"),
-                      _vm._v(" "),
                       _c(
                         "v-snackbar",
                         {
@@ -20410,9 +20411,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-alert", { attrs: { type: "info" } }, [
-    _vm._v("Role Component suc\r\n")
-  ])
+  return _c(
+    "v-col",
+    [
+      _c("v-alert", { attrs: { type: "info" } }, [
+        _vm._v("Role Component suc\r\n")
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

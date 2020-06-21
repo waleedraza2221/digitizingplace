@@ -1,9 +1,9 @@
 <template>
-
+<v-col>
 <v-alert type="info">Role Component suc
 </v-alert>
 
-
+</v-col>
 </template>
 
 <script>
