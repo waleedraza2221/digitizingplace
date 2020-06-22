@@ -10,6 +10,7 @@
           v-for="item in items"
           :key="item.text"
           link
+          :to="item.action"
         >
           <v-list-item-action>
             <v-icon>mdi-{{ item.icon }}</v-icon>
@@ -61,15 +62,17 @@
       dense
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-btn text to="/admin" left>
       <v-icon
         class="mx-4"
         large
       >
-        mdi-youtube
+        mdi-account-circle-outline
       </v-icon>
       <v-toolbar-title class="mr-12 align-center">
-        <span class="title">Youtube</span>
+        <span class="title">Digitizing Place Admin</span>
       </v-toolbar-title>
+      </v-btn>
       <v-spacer></v-spacer>
       <v-row
         align="center"
@@ -129,11 +132,11 @@ export default{
       drawer: null,
           snackbar:false,
       items: [
-        { icon: 'trending-up', text: 'Most Popular' },
-        { icon: 'youtube-subscription', text: 'Subscriptions' },
-        { icon: 'history', text: 'History' },
-        { icon: 'playlist-play', text: 'Playlists' },
-        { icon: 'clock', text: 'Watch Later' },
+        { icon: 'account', text: 'Users',action:'#' },
+        { icon: 'post-outline', text: 'Posts',action:'#' },
+        { icon: 'circle-edit-outline', text: 'Pages', action:'#' },
+        { icon: 'briefcase-edit-outline', text: 'Categories',action:'#' },
+        { icon: 'account-hard-hat', text: 'Roles',action:'/admin/roles' },
       ],
       items2: [
         { picture: 28, text: 'Joseph' },

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Role;
 class RoleController extends Controller
 {
     /**
@@ -15,11 +15,12 @@ class RoleController extends Controller
     public function index()
     {
         //
+
+        return response()->json(['roles'=>Role::all()],200);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
      * @return \Illuminate\Http\Response
      */
     public function create()
@@ -35,7 +36,12 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+          $role=  Role::create([
+
+            'name'=>$request->name,
+            ]);
+            return response()->json(['role'=>$role],200);
+
     }
 
     /**
