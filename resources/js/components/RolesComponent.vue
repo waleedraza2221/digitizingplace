@@ -8,8 +8,8 @@ loading-text="Loading... Please wait"
    >
 
  <template v-slot:top>
-      <v-toolbar flat color="white">
-        <v-toolbar-title>My CRUD</v-toolbar-title>
+      <v-toolbar flat color="dark">
+        <v-toolbar-title>Role Management System</v-toolbar-title>
         <v-divider
           class="mx-4"
           inset
@@ -19,12 +19,12 @@ loading-text="Loading... Please wait"
         <v-dialog v-model="dialog" max-width="500px">
           <template v-slot:activator="{ on, attrs }">
             <v-btn
-              color="primary"
+              color="error"
               dark
               class="mb-2"
               v-bind="attrs"
               v-on="on"
-            >New Item</v-btn>
+            >Add New Role</v-btn>
           </template>
           <v-card>
             <v-card-title>
@@ -34,10 +34,10 @@ loading-text="Loading... Please wait"
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                  <v-col cols="12" sm="12" md="12">
+                    <v-text-field color="error" v-model="editedItem.name" label="Role Name"></v-text-field>
                   </v-col>
-                  <v-col cols="12" sm="6" md="4">
+                  <!-- <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
@@ -48,15 +48,15 @@ loading-text="Loading... Please wait"
                   </v-col>
                   <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                  </v-col>
+                  </v-col> -->
                 </v-row>
               </v-container>
             </v-card-text>
 
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+              <v-btn color="error darken-1" text @click="close">Cancel</v-btn>
+              <v-btn color="error darken-1" text @click="save">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -78,9 +78,24 @@ loading-text="Loading... Please wait"
       </v-icon>
     </template>
     <template v-slot:no-data>
-      <v-btn color="primary" @click="initialize">Reset</v-btn>
+      <v-btn color="error" @click="initialize">Reset</v-btn>
     </template>
+            <v-snackbar
+      v-model="snackbar"
+    >
+      Record Deleted Successfully
 
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="error"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+             </v-snackbar>
 </v-data-table>
 
 
@@ -94,6 +109,7 @@ loading-text="Loading... Please wait"
     data: () => ({
       dialog: false,
       loading:false,
+      snackbar:false,
       headers: [
         {
           text: '#',
@@ -108,20 +124,26 @@ loading-text="Loading... Please wait"
       ],
       user_roles: [],
       editedIndex: -1,
+      ei:0,
       editedItem: {
+          id:'',
         name: '',
+        created_at:'',
+        updated_at:'',
         
       },
       defaultItem: {
+            id:'',
         name: '',
-  
+        created_at:'',
+        updated_at:'',
         
       },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'New Role' : 'Edit Role'
       },
     },
 
@@ -157,7 +179,7 @@ axios.interceptors.response.use( (response) =>{
     return Promise.reject(error);
   });
 
-      axios.get('/digitizingplace/public/api/roles',{})
+      axios.get(this.$apipath+'roles',{})
         .then(res=>this.user_roles=res.data.roles)
         .catch(err=>{
             if(err.response.status==401)
@@ -168,14 +190,31 @@ axios.interceptors.response.use( (response) =>{
       }
 ,
       editItem (item) {
+          //console.log(item);
         this.editedIndex = this.user_roles.indexOf(item)
+        //  console.log(this.editedIndex);
         this.editedItem = Object.assign({}, item)
+       //  console.log(this.editedItem);
         this.dialog = true
       },
 
       deleteItem (item) {
-        const index = this.user_roles.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.user_roles.splice(index, 1)
+          const index = this.user_roles.indexOf(item)
+
+          let isdeleted=confirm('Are you sure you want to delete this item?'+index)
+          if(isdeleted){
+
+            axios.delete(this.$apipath+'roles/'+item.id,item.id)
+            .then(res=>{
+              this.snackbar=true
+              this.user_roles.splice(index, 1)
+              
+              })
+          .catch(err=>console.log(err.response))
+          }
+          
+        
+    
       },
 
       close () {
@@ -187,13 +226,31 @@ axios.interceptors.response.use( (response) =>{
       },
 
       save () {
-          axios.post('/digitizingplace/public/api/store',{})
-          .then()
-          .catch(err=>console.dir(err.response))
+      
         if (this.editedIndex > -1) {
-          Object.assign(this.user_roles[this.editedIndex], this.editedItem)
+               // console.log(this.editedIndex)
+               // console.log(this.editedItem.id)
+                this.ei=this.editedIndex
+            axios.put(this.$apipath+'roles/'+this.editedItem.id,{'name':this.editedItem.name})
+            .then(res=> {
+                // console.log(this.ei)
+             
+                // console.log(res.data.role)
+                // console.log(res.data.role.id)
+                // console.log(this.user_roles[res.data.role.id-1])
+ 
+                // console.log(this.user_roles[this.editedIndex])
+                //   console.log(this.user_roles[this.editedItem.id])
+                 Object.assign(this.user_roles[this.ei], res.data.role)
+            })
+            .catch(err=>console.log(err))
+        //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
+
         } else {
-          this.user_roles.push(this.editedItem)
+                axios.post(this.$apipath+'roles',{'name':this.editedItem.name})
+          .then(res=> this.user_roles.push(res.data.role))
+          .catch(err=>console.dir(err.response))
+         
         }
         this.close()
       },

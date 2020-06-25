@@ -125,7 +125,7 @@ axios.interceptors.response.use( (response) =>{
     this.loading=false;
     return Promise.reject(error);
   });
-    axios.post('/digitizingplace/public/api/login',{'email':this.email,'password':this.password}).then(res=>{
+    axios.post(this.$apipath+'login',{'email':this.email,'password':this.password}).then(res=>{
    localStorage.setItem('token',res.data.token)
    localStorage.setItem('loggedin',true)
    console.log('Logged IN Successfully')

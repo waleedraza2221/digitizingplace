@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import LoginComponent from './components/LoginComponent';
 import RolesComponent from './components/RolesComponent';
 import AdminComponent from './components/AdminComponent';
+import AdminHomeComponent from './components/AdminHomeComponent';
 
 
 
@@ -29,20 +30,31 @@ const routes=[
         path:'/admin',
         component:AdminComponent,
         name:'Admin',
+        redirect:'/admin/home',
         children:[{
+            
+
 
             path:'roles',
             component:RolesComponent,
             name:'Roles'
 
-        }],
-        // beforeEnter: (to, from, next) => {
-        //     if(localStorage.getItem('token')){
-        //         next();
-        //     }else{
-        //         next('/login');
-        //     }
-        //   }
+        },{
+
+
+            path:'home',
+            component:AdminHomeComponent,
+            name:'Home'
+        }
+    
+    
+    ],
+        beforeEnter: (to, from, next) => {
+          axios.get('api/verify')
+          .then(res=>next())
+          .catch(err=>next('/login'))
+
+          }
 
     }
   

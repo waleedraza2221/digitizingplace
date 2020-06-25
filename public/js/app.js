@@ -2030,6 +2030,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     source: String
@@ -2038,6 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       drawer: null,
       snackbar: false,
+      theme: true,
       items: [{
         icon: 'account',
         text: 'Users',
@@ -2080,6 +2084,11 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.$vuetify.theme.dark = true;
   },
+  watch: {
+    theme: function theme(old, newval) {
+      this.$vuetify.theme.dark = old;
+    }
+  },
   mounted: function mounted() {
     this.snackbar = localStorage.getItem('loggedin') ? true : false;
     localStorage.removeItem('loggedin');
@@ -2095,6 +2104,27 @@ __webpack_require__.r(__webpack_exports__);
         };
       });
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdminHomeComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AdminHomeComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('Admin Home Component mounted.');
   }
 });
 
@@ -2259,7 +2289,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
         return Promise.reject(error);
       });
-      axios.post('/digitizingplace/public/api/login', {
+      axios.post(this.$apipath + 'login', {
         'email': this.email,
         'password': this.password
       }).then(function (res) {
@@ -2385,11 +2415,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       dialog: false,
       loading: false,
+      snackbar: false,
       headers: [{
         text: '#',
         align: 'left',
@@ -2411,17 +2457,24 @@ __webpack_require__.r(__webpack_exports__);
       }],
       user_roles: [],
       editedIndex: -1,
+      ei: 0,
       editedItem: {
-        name: ''
+        id: '',
+        name: '',
+        created_at: '',
+        updated_at: ''
       },
       defaultItem: {
-        name: ''
+        id: '',
+        name: '',
+        created_at: '',
+        updated_at: ''
       }
     };
   },
   computed: {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item';
+      return this.editedIndex === -1 ? 'New Role' : 'Edit Role';
     }
   },
   watch: {
@@ -2452,7 +2505,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
         return Promise.reject(error);
       });
-      axios.get('/digitizingplace/public/api/roles', {}).then(function (res) {
+      axios.get(this.$apipath + 'roles', {}).then(function (res) {
         return _this.user_roles = res.data.roles;
       })["catch"](function (err) {
         if (err.response.status == 401) localStorage.removeItem('token');
@@ -2461,32 +2514,66 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editItem: function editItem(item) {
-      this.editedIndex = this.user_roles.indexOf(item);
-      this.editedItem = Object.assign({}, item);
+      //console.log(item);
+      this.editedIndex = this.user_roles.indexOf(item); //  console.log(this.editedIndex);
+
+      this.editedItem = Object.assign({}, item); //  console.log(this.editedItem);
+
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
+      var _this2 = this;
+
       var index = this.user_roles.indexOf(item);
-      confirm('Are you sure you want to delete this item?') && this.user_roles.splice(index, 1);
+      var isdeleted = confirm('Are you sure you want to delete this item?' + index);
+
+      if (isdeleted) {
+        axios["delete"](this.$apipath + 'roles/' + item.id, item.id).then(function (res) {
+          _this2.snackbar = true;
+
+          _this2.user_roles.splice(index, 1);
+        })["catch"](function (err) {
+          return console.log(err.response);
+        });
+      }
     },
     close: function close() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.dialog = false;
       this.$nextTick(function () {
-        _this2.editedItem = Object.assign({}, _this2.defaultItem);
-        _this2.editedIndex = -1;
+        _this3.editedItem = Object.assign({}, _this3.defaultItem);
+        _this3.editedIndex = -1;
       });
     },
     save: function save() {
-      axios.post('/digitizingplace/public/api/store', {}).then()["catch"](function (err) {
-        return console.dir(err.response);
-      });
+      var _this4 = this;
 
       if (this.editedIndex > -1) {
-        Object.assign(this.user_roles[this.editedIndex], this.editedItem);
+        // console.log(this.editedIndex)
+        // console.log(this.editedItem.id)
+        this.ei = this.editedIndex;
+        axios.put(this.$apipath + 'roles/' + this.editedItem.id, {
+          'name': this.editedItem.name
+        }).then(function (res) {
+          // console.log(this.ei)
+          // console.log(res.data.role)
+          // console.log(res.data.role.id)
+          // console.log(this.user_roles[res.data.role.id-1])
+          // console.log(this.user_roles[this.editedIndex])
+          //   console.log(this.user_roles[this.editedItem.id])
+          Object.assign(_this4.user_roles[_this4.ei], res.data.role);
+        })["catch"](function (err) {
+          return console.log(err);
+        }); //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
       } else {
-        this.user_roles.push(this.editedItem);
+        axios.post(this.$apipath + 'roles', {
+          'name': this.editedItem.name
+        }).then(function (res) {
+          return _this4.user_roles.push(res.data.role);
+        })["catch"](function (err) {
+          return console.dir(err.response);
+        });
       }
 
       this.close();
@@ -20187,9 +20274,16 @@ var render = function() {
                   _c(
                     "v-list-item-action",
                     [
-                      _c("v-icon", { attrs: { color: "grey darken-1" } }, [
-                        _vm._v("mdi-plus-circle-outline")
-                      ])
+                      _c("v-switch", {
+                        staticClass: "ma-4",
+                        model: {
+                          value: _vm.theme,
+                          callback: function($$v) {
+                            _vm.theme = $$v
+                          },
+                          expression: "theme"
+                        }
+                      })
                     ],
                     1
                   ),
@@ -20197,7 +20291,7 @@ var render = function() {
                   _c(
                     "v-list-item-title",
                     { staticClass: "grey--text text--darken-1" },
-                    [_vm._v("Browse Channels")]
+                    [_vm._v("Switch Theme")]
                   )
                 ],
                 1
@@ -20234,7 +20328,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-app-bar",
-        { attrs: { app: "", "clipped-left": "", color: "red", dense: "" } },
+        { attrs: { app: "", "clipped-left": "", dense: "" } },
         [
           _c("v-app-bar-nav-icon", {
             on: {
@@ -20247,7 +20341,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "v-btn",
-            { attrs: { text: "", to: "/admin", left: "" } },
+            { attrs: { text: "", to: "/admin/home", left: "" } },
             [
               _c("v-icon", { staticClass: "mx-4", attrs: { large: "" } }, [
                 _vm._v("\n      mdi-account-circle-outline\n    ")
@@ -20359,6 +20453,30 @@ var render = function() {
     ],
     1
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20610,309 +20728,269 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-data-table", {
-    staticClass: "elevation-1",
-    attrs: {
-      "item-key": "name",
-      loading: _vm.loading,
-      "loading-text": "Loading... Please wait",
-      headers: _vm.headers,
-      items: _vm.user_roles,
-      "sort-by": "calories"
-    },
-    scopedSlots: _vm._u([
-      {
-        key: "top",
-        fn: function() {
-          return [
-            _c(
-              "v-toolbar",
-              { attrs: { flat: "", color: "white" } },
-              [
-                _c("v-toolbar-title", [_vm._v("My CRUD")]),
-                _vm._v(" "),
-                _c("v-divider", {
-                  staticClass: "mx-4",
-                  attrs: { inset: "", vertical: "" }
-                }),
-                _vm._v(" "),
-                _c("v-spacer"),
-                _vm._v(" "),
-                _c(
-                  "v-dialog",
-                  {
-                    attrs: { "max-width": "500px" },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "activator",
-                        fn: function(ref) {
-                          var on = ref.on
-                          var attrs = ref.attrs
-                          return [
-                            _c(
-                              "v-btn",
-                              _vm._g(
-                                _vm._b(
-                                  {
-                                    staticClass: "mb-2",
-                                    attrs: { color: "primary", dark: "" }
-                                  },
-                                  "v-btn",
-                                  attrs,
-                                  false
+  return _c(
+    "v-data-table",
+    {
+      staticClass: "elevation-1",
+      attrs: {
+        "item-key": "name",
+        loading: _vm.loading,
+        "loading-text": "Loading... Please wait",
+        headers: _vm.headers,
+        items: _vm.user_roles,
+        "sort-by": "calories"
+      },
+      scopedSlots: _vm._u([
+        {
+          key: "top",
+          fn: function() {
+            return [
+              _c(
+                "v-toolbar",
+                { attrs: { flat: "", color: "dark" } },
+                [
+                  _c("v-toolbar-title", [_vm._v("Role Management System")]),
+                  _vm._v(" "),
+                  _c("v-divider", {
+                    staticClass: "mx-4",
+                    attrs: { inset: "", vertical: "" }
+                  }),
+                  _vm._v(" "),
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-dialog",
+                    {
+                      attrs: { "max-width": "500px" },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "activator",
+                          fn: function(ref) {
+                            var on = ref.on
+                            var attrs = ref.attrs
+                            return [
+                              _c(
+                                "v-btn",
+                                _vm._g(
+                                  _vm._b(
+                                    {
+                                      staticClass: "mb-2",
+                                      attrs: { color: "error", dark: "" }
+                                    },
+                                    "v-btn",
+                                    attrs,
+                                    false
+                                  ),
+                                  on
                                 ),
-                                on
-                              ),
-                              [_vm._v("New Item")]
-                            )
-                          ]
+                                [_vm._v("Add New Role")]
+                              )
+                            ]
+                          }
                         }
+                      ]),
+                      model: {
+                        value: _vm.dialog,
+                        callback: function($$v) {
+                          _vm.dialog = $$v
+                        },
+                        expression: "dialog"
                       }
-                    ]),
-                    model: {
-                      value: _vm.dialog,
-                      callback: function($$v) {
-                        _vm.dialog = $$v
-                      },
-                      expression: "dialog"
+                    },
+                    [
+                      _vm._v(" "),
+                      _c(
+                        "v-card",
+                        [
+                          _c("v-card-title", [
+                            _c("span", { staticClass: "headline" }, [
+                              _vm._v(_vm._s(_vm.formTitle))
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-text",
+                            [
+                              _c(
+                                "v-container",
+                                [
+                                  _c(
+                                    "v-row",
+                                    [
+                                      _c(
+                                        "v-col",
+                                        {
+                                          attrs: {
+                                            cols: "12",
+                                            sm: "12",
+                                            md: "12"
+                                          }
+                                        },
+                                        [
+                                          _c("v-text-field", {
+                                            attrs: {
+                                              color: "error",
+                                              label: "Role Name"
+                                            },
+                                            model: {
+                                              value: _vm.editedItem.name,
+                                              callback: function($$v) {
+                                                _vm.$set(
+                                                  _vm.editedItem,
+                                                  "name",
+                                                  $$v
+                                                )
+                                              },
+                                              expression: "editedItem.name"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-card-actions",
+                            [
+                              _c("v-spacer"),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "error darken-1", text: "" },
+                                  on: { click: _vm.close }
+                                },
+                                [_vm._v("Cancel")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "error darken-1", text: "" },
+                                  on: { click: _vm.save }
+                                },
+                                [_vm._v("Save")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ]
+          },
+          proxy: true
+        },
+        {
+          key: "item.actions",
+          fn: function(ref) {
+            var item = ref.item
+            return [
+              _c(
+                "v-icon",
+                {
+                  staticClass: "mr-2",
+                  attrs: { small: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.editItem(item)
                     }
-                  },
-                  [
-                    _vm._v(" "),
-                    _c(
-                      "v-card",
-                      [
-                        _c("v-card-title", [
-                          _c("span", { staticClass: "headline" }, [
-                            _vm._v(_vm._s(_vm.formTitle))
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "v-card-text",
-                          [
-                            _c(
-                              "v-container",
-                              [
-                                _c(
-                                  "v-row",
-                                  [
-                                    _c(
-                                      "v-col",
-                                      {
-                                        attrs: { cols: "12", sm: "6", md: "4" }
-                                      },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: { label: "Dessert name" },
-                                          model: {
-                                            value: _vm.editedItem.name,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.editedItem,
-                                                "name",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "editedItem.name"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      {
-                                        attrs: { cols: "12", sm: "6", md: "4" }
-                                      },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: { label: "Calories" },
-                                          model: {
-                                            value: _vm.editedItem.calories,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.editedItem,
-                                                "calories",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "editedItem.calories"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      {
-                                        attrs: { cols: "12", sm: "6", md: "4" }
-                                      },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: { label: "Fat (g)" },
-                                          model: {
-                                            value: _vm.editedItem.fat,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.editedItem,
-                                                "fat",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "editedItem.fat"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      {
-                                        attrs: { cols: "12", sm: "6", md: "4" }
-                                      },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: { label: "Carbs (g)" },
-                                          model: {
-                                            value: _vm.editedItem.carbs,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.editedItem,
-                                                "carbs",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "editedItem.carbs"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-col",
-                                      {
-                                        attrs: { cols: "12", sm: "6", md: "4" }
-                                      },
-                                      [
-                                        _c("v-text-field", {
-                                          attrs: { label: "Protein (g)" },
-                                          model: {
-                                            value: _vm.editedItem.protein,
-                                            callback: function($$v) {
-                                              _vm.$set(
-                                                _vm.editedItem,
-                                                "protein",
-                                                $$v
-                                              )
-                                            },
-                                            expression: "editedItem.protein"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-card-actions",
-                          [
-                            _c("v-spacer"),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: { color: "blue darken-1", text: "" },
-                                on: { click: _vm.close }
-                              },
-                              [_vm._v("Cancel")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "v-btn",
-                              {
-                                attrs: { color: "blue darken-1", text: "" },
-                                on: { click: _vm.save }
-                              },
-                              [_vm._v("Save")]
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
-            )
-          ]
+                  }
+                },
+                [_vm._v("\r\n        mdi-pencil\r\n      ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "v-icon",
+                {
+                  attrs: { small: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.deleteItem(item)
+                    }
+                  }
+                },
+                [_vm._v("\r\n        mdi-delete\r\n      ")]
+              )
+            ]
+          }
         },
-        proxy: true
-      },
-      {
-        key: "item.actions",
-        fn: function(ref) {
-          var item = ref.item
-          return [
-            _c(
-              "v-icon",
-              {
-                staticClass: "mr-2",
-                attrs: { small: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.editItem(item)
-                  }
-                }
-              },
-              [_vm._v("\r\n        mdi-pencil\r\n      ")]
-            ),
-            _vm._v(" "),
-            _c(
-              "v-icon",
-              {
-                attrs: { small: "" },
-                on: {
-                  click: function($event) {
-                    return _vm.deleteItem(item)
-                  }
-                }
-              },
-              [_vm._v("\r\n        mdi-delete\r\n      ")]
-            )
-          ]
+        {
+          key: "no-data",
+          fn: function() {
+            return [
+              _c(
+                "v-btn",
+                { attrs: { color: "error" }, on: { click: _vm.initialize } },
+                [_vm._v("Reset")]
+              )
+            ]
+          },
+          proxy: true
         }
-      },
-      {
-        key: "no-data",
-        fn: function() {
-          return [
-            _c(
-              "v-btn",
-              { attrs: { color: "primary" }, on: { click: _vm.initialize } },
-              [_vm._v("Reset")]
-            )
-          ]
+      ])
+    },
+    [
+      _vm._v(" "),
+      _vm._v(" "),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function(ref) {
+                var attrs = ref.attrs
+                return [
+                  _c(
+                    "v-btn",
+                    _vm._b(
+                      {
+                        attrs: { color: "error", text: "" },
+                        on: {
+                          click: function($event) {
+                            _vm.snackbar = false
+                          }
+                        }
+                      },
+                      "v-btn",
+                      attrs,
+                      false
+                    ),
+                    [_vm._v("\r\n          Close\r\n        ")]
+                  )
+                ]
+              }
+            }
+          ]),
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
         },
-        proxy: true
-      }
-    ])
-  })
+        [_vm._v("\r\n      Record Deleted Successfully\r\n\r\n      ")]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -79963,6 +80041,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/AdminHomeComponent.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/AdminHomeComponent.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminHomeComponent_vue_vue_type_template_id_574901fa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true& */ "./resources/js/components/AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true&");
+/* harmony import */ var _AdminHomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminHomeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/AdminHomeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdminHomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdminHomeComponent_vue_vue_type_template_id_574901fa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdminHomeComponent_vue_vue_type_template_id_574901fa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "574901fa",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/AdminHomeComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/AdminHomeComponent.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/AdminHomeComponent.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminHomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminHomeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdminHomeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminHomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminHomeComponent_vue_vue_type_template_id_574901fa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/AdminHomeComponent.vue?vue&type=template&id=574901fa&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminHomeComponent_vue_vue_type_template_id_574901fa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminHomeComponent_vue_vue_type_template_id_574901fa_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/AppComponent.vue":
 /*!**************************************************!*\
   !*** ./resources/js/components/AppComponent.vue ***!
@@ -80185,8 +80332,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LoginComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/LoginComponent */ "./resources/js/components/LoginComponent.vue");
 /* harmony import */ var _components_RolesComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/RolesComponent */ "./resources/js/components/RolesComponent.vue");
 /* harmony import */ var _components_AdminComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/AdminComponent */ "./resources/js/components/AdminComponent.vue");
+/* harmony import */ var _components_AdminHomeComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/AdminHomeComponent */ "./resources/js/components/AdminHomeComponent.vue");
 
  //import { component } from 'vue/types/umd';
+
 
 
 
@@ -80203,18 +80352,23 @@ var routes = [{
   path: '/admin',
   component: _components_AdminComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
   name: 'Admin',
+  redirect: '/admin/home',
   children: [{
     path: 'roles',
     component: _components_RolesComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
     name: 'Roles'
-  }] // beforeEnter: (to, from, next) => {
-  //     if(localStorage.getItem('token')){
-  //         next();
-  //     }else{
-  //         next('/login');
-  //     }
-  //   }
-
+  }, {
+    path: 'home',
+    component: _components_AdminHomeComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
+    name: 'Home'
+  }],
+  beforeEnter: function beforeEnter(to, from, next) {
+    axios.get('api/verify').then(function (res) {
+      return next();
+    })["catch"](function (err) {
+      return next('/login');
+    });
+  }
 }];
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: routes
