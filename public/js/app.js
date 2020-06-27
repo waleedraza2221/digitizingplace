@@ -2430,6 +2430,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2457,7 +2459,6 @@ __webpack_require__.r(__webpack_exports__);
       }],
       user_roles: [],
       editedIndex: -1,
-      ei: 0,
       editedItem: {
         id: '',
         name: '',
@@ -2552,7 +2553,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.editedIndex > -1) {
         // console.log(this.editedIndex)
         // console.log(this.editedItem.id)
-        this.ei = this.editedIndex;
+        var ei = this.editedIndex;
         axios.put(this.$apipath + 'roles/' + this.editedItem.id, {
           'name': this.editedItem.name
         }).then(function (res) {
@@ -2562,7 +2563,7 @@ __webpack_require__.r(__webpack_exports__);
           // console.log(this.user_roles[res.data.role.id-1])
           // console.log(this.user_roles[this.editedIndex])
           //   console.log(this.user_roles[this.editedItem.id])
-          Object.assign(_this4.user_roles[_this4.ei], res.data.role);
+          Object.assign(_this4.user_roles[ei], res.data.role);
         })["catch"](function (err) {
           return console.log(err);
         }); //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
@@ -20328,7 +20329,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "v-app-bar",
-        { attrs: { app: "", "clipped-left": "", dense: "" } },
+        { attrs: { app: "", "clipped-left": "", color: "error", dense: "" } },
         [
           _c("v-app-bar-nav-icon", {
             on: {
@@ -20830,6 +20831,7 @@ var render = function() {
                                           _c("v-text-field", {
                                             attrs: {
                                               color: "error",
+                                              required: "",
                                               label: "Role Name"
                                             },
                                             model: {

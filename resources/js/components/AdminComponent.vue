@@ -58,7 +58,7 @@
     <v-app-bar
       app
       clipped-left
-    
+      color="error"
       dense
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>

@@ -7,6 +7,7 @@ loading-text="Loading... Please wait"
     sort-by="calories"
    >
 
+
  <template v-slot:top>
       <v-toolbar flat color="dark">
         <v-toolbar-title>Role Management System</v-toolbar-title>
@@ -35,8 +36,9 @@ loading-text="Loading... Please wait"
               <v-container>
                 <v-row>
                   <v-col cols="12" sm="12" md="12">
-                    <v-text-field color="error" v-model="editedItem.name" label="Role Name"></v-text-field>
+                    <v-text-field color="error" required  v-model="editedItem.name" label="Role Name"></v-text-field>
                   </v-col>
+
                   <!-- <v-col cols="12" sm="6" md="4">
                     <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
                   </v-col>
@@ -124,7 +126,7 @@ loading-text="Loading... Please wait"
       ],
       user_roles: [],
       editedIndex: -1,
-      ei:0,
+      
       editedItem: {
           id:'',
         name: '',
@@ -230,7 +232,8 @@ axios.interceptors.response.use( (response) =>{
         if (this.editedIndex > -1) {
                // console.log(this.editedIndex)
                // console.log(this.editedItem.id)
-                this.ei=this.editedIndex
+               const ei=this.editedIndex
+        
             axios.put(this.$apipath+'roles/'+this.editedItem.id,{'name':this.editedItem.name})
             .then(res=> {
                 // console.log(this.ei)
@@ -241,7 +244,7 @@ axios.interceptors.response.use( (response) =>{
  
                 // console.log(this.user_roles[this.editedIndex])
                 //   console.log(this.user_roles[this.editedItem.id])
-                 Object.assign(this.user_roles[this.ei], res.data.role)
+                 Object.assign(this.user_roles[ei], res.data.role)
             })
             .catch(err=>console.log(err))
         //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
