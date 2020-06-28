@@ -2438,6 +2438,7 @@ __webpack_require__.r(__webpack_exports__);
       dialog: false,
       loading: false,
       snackbar: false,
+      test: '',
       headers: [{
         text: '#',
         align: 'left',
@@ -2530,11 +2531,14 @@ __webpack_require__.r(__webpack_exports__);
 
       if (isdeleted) {
         axios["delete"](this.$apipath + 'roles/' + item.id, item.id).then(function (res) {
+          _this2.text = "Record Deleted Successfully!";
           _this2.snackbar = true;
 
           _this2.user_roles.splice(index, 1);
         })["catch"](function (err) {
-          return console.log(err.response);
+          _this2.text = "Error Deleting Record!";
+          _this2.snackbar = true;
+          console.log(err.response);
         });
       }
     },
@@ -2558,22 +2562,31 @@ __webpack_require__.r(__webpack_exports__);
           'name': this.editedItem.name
         }).then(function (res) {
           // console.log(this.ei)
-          // console.log(res.data.role)
+          _this4.text = "Record Updated Successfully!";
+          _this4.snackbar = true; // console.log(res.data.role)
           // console.log(res.data.role.id)
           // console.log(this.user_roles[res.data.role.id-1])
           // console.log(this.user_roles[this.editedIndex])
           //   console.log(this.user_roles[this.editedItem.id])
+
           Object.assign(_this4.user_roles[ei], res.data.role);
         })["catch"](function (err) {
-          return console.log(err);
+          _this4.text = "Error Updating Roles!";
+          _this4.snackbar = true;
+          console.log(err);
         }); //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
       } else {
         axios.post(this.$apipath + 'roles', {
           'name': this.editedItem.name
         }).then(function (res) {
-          return _this4.user_roles.push(res.data.role);
+          _this4.text = "Record Added Successfully!";
+          _this4.snackbar = true;
+
+          _this4.user_roles.push(res.data.role);
         })["catch"](function (err) {
-          return console.dir(err.response);
+          _this4.text = "Error Adding Roles!";
+          _this4.snackbar = true;
+          console.log(err);
         });
       }
 
@@ -20950,46 +20963,42 @@ var render = function() {
       _vm._v(" "),
       _vm._v(" "),
       _vm._v(" "),
-      _c(
-        "v-snackbar",
-        {
-          scopedSlots: _vm._u([
-            {
-              key: "action",
-              fn: function(ref) {
-                var attrs = ref.attrs
-                return [
-                  _c(
-                    "v-btn",
-                    _vm._b(
-                      {
-                        attrs: { color: "error", text: "" },
-                        on: {
-                          click: function($event) {
-                            _vm.snackbar = false
-                          }
+      _c("v-snackbar", {
+        scopedSlots: _vm._u([
+          {
+            key: "action",
+            fn: function(ref) {
+              var attrs = ref.attrs
+              return [
+                _c(
+                  "v-btn",
+                  _vm._b(
+                    {
+                      attrs: { color: "pink", text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.snackbar = false
                         }
-                      },
-                      "v-btn",
-                      attrs,
-                      false
-                    ),
-                    [_vm._v("\r\n          Close\r\n        ")]
-                  )
-                ]
-              }
+                      }
+                    },
+                    "v-btn",
+                    attrs,
+                    false
+                  ),
+                  [_vm._v("\r\n          Close\r\n        ")]
+                )
+              ]
             }
-          ]),
-          model: {
-            value: _vm.snackbar,
-            callback: function($$v) {
-              _vm.snackbar = $$v
-            },
-            expression: "snackbar"
           }
-        },
-        [_vm._v("\r\n      Record Deleted Successfully\r\n\r\n      ")]
-      )
+        ]),
+        model: {
+          value: _vm.snackbar,
+          callback: function($$v) {
+            _vm.snackbar = $$v
+          },
+          expression: "snackbar"
+        }
+      })
     ],
     1
   )

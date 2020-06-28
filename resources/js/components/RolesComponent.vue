@@ -82,14 +82,14 @@ loading-text="Loading... Please wait"
     <template v-slot:no-data>
       <v-btn color="error" @click="initialize">Reset</v-btn>
     </template>
-            <v-snackbar
+        <v-snackbar
       v-model="snackbar"
     >
-      Record Deleted Successfully
+     
 
       <template v-slot:action="{ attrs }">
         <v-btn
-          color="error"
+          color="pink"
           text
           v-bind="attrs"
           @click="snackbar = false"
@@ -112,6 +112,7 @@ loading-text="Loading... Please wait"
       dialog: false,
       loading:false,
       snackbar:false,
+      test:'',
       headers: [
         {
           text: '#',
@@ -205,14 +206,19 @@ axios.interceptors.response.use( (response) =>{
 
           let isdeleted=confirm('Are you sure you want to delete this item?'+index)
           if(isdeleted){
-
+               
             axios.delete(this.$apipath+'roles/'+item.id,item.id)
             .then(res=>{
+              this.text="Record Deleted Successfully!";
               this.snackbar=true
               this.user_roles.splice(index, 1)
               
               })
-          .catch(err=>console.log(err.response))
+          .catch(err=>{
+            this.text="Error Deleting Record!";
+              this.snackbar=true
+            console.log(err.response)
+            })
           }
           
         
@@ -237,7 +243,8 @@ axios.interceptors.response.use( (response) =>{
             axios.put(this.$apipath+'roles/'+this.editedItem.id,{'name':this.editedItem.name})
             .then(res=> {
                 // console.log(this.ei)
-             
+             this.text="Record Updated Successfully!";
+             this.snackbar=true;
                 // console.log(res.data.role)
                 // console.log(res.data.role.id)
                 // console.log(this.user_roles[res.data.role.id-1])
@@ -246,13 +253,28 @@ axios.interceptors.response.use( (response) =>{
                 //   console.log(this.user_roles[this.editedItem.id])
                  Object.assign(this.user_roles[ei], res.data.role)
             })
-            .catch(err=>console.log(err))
+            .catch(err=>{
+              
+                this.text="Error Updating Roles!";
+             this.snackbar=true;
+              console.log(err)})
         //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
 
         } else {
                 axios.post(this.$apipath+'roles',{'name':this.editedItem.name})
-          .then(res=> this.user_roles.push(res.data.role))
-          .catch(err=>console.dir(err.response))
+          .then(res=> {
+             this.text="Record Added Successfully!";
+             this.snackbar=true;
+            this.user_roles.push(res.data.role)
+            
+            
+            
+            })
+          .catch(err=>{
+              
+                this.text="Error Adding Roles!";
+             this.snackbar=true;
+              console.log(err)})
          
         }
         this.close()
