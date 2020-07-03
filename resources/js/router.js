@@ -6,6 +6,8 @@ import LoginComponent from './components/LoginComponent';
 import RolesComponent from './components/RolesComponent';
 import AdminComponent from './components/AdminComponent';
 import AdminHomeComponent from './components/AdminHomeComponent';
+import ClientComponent from './components/client/ClientComponent';
+import ClientHomeComponent from './components/client/ClientHomeComponent';
 
 
 
@@ -13,6 +15,32 @@ Vue.use(VueRouter)
 
 
 const routes=[
+    {
+
+        path:'/client',
+        component:ClientComponent,
+        name:'Client',
+        redirect:'/client/home',
+        children:[{
+            
+
+
+            path:'home',
+            component:ClientHomeComponent,
+            name:'home'
+
+        },
+        {
+           
+
+            path:'contactus',
+            component:ClientHomeComponent,
+            name:'contactus'
+
+        }
+    
+    ]
+    },
     {
 
         path:'/',
