@@ -60,7 +60,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text shaped outlined color="error" block  dressed>Send Designs</v-btn>
+      <v-btn text shaped outlined color="error" block  dressed   @click="designadd = true" >Add Designs</v-btn>
       
     </v-card-actions>
   </v-card>
@@ -126,6 +126,51 @@
       </v-card>
     </v-dialog>
 
+
+
+
+    <v-dialog v-model="designadd" persistent max-width="600px">
+
+      <v-card>
+        <v-card-title>
+          <span class="headline">Send Your Designs</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+           
+              <v-col cols="12">
+               <v-file-input small-chips multiple label="Add your Designs"></v-file-input>
+              </v-col>
+              <v-col cols="12">
+
+                    <v-checkbox  v-model="digitizing" label="Digitizing"></v-checkbox>
+                   <v-checkbox label="Vector"></v-checkbox>
+ 
+              </v-col>
+
+               <v-col cols="12" >
+        <v-textarea
+          outlined
+          required
+          name="input-7-4"
+          label="Description"
+          value=""
+        ></v-textarea>
+      </v-col>
+          
+          
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="designadd = false">Close</v-btn>
+          <v-btn color="blue darken-1" text @click="designadd = false">Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
       </v-row>
     </v-container>
 
@@ -145,7 +190,9 @@ export default {
 
     data: () => ({
       dialog: false,
-        amount:50
+        amount:50,
+         designadd: false,
+         digitizing:true
 
     }),
  

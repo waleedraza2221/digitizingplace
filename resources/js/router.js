@@ -8,6 +8,8 @@ import AdminComponent from './components/AdminComponent';
 import AdminHomeComponent from './components/AdminHomeComponent';
 import ClientComponent from './components/client/ClientComponent';
 import ClientHomeComponent from './components/client/ClientHomeComponent';
+import ContactUsComponent from './components/client/ContactUsComponent';
+import AllDesignsComponent from './components/client/AllDesignsComponent';
 
 
 
@@ -34,8 +36,16 @@ const routes=[
            
 
             path:'contactus',
-            component:ClientHomeComponent,
+            component:ContactUsComponent,
             name:'contactus'
+
+        },
+        {
+           
+
+            path:'alldesigns',
+            component:AllDesignsComponent,
+            name:'alldesigns'
 
         }
     

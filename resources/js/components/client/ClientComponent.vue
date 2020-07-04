@@ -55,10 +55,43 @@
             dark
             class="my-4"
           ></v-divider>
+            <v-list-group
+            v-else-if="item.children"
+            :key="item.text"
+            v-model="item.model"
+            :prepend-icon="item.model ? item.icon : item['icon-alt']"
+            append-icon=""
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ item.text }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </template>
+            <v-list-item
+              v-for="(child, i) in item.children"
+              :key="i"
+              link
+            >
+              <v-list-item-action v-if="child.icon">
+                <v-icon>mdi-{{ child.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>
+                  {{ child.text }}
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-group>
+
+
           <v-list-item
             v-else
             :key="i"
             link
+            :to="item.action"
+
           >
             <v-list-item-action>
               <v-icon>mdi-{{ item.icon }}</v-icon>
@@ -69,6 +102,9 @@
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          
+
         </template>
       </v-list>
     </v-navigation-drawer>
@@ -102,6 +138,9 @@
             </v-tooltip> -->
 
           </v-col>
+
+ 
+
         </v-row>
       </v-container>
     </v-main>
@@ -115,12 +154,29 @@
     },
     data: () => ({
       drawer: null,
+     
       items: [
-        { icon: 'file-document', text: 'My Designs' },
-        { icon: 'upload', text: 'Send Designs' },
+        { icon: 'monitor', text: 'Dashboard', action:'/client/home' },
         { divider: true },
       
-        { icon: 'text-box', text: 'Invoices' },
+
+        { icon: 'file-document', text: 'My Designs' , action:'/client/alldesigns' },
+        { icon: 'upload', text: 'Send Designs'},
+        { divider: true },
+
+          {
+          icon: 'mdi-chevron-up',
+          'icon-alt': 'mdi-chevron-down',
+          text: 'Payments',
+          model: false,
+          children: [
+            { text: 'All Invoices' ,icon: 'text-box' },
+            { text: 'Get Estimates',icon: 'beaker-question' },
+          
+          ],
+        },
+      
+     
       
         { divider: true },
         { icon: 'cog', text: 'Settings' },
