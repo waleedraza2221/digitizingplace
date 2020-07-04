@@ -23,6 +23,7 @@ route::group(['middleware'=>['auth:api'],'namespace'=>'Api'],function(){
     Route::resource('users','UserController');
     Route::post('users/delete','UserController@deleteAll');
     Route::get('/verify', 'UserController@verify');
+    
 
 });
 Route::post('login','Api\UserController@login')->name('login');

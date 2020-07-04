@@ -486,7 +486,9 @@ class ComposerStaticInit00fd942a951f59f9feb01d82e3d06a62
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Design' => __DIR__ . '/../..' . '/app/Design.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Api\\DesignController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/DesignController.php',
         'App\\Http\\Controllers\\Api\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/RoleController.php',
         'App\\Http\\Controllers\\Api\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/UserController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
@@ -505,6 +507,7 @@ class ComposerStaticInit00fd942a951f59f9feb01d82e3d06a62
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
+        'App\\SourceFiles' => __DIR__ . '/../..' . '/app/SourceFiles.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
