@@ -136,7 +136,7 @@ export default{
           snackbar:false,
           theme:true,
       items: [
-        { icon: 'account', text: 'Users',action:'#' },
+        { icon: 'account', text: 'Users',action:'/admin/users' },
         { icon: 'post-outline', text: 'Posts',action:'#' },
         { icon: 'circle-edit-outline', text: 'Pages', action:'#' },
         { icon: 'briefcase-edit-outline', text: 'Categories',action:'#' },
@@ -166,11 +166,12 @@ export default{
     mounted(){
       this.snackbar=localStorage.getItem('loggedin')? true:false;
       localStorage.removeItem('loggedin')
-
+    
     },
     methods:{
       logout:function(){
 localStorage.removeItem('token');
+localStorage.removeItem('loggedin');
  this.$router.push('/login').then(res=>console.log('LoggedOut Successfully')).catch(err=>res=>console.log(err))
       }
     }

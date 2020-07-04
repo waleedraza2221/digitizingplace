@@ -20,6 +20,8 @@ route::group(['middleware'=>['auth:api'],'namespace'=>'Api'],function(){
 
 
     Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+    Route::post('users/delete','UserController@deleteAll');
     Route::get('/verify', 'UserController@verify');
 
 });

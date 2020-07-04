@@ -13,7 +13,7 @@
       <template v-slot:header>
         <v-toolbar
           dark
-          color="blue darken-3"
+          color="amber darken-3"
           class="mb-1"
         >
           <v-text-field
@@ -44,7 +44,7 @@
               <v-btn
                 large
                 depressed
-                color="blue"
+                color="amber"
                 :value="false"
               >
                 <v-icon>mdi-arrow-up</v-icon>
@@ -52,7 +52,7 @@
               <v-btn
                 large
                 depressed
-                color="blue"
+                color="amber"
                 :value="true"
               >
                 <v-icon>mdi-arrow-down</v-icon>
@@ -99,7 +99,7 @@
               <v-btn
                 dark
                 text
-                color="primary"
+                color="amber"
                 class="ml-2"
                 v-bind="attrs"
                 v-on="on"
@@ -130,7 +130,7 @@
           <v-btn
             fab
             dark
-            color="blue darken-3"
+            color="amber darken-3"
             class="mr-1"
             @click="formerPage"
           >
@@ -139,7 +139,7 @@
           <v-btn
             fab
             dark
-            color="blue darken-3"
+            color="amber darken-3"
             class="ml-1"
             @click="nextPage"
           >
@@ -157,12 +157,12 @@
   export default {
     data () {
       return {
-        itemsPerPageArray: [30, 60, 90],
+        itemsPerPageArray: [32, 64, 96],
         search: '',
         filter: {},
         sortDesc: false,
         page: 1,
-        itemsPerPage: 30,
+        itemsPerPage: 32,
         sortBy: 'name',
         keys: [
           'Name',

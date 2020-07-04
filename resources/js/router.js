@@ -10,6 +10,7 @@ import ClientComponent from './components/client/ClientComponent';
 import ClientHomeComponent from './components/client/ClientHomeComponent';
 import ContactUsComponent from './components/client/ContactUsComponent';
 import AllDesignsComponent from './components/client/AllDesignsComponent';
+import UserComponent from './components/UserComponent';
 
 
 
@@ -77,7 +78,17 @@ const routes=[
             component:RolesComponent,
             name:'Roles'
 
-        },{
+        },
+        {
+            
+
+
+            path:'users',
+            component:UserComponent,
+            name:'Users'
+
+        }
+        ,{
 
 
             path:'home',

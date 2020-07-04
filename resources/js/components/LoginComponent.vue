@@ -64,8 +64,9 @@
             </v-card>
              <v-snackbar
       v-model="snackbar"
+      color="primary"
     >
-      {{ text }}
+      {{ txt }}
 
       <template v-slot:action="{ attrs }">
         <v-btn
@@ -101,7 +102,7 @@ data(){
       ],
     loading:false,
     snackbar:false,
-    text:'',
+    txt:"",
       valid: true,
   }
 },
@@ -128,12 +129,20 @@ axios.interceptors.response.use( (response) =>{
     axios.post(this.$apipath+'login',{'email':this.email,'password':this.password}).then(res=>{
    localStorage.setItem('token',res.data.token)
    localStorage.setItem('loggedin',true)
-   console.log('Logged IN Successfully')
-   this.$router.push('/admin').then(res=>console.log('Logged IN Successfully')).catch(err=>res=>console.log(err))
+
+   if(res.data.isAdmin)
+   {
+      console.log('Logged IN Successfully')
+       this.$router.push('/admin').then(res=>console.log('Logged IN Successfully')).catch(err=>res=>console.log(err))
+    }else{
+      this.txt="You are not Authorize to Login Here"
+      this.snackbar=true
+    }
+
   })
   .catch(err=>{
    // console.log(err)
-   this.text=err.response.data.status
+   this.txt=err.response.data.status
    this.snackbar=true;
     })
  
