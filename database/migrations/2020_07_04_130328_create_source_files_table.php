@@ -15,7 +15,9 @@ class CreateSourceFilesTable extends Migration
     {
         Schema::create('source_files', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('filename');
+            $table->unsignedBigInteger('design_id')->default(0);
+
             $table->timestamps();
         });
     }
@@ -28,5 +30,6 @@ class CreateSourceFilesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('source_files');
+        $table->dropColum('design_id');
     }
 }
