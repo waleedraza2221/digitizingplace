@@ -11,7 +11,8 @@ import ClientHomeComponent from './components/client/ClientHomeComponent';
 import ContactUsComponent from './components/client/ContactUsComponent';
 import AllDesignsComponent from './components/client/AllDesignsComponent';
 import UserComponent from './components/UserComponent';
-
+import ClientLoginComponent from './components/client/ClientLoginComponent';
+import ClientRegisterComponent from './components/client/ClientRegisterComponent';
 
 
 Vue.use(VueRouter)
@@ -21,6 +22,25 @@ const routes=[
     {
 
         path:'/client',
+        redirect:'/client/login',
+       
+    },
+    {
+
+        path:'/client/register',
+        component:ClientRegisterComponent,
+        name:'ClientRegisterLogin'
+       
+    },
+    {
+
+        path:'/client/login',
+        component:ClientLoginComponent,
+        name:'ClientLogin'
+    },
+    {
+
+        path:'/client/home',
         component:ClientComponent,
         name:'Client',
         redirect:'/client/home',
@@ -50,7 +70,14 @@ const routes=[
 
         }
     
-    ]
+    ],
+    beforeEnter: (to, from, next) => {
+        axios.get('api/verify')
+        .then(res=>next())
+        .catch(err=>next('/client/login'))
+
+        }
+  
     },
     {
 

@@ -13,6 +13,9 @@ class Design extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function SourceFiles(){
 
+        return $this->hasMany('App\SourceFiles');
+    }
     protected $dateFormat = 'm.d.Y';
 }

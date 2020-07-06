@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Role;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        ///
 
         return response()->json(['users'=>User::all()],200);
     }
@@ -114,6 +115,44 @@ class UserController extends Controller
 
            return response()->json(['status'=>'Email or Password is Wrong'],403);
          
+    }
+     
+    public function registerclient(Request $request){
+    //          $credentials=$request->only('email','password');
+    //        try{
+
+    //          $user=  User::create([
+
+    //             'email'=>$request->email,
+    //             'password'=>encrypt($request->password),
+    //             'name'=>$request->email
+
+    //             ]);
+             
+    //             $role =Role::where('name','Client')>first()->id;
+    //             $user->roles_id->save($role);
+
+    //             echo $user;
+    //          }catch(Illuminate\Database\QueryException $e){
+    //             $errorCode = $e->errorInfo[1];
+    // if($errorCode == 1062){
+    //             return response()->json(['status'=>'Email Is Duplicate Please try Resetting Password'],500);
+    // }
+    //          }
+               
+               
+    //             if($user){
+
+    //          if(Auth::attempt($credentials)){
+    //             $token=Str::random(80);
+    //             Auth::user()->api_token=$token;
+    //             Auth::user()->save();
+    //            $client=Auth::user()->isClient();
+    //             return response()->json(['token'=>$token,'isClient'=>$client],200);
+    //         }
+    //     }
+
+    //     return response()->json(['status'=>'Email or Password is Invalid Please try Again or Contact Support'],403);
     }
 
 

@@ -12,4 +12,5 @@ class SourceFiles extends Model
     {
         return $this->belongsTo('App\Design');
     }
+    
 }

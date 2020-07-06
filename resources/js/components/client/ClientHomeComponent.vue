@@ -137,10 +137,22 @@
         </v-card-title>
         <v-card-text>
           <v-container>
+              <div v-if="currentFile">
+      <div>
+        <v-progress-linear
+          v-model="progress"
+          color="light-blue"
+          height="25"
+          reactive
+        >
+          <strong>{{ progress }} %</strong>
+        </v-progress-linear>
+      </div>
+    </div>
             <v-row>
            
               <v-col cols="12">
-               <v-file-input small-chips multiple label="Add your Designs"></v-file-input>
+               <v-file-input small-chips multiple label="Add your Designs"  @change="selectFile"></v-file-input>
               </v-col>
               <v-col cols="12">
 
@@ -159,14 +171,17 @@
         ></v-textarea>
       </v-col>
           
+    <v-alert v-if="message" border="left" color="blue-grey" dark>
+      {{ message }}
+    </v-alert>
           
             </v-row>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="designadd = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="designadd = false">Save</v-btn>
+          <v-btn color="amber darken-1" text @click="designadd = false" >Close</v-btn>
+          <v-btn color="amber darken-1" text @click="upload" >Send</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -192,13 +207,59 @@ export default {
       dialog: false,
         amount:50,
          designadd: false,
-         digitizing:true
+         digitizing:true,
+         files:[],
+        currentFile: undefined,
+      progress: 0,
+      message: "",
+ 
+
+      fileInfos: []
 
     }),
+
+     methods: {
+  
+   initialize () {
+      
+
+    // Add a request interceptor
+axios.interceptors.request.use((config)=> {
+ 
+    return config;
+  },  (error) =>{
+
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use( (response) =>{
+  
+    return response;
+  },  (error) =>{
+  
+    return Promise.reject(error);
+  });
+
+     
+      }
+
+
  
 
 
+ 
+
+  }
+ 
+
+
+ 
+
 }
+
+
+
 </script>
 <style scoped>
 
