@@ -13,18 +13,13 @@ import AllDesignsComponent from './components/client/AllDesignsComponent';
 import UserComponent from './components/UserComponent';
 import ClientLoginComponent from './components/client/ClientLoginComponent';
 import ClientRegisterComponent from './components/client/ClientRegisterComponent';
-
+import ShowDesignComponent from './components/client/ShowDesignComponent'
 
 Vue.use(VueRouter)
 
 
 const routes=[
-    {
-
-        path:'/client',
-        redirect:'/client/login',
-       
-    },
+   
     {
 
         path:'/client/register',
@@ -40,7 +35,7 @@ const routes=[
     },
     {
 
-        path:'/client/home',
+        path:'/client',
         component:ClientComponent,
         name:'Client',
         redirect:'/client/home',
@@ -53,6 +48,18 @@ const routes=[
             name:'home'
 
         },
+        {
+            
+
+
+            path:'show',
+            component:ShowDesignComponent,
+            props: true,
+            name:'show'
+
+        },
+
+
         {
            
 

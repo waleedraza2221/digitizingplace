@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDesignsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateDesignsTable extends Migration
      */
     public function up()
     {
-        Schema::create('designs', function (Blueprint $table) {
-            $table->id();
-            $table->longText('description');
-            $table->boolean('isdigitizing')->default(true);
-            $table->boolean('isvector')->default(false);
+        Schema::create('profiles', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('user_id')->nullable();
+            $table->string('photo', 255)->default('images/no_image.png');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateDesignsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('designs');
+        Schema::dropIfExists('profiles');
     }
 }

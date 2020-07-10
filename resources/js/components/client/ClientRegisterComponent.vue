@@ -47,6 +47,26 @@
               </v-toolbar>
               <v-card-text>
                 <v-form>
+
+                  <v-text-field color="error"
+                    label="Name"
+                    name="name"
+                    v-model="name"
+                    :rules="nameRule"
+                    required
+                    prepend-icon="mdi-account-circle-outline"
+                    
+                  />
+
+                     <v-text-field color="error"
+                    label="Phone No"
+                    name="phone"
+                    v-model="phone"
+                 
+                    prepend-icon="mdi-cellphone"
+                    
+                  />
+
                   <v-text-field
                     label="Email"
                     name="email"
@@ -97,6 +117,9 @@ export default {
 return{
     email:'',
     password:'',
+    name:'',
+    phone:'',
+     nameRule: [val => (val || '').length > 3 || 'Please Enter Valid Name'],
     emailRules: [
         v => !!v || 'E-mail is required',
         v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
@@ -140,14 +163,17 @@ axios.interceptors.response.use( (response) =>{
     this.loading=false;
     return Promise.reject(error);
   });
-    axios.post(this.$apipath+'/registerclient',{'email':this.email,'password':this.password}).then(res=>{
+    axios.post(this.$apipath+'registerclient',{'email':this.email,'password':this.password,'name':this.name,'phone':this.phone}).then(res=>{
+
+      console.log(res)
    localStorage.setItem('token',res.data.token)
    localStorage.setItem('loggedin',true)
 
    if(res.data.isClient)
    {
-      console.log('Logged IN Successfully')
-       this.$router.push('/client').then(res=>console.log('Logged IN Successfully')).catch(err=>res=>console.log(err))
+      console.log('Logged Client IN Successfully')
+
+       this.$router.push('/client').then(res=>console.log('Logged IN Client Successfully')).catch(err=>res=>console.log(err))
     }else{
       this.errortxt="You are not Authorize to Login Here"
       this.snackbar=true
@@ -157,7 +183,7 @@ axios.interceptors.response.use( (response) =>{
   .catch(err=>{
    // console.log(err)
    this.errortxt="Please Enter Valid Email and Password"
-   this.errortxt=err.response.data.status
+   this.errortxt=err.response.message
    this.snackbar=true;
     })
  

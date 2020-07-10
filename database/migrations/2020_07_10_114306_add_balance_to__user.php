@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDesignsTable extends Migration
+class AddBalanceToUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateDesignsTable extends Migration
      */
     public function up()
     {
-        Schema::create('designs', function (Blueprint $table) {
-            $table->id();
-            $table->longText('description');
-            $table->boolean('isdigitizing')->default(true);
-            $table->boolean('isvector')->default(false);
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->float('balance', 8, 2)->default(0.00);
         });
     }
 
@@ -29,6 +26,9 @@ class CreateDesignsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('designs');
+        Schema::table('users', function (Blueprint $table) {
+            //
+            $table->dropColum('balance');
+        });
     }
 }

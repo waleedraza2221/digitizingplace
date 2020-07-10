@@ -2436,17 +2436,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       dialog: false,
       loading: false,
       snackbar: false,
-      test: '',
+      selected: [],
+      text: '',
+      options: {
+        itemsPerPage: 5,
+        sortBy: ['id'],
+        sortDesc: [false]
+      },
       headers: [{
         text: '#',
         align: 'left',
@@ -2463,10 +2465,10 @@ __webpack_require__.r(__webpack_exports__);
         value: 'updated_at'
       }, {
         text: 'Actions',
-        value: 'actions',
-        sortable: false
+        value: 'action'
       }],
-      user_roles: [],
+      roles: [],
+      path: '/digitizingplace/public/api/',
       editedIndex: -1,
       editedItem: {
         id: '',
@@ -2490,111 +2492,190 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     dialog: function dialog(val) {
       val || this.close();
+    },
+    options: {
+      handler: function handler(e) {
+        var _this = this;
+
+        console.dir(e);
+        var sortBy = e.sortBy.length > 0 ? e.sortBy[0].trim() : 'id';
+        var orderBy = e.sortDesc[0] ? 'desc' : 'asc';
+        axios.get("".concat(this.path, "roles"), {
+          params: {
+            'page': e.page,
+            'per_page': e.itemsPerPage,
+            'sort_by': sortBy,
+            'order_by': orderBy
+          }
+        }).then(function (res) {
+          _this.roles = res.data.roles;
+        })["catch"](function (err) {
+          if (err.response.status == 401) localStorage.removeItem('token');
+
+          _this.$router.push('/login');
+        });
+      },
+      deep: true
     }
   },
   created: function created() {
     this.initialize();
   },
   methods: {
+    selectAll: function selectAll(e) {
+      this.selected = [];
+
+      if (e.length > 0) {
+        this.selected = e.map(function (val) {
+          return val.id;
+        });
+      }
+    },
+    deleteAll: function deleteAll() {
+      var _this2 = this;
+
+      var decide = confirm('Are you sure you want to delete these items?');
+
+      if (decide) {
+        axios.post(this.path + 'roles/delete', {
+          'roles': this.selected
+        }).then(function (res) {
+          _this2.text = "Records Deleted Successfully!";
+
+          _this2.selected.map(function (val) {
+            var index = _this2.roles.data.indexOf(val);
+
+            _this2.roles.data.splice(index, 1);
+          });
+
+          _this2.snackbar = true;
+        })["catch"](function (err) {
+          console.log(err.response);
+          _this2.text = "Error Deleting Record";
+          _this2.snackbar = true;
+        });
+      }
+    },
+    searchIt: function searchIt(e) {
+      var _this3 = this;
+
+      if (e.length > 3) {
+        axios.get("".concat(path, "roles/").concat(e)).then(function (res) {
+          return _this3.roles = res.data.roles;
+        })["catch"](function (err) {
+          return console.dir(err.response);
+        });
+      }
+
+      if (e.length <= 0) {
+        axios.get("".concat(path, "roles")).then(function (res) {
+          return _this3.roles = res.data.roles;
+        })["catch"](function (err) {
+          return console.dir(err.response);
+        });
+      }
+    },
+    paginate: function paginate(e) {
+      var _this4 = this;
+
+      var sortBy = e.sortBy.length > 0 ? e.sortBy[0].trim() : 'name';
+      var orderBy = e.sortDesc[0] ? 'desc' : 'asc';
+      axios.get("".concat(this.path, "roles"), {
+        params: {
+          'page': e.page,
+          'per_page': e.itemsPerPage,
+          'sort_by': sortBy,
+          'order_by': orderBy
+        }
+      }).then(function (res) {
+        _this4.roles = res.data.roles;
+      })["catch"](function (err) {
+        if (err.response.status == 401) localStorage.removeItem('token');
+
+        _this4.$router.push('/login');
+      });
+    },
     initialize: function initialize() {
-      var _this = this;
+      var _this5 = this;
 
       // Add a request interceptor
       axios.interceptors.request.use(function (config) {
-        _this.loading = true;
+        _this5.loading = true;
         return config;
       }, function (error) {
-        _this.loading = false;
+        _this5.loading = false;
         return Promise.reject(error);
       }); // Add a response interceptor
 
       axios.interceptors.response.use(function (response) {
-        _this.loading = false;
+        _this5.loading = false;
         return response;
       }, function (error) {
-        _this.loading = false;
+        _this5.loading = false;
         return Promise.reject(error);
-      });
-      axios.get(this.$apipath + 'roles', {}).then(function (res) {
-        return _this.user_roles = res.data.roles;
-      })["catch"](function (err) {
-        if (err.response.status == 401) localStorage.removeItem('token');
-
-        _this.$router.push('/login');
       });
     },
     editItem: function editItem(item) {
-      //console.log(item);
-      this.editedIndex = this.user_roles.indexOf(item); //  console.log(this.editedIndex);
-
-      this.editedItem = Object.assign({}, item); //  console.log(this.editedItem);
-
+      this.editedIndex = this.roles.data.indexOf(item);
+      this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var _this2 = this;
+      var _this6 = this;
 
-      var index = this.user_roles.indexOf(item);
-      var isdeleted = confirm('Are you sure you want to delete this item?' + index);
+      var index = this.roles.data.indexOf(item);
+      var decide = confirm('Are you sure you want to delete this item?');
 
-      if (isdeleted) {
-        axios["delete"](this.$apipath + 'roles/' + item.id, item.id).then(function (res) {
-          _this2.text = "Record Deleted Successfully!";
-          _this2.snackbar = true;
+      if (decide) {
+        axios["delete"](this.path + 'roles/' + item.id).then(function (res) {
+          _this6.text = "Record Deleted Successfully!";
+          _this6.snackbar = true;
 
-          _this2.user_roles.splice(index, 1);
+          _this6.roles.data.splice(index, 1);
         })["catch"](function (err) {
-          _this2.text = "Error Deleting Record!";
-          _this2.snackbar = true;
           console.log(err.response);
+          _this6.text = "Error Deleting Record";
+          _this6.snackbar = true;
         });
       }
     },
     close: function close() {
-      var _this3 = this;
+      var _this7 = this;
 
       this.dialog = false;
-      this.$nextTick(function () {
-        _this3.editedItem = Object.assign({}, _this3.defaultItem);
-        _this3.editedIndex = -1;
-      });
+      setTimeout(function () {
+        _this7.editedItem = Object.assign({}, _this7.defaultItem);
+        _this7.editedIndex = -1;
+      }, 300);
     },
     save: function save() {
-      var _this4 = this;
+      var _this8 = this;
 
       if (this.editedIndex > -1) {
-        // console.log(this.editedIndex)
-        // console.log(this.editedItem.id)
-        var ei = this.editedIndex;
-        axios.put(this.$apipath + 'roles/' + this.editedItem.id, {
+        var index = this.editedIndex;
+        axios.put(this.path + 'roles/' + this.editedItem.id, {
           'name': this.editedItem.name
         }).then(function (res) {
-          // console.log(this.ei)
-          _this4.text = "Record Updated Successfully!";
-          _this4.snackbar = true; // console.log(res.data.role)
-          // console.log(res.data.role.id)
-          // console.log(this.user_roles[res.data.role.id-1])
-          // console.log(this.user_roles[this.editedIndex])
-          //   console.log(this.user_roles[this.editedItem.id])
-
-          Object.assign(_this4.user_roles[ei], res.data.role);
+          _this8.text = "Record Updated Successfully!";
+          _this8.snackbar = true;
+          Object.assign(_this8.roles.data[index], res.data.role);
         })["catch"](function (err) {
-          _this4.text = "Error Updating Roles!";
-          _this4.snackbar = true;
-          console.log(err);
-        }); //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
+          console.log(err.response);
+          _this8.text = "Error Updating Record";
+          _this8.snackbar = true;
+        }); // Object.assign(this.roles[this.editedIndex], this.editedItem)
       } else {
-        axios.post(this.$apipath + 'roles', {
+        axios.post(this.path + 'roles', {
           'name': this.editedItem.name
         }).then(function (res) {
-          _this4.text = "Record Added Successfully!";
-          _this4.snackbar = true;
+          _this8.text = "Record Added Successfully!";
+          _this8.snackbar = true;
 
-          _this4.user_roles.push(res.data.role);
+          _this8.roles.data.push(res.data.role);
         })["catch"](function (err) {
-          _this4.text = "Error Adding Roles!";
-          _this4.snackbar = true;
-          console.log(err);
+          console.dir(err.response);
+          _this8.text = "Error Inserting Record";
+          _this8.snackbar = true;
         });
       }
 
@@ -2722,51 +2803,151 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      valid: true,
       dialog: false,
       loading: false,
       snackbar: false,
-      test: '',
+      selected: [],
+      text: "",
+      roles: [],
+      success: "",
+      path: '/digitizingplace/public/api/',
+      error: "",
+      options: {
+        sortBy: ["name"],
+        sortDesc: [true]
+      },
+      rules: {
+        required: function required(v) {
+          return !!v || "This Field is Required";
+        },
+        min: function min(v) {
+          return v.length >= 5 || "Minimum 5 Chracters Required";
+        },
+        validEmail: function validEmail(v) {
+          return /.+@.+\..+/.test(v) || "E-mail must be valid";
+        }
+      },
       headers: [{
-        text: '#',
-        align: 'left',
+        text: "#",
+        align: "left",
         sortable: false,
-        value: 'id'
+        value: "id"
       }, {
-        text: 'Name',
-        value: 'name'
+        text: "Name",
+        value: "name"
       }, {
-        text: 'Created At',
-        value: 'created_at'
+        text: "Email",
+        value: "email"
       }, {
-        text: 'Updated At',
-        value: 'updated_at'
+        text: "Role",
+        value: "role"
       }, {
-        text: 'Actions',
-        value: 'actions',
-        sortable: false
+        text: "Photo",
+        value: "photo"
+      }, {
+        text: "Created At",
+        value: "created_at"
+      }, {
+        text: "Updated At",
+        value: "updated_at"
+      }, {
+        text: "Actions",
+        value: "action"
       }],
-      user: [],
+      users: [],
       editedIndex: -1,
       editedItem: {
-        id: '',
-        name: '',
-        created_at: '',
-        updated_at: ''
+        id: "",
+        name: "",
+        email: "",
+        role: "",
+        password: "",
+        photo: null
       },
       defaultItem: {
-        id: '',
-        name: '',
-        created_at: '',
-        updated_at: ''
+        id: "",
+        name: "",
+        email: "",
+        role: "",
+        photo: "",
+        created_at: "",
+        updated_at: ""
       }
     };
   },
   computed: {
     formTitle: function formTitle() {
-      return this.editedIndex === -1 ? 'New user' : 'Edit user';
+      return this.editedIndex === -1 ? "New User" : "Edit User";
+    },
+    passwordMatch: function passwordMatch() {
+      return this.editedItem.password != this.editedItem.rpassword ? "Password Does Not Match" : true;
     }
   },
   watch: {
@@ -2778,105 +2959,203 @@ __webpack_require__.r(__webpack_exports__);
     this.initialize();
   },
   methods: {
-    initialize: function initialize() {
+    uploadPhoto: function uploadPhoto(item) {
       var _this = this;
+
+      if (this.editedItem.photo != null) {
+        var index = this.users.data.indexOf(item);
+        var formData = new FormData();
+        formData.append("photo", this.editedItem.photo, this.editedItem.photo.name);
+        formData.append("user", item.id);
+        axios.post(this.path + "/user/photo", formData).then(function (res) {
+          _this.users.data[index].photo = res.data.user.photo;
+          _this.editedItem.photo = null;
+        })["catch"](function (err) {
+          return console.log(err.response);
+        });
+      }
+    },
+    updateRole: function updateRole(item) {
+      var _this2 = this;
+
+      var index = this.users.data.indexOf(item);
+      axios.post(this.path + "/user/role", {
+        role: item.role,
+        user: item.id
+      }).then(function (res) {
+        _this2.text = res.data.user.name + "'s Role Updated to " + res.data.user.role;
+        _this2.snackbar = true;
+      })["catch"](function (error) {
+        _this2.text = error.response.data.user.name + "'s Role Cannot Be Updated to " + error.response.data.user.role;
+        _this2.users.data[index].role = error.response.data.user.role;
+        _this2.snackbar = true;
+      });
+    },
+    checkEmail: function checkEmail() {
+      var _this3 = this;
+
+      if (/.+@.+\..+/.test(this.editedItem.email)) {
+        axios.post(this.path + "email/verify", {
+          email: this.editedItem.email
+        }).then(function (res) {
+          _this3.success = res.data.message;
+          _this3.error = "";
+        })["catch"](function (err) {
+          _this3.success = "";
+          _this3.error = "Email Already Exists";
+        });
+      }
+    },
+    selectAll: function selectAll(e) {
+      this.selected = [];
+
+      if (e.length > 0) {
+        this.selected = e.map(function (val) {
+          return val.id;
+        });
+      }
+    },
+    deleteAll: function deleteAll() {
+      var _this4 = this;
+
+      var decide = confirm("Are you sure you want to delete these items?");
+
+      if (decide) {
+        axios.post(this.path + "/users/delete", {
+          users: this.selected
+        }).then(function (res) {
+          _this4.text = "Records Deleted Successfully!";
+
+          _this4.selected.map(function (val) {
+            var index = _this4.users.indexOf(val);
+
+            _this4.users.splice(index, 1);
+          });
+
+          _this4.snackbar = true;
+        })["catch"](function (err) {
+          console.log(err.response);
+          _this4.text = "Error Deleting Record";
+          _this4.snackbar = true;
+        });
+      }
+    },
+    searchIt: function searchIt(e) {
+      var _this5 = this;
+
+      if (e.length > 3) {
+        axios.get("".concat(this.path, "users/").concat(e)).then(function (res) {
+          return _this5.users = res.data.users;
+        })["catch"](function (err) {
+          return console.dir(err.response);
+        });
+      }
+
+      if (e.length <= 0) {
+        axios.get("".concat(this.path, "users")).then(function (res) {
+          return _this5.users = res.data.users;
+        })["catch"](function (err) {
+          return console.dir(err.response);
+        });
+      }
+    },
+    paginate: function paginate(e) {
+      var _this6 = this;
+
+      var sortBy = this.options.sortBy.length == 0 ? "name" : this.options.sortBy[0];
+      var orderBy = this.options.sortDesc.length > 0 && this.options.sortDesc[0] ? "asc" : "desc";
+      axios.get("".concat(this.path, "users?page=").concat(e.page), {
+        params: {
+          per_page: e.itemsPerPage,
+          sort_by: sortBy,
+          order_by: orderBy
+        }
+      }).then(function (res) {
+        _this6.users = res.data.users;
+        _this6.roles = res.data.roles;
+      })["catch"](function (err) {
+        if (err.response.status == 401) localStorage.removeItem("token");
+
+        _this6.$router.push("/login");
+      });
+    },
+    initialize: function initialize() {
+      var _this7 = this;
 
       // Add a request interceptor
       axios.interceptors.request.use(function (config) {
-        _this.loading = true;
+        _this7.loading = true;
         return config;
       }, function (error) {
-        _this.loading = false;
+        _this7.loading = false;
         return Promise.reject(error);
       }); // Add a response interceptor
 
       axios.interceptors.response.use(function (response) {
-        _this.loading = false;
+        _this7.loading = false;
         return response;
       }, function (error) {
-        _this.loading = false;
+        _this7.loading = false;
         return Promise.reject(error);
-      });
-      axios.get(this.$apipath + 'users', {}).then(function (res) {
-        return _this.user = res.data.users;
-      })["catch"](function (err) {
-        if (err.response.status == 401) localStorage.removeItem('token');
-
-        _this.$router.push('/login');
       });
     },
     editItem: function editItem(item) {
-      //console.log(item);
-      this.editedIndex = this.user.indexOf(item); //  console.log(this.editedIndex);
-
-      this.editedItem = Object.assign({}, item); //  console.log(this.editedItem);
-
+      this.editedIndex = this.users.data.indexOf(item);
+      this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem: function deleteItem(item) {
-      var _this2 = this;
+      var _this8 = this;
 
-      var index = this.user.indexOf(item);
-      var isdeleted = confirm('Are you sure you want to delete this item?' + index);
+      var index = this.users.data.indexOf(item);
+      var decide = confirm("Are you sure you want to delete this item?");
 
-      if (isdeleted) {
-        axios["delete"](this.$apipath + 'users/' + item.id, item.id).then(function (res) {
-          _this2.text = "Record Deleted Successfully!";
-          _this2.snackbar = true;
+      if (decide) {
+        axios["delete"](this.path + "users/" + item.id).then(function (res) {
+          _this8.text = "Record Deleted Successfully!";
+          _this8.snackbar = true;
 
-          _this2.user.splice(index, 1);
+          _this8.users.data.splice(index, 1);
         })["catch"](function (err) {
-          _this2.text = "Error Deleting Record!";
-          _this2.snackbar = true;
           console.log(err.response);
+          _this8.text = "Error Deleting Record";
+          _this8.snackbar = true;
         });
       }
     },
     close: function close() {
-      var _this3 = this;
+      var _this9 = this;
 
       this.dialog = false;
-      this.$nextTick(function () {
-        _this3.editedItem = Object.assign({}, _this3.defaultItem);
-        _this3.editedIndex = -1;
-      });
+      setTimeout(function () {
+        _this9.editedItem = Object.assign({}, _this9.defaultItem);
+        _this9.editedIndex = -1;
+      }, 300);
     },
     save: function save() {
-      var _this4 = this;
+      var _this10 = this;
 
       if (this.editedIndex > -1) {
-        // console.log(this.editedIndex)
-        // console.log(this.editedItem.id)
-        var ei = this.editedIndex;
-        axios.put(this.$apipath + 'users/' + this.editedItem.id, {
-          'name': this.editedItem.name
-        }).then(function (res) {
-          // console.log(this.ei)
-          _this4.text = "Record Updated Successfully!";
-          _this4.snackbar = true; // console.log(res.data.user)
-          // console.log(res.data.user.id)
-          // console.log(this.user[res.data.user.id-1])
-          // console.log(this.user[this.editedIndex])
-          //   console.log(this.user[this.editedItem.id])
-
-          Object.assign(_this4.user[ei], res.data.user);
+        var index = this.editedIndex;
+        axios.put(this.path + "users/" + this.editedItem.id, this.editedItem).then(function (res) {
+          _this10.text = "Record Updated Successfully!";
+          _this10.snackbar = true;
+          Object.assign(_this10.users.data[index], res.data.user);
         })["catch"](function (err) {
-          _this4.text = "Error Updating users!";
-          _this4.snackbar = true;
-          console.log(err);
-        }); //  Object.assign(this.user[this.editedIndex], this.editedItem)
+          console.log(err.response);
+          _this10.text = "Error Updating Record";
+          _this10.snackbar = true;
+        }); // Object.assign(this.users[this.editedIndex], this.editedItem)
       } else {
-        axios.post(this.$apipath + 'users', {
-          'name': this.editedItem.name
-        }).then(function (res) {
-          _this4.text = "Record Added Successfully!";
-          _this4.snackbar = true;
+        axios.post(this.path + "users", this.editedItem).then(function (res) {
+          _this10.text = "Record Added Successfully!";
+          _this10.snackbar = true;
 
-          _this4.user.push(res.data.user);
+          _this10.users.data.push(res.data.user);
         })["catch"](function (err) {
-          _this4.text = "Error Adding users!";
-          _this4.snackbar = true;
-          console.log(err);
+          console.dir(err);
+          _this10.text = "Error Inserting Record";
+          _this10.snackbar = true;
         });
       }
 
@@ -3051,6 +3330,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3061,97 +3373,15 @@ __webpack_require__.r(__webpack_exports__);
       page: 1,
       itemsPerPage: 32,
       sortBy: 'name',
-      keys: ['Name', 'Calories', 'Fat', 'Carbs', 'Protein', 'Sodium', 'Calcium', 'Iron'],
+      keys: ['Name', 'Image', 'Id'],
       items: [{
         name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        sodium: 87,
-        calcium: '14%',
-        iron: '1%'
-      }, {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        sodium: 129,
-        calcium: '8%',
-        iron: '1%'
-      }, {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        sodium: 337,
-        calcium: '6%',
-        iron: '7%'
-      }, {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        sodium: 413,
-        calcium: '3%',
-        iron: '8%'
-      }, {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        sodium: 327,
-        calcium: '7%',
-        iron: '16%'
-      }, {
-        name: 'Jelly bean',
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        sodium: 50,
-        calcium: '0%',
-        iron: '0%'
-      }, {
-        name: 'Lollipop',
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        sodium: 38,
-        calcium: '0%',
-        iron: '2%'
-      }, {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        sodium: 562,
-        calcium: '0%',
-        iron: '45%'
-      }, {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        sodium: 326,
-        calcium: '2%',
-        iron: '22%'
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 1
       }, {
         name: 'KitKat',
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        sodium: 54,
-        calcium: '12%',
-        iron: '6%'
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
       }]
     };
   },
@@ -3189,6 +3419,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3383,6 +3626,19 @@ __webpack_require__.r(__webpack_exports__);
         action: '/client/contactus'
       }]
     };
+  },
+  methods: {
+    logout: function logout() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('loggedin');
+      this.$router.push('/client/login').then(function (res) {
+        return console.log('LoggedOut Successfully');
+      })["catch"](function (err) {
+        return function (res) {
+          return console.log(err);
+        };
+      });
+    }
   }
 });
 
@@ -3712,13 +3968,110 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      email: '',
+      password: '',
+      emailRules: [function (v) {
+        return !!v || 'E-mail is required';
+      }, function (v) {
+        return /.+@.+\..+/.test(v) || 'E-mail must be valid';
+      }],
+      passwordRules: [function (v) {
+        return !!v || 'Password is required';
+      }],
+      loading: false,
+      snackbar: false,
+      txt: "",
+      valid: true
+    };
+  },
   mounted: function mounted() {
     console.log('Login Home Component mounted.');
   },
   methods: {
     register: function register() {
       this.$router.push('/client/register');
+    },
+    login: function login() {
+      var _this = this;
+
+      // Add a request interceptor
+      axios.interceptors.request.use(function (config) {
+        _this.loading = true;
+        return config;
+      }, function (error) {
+        _this.loading = false;
+        return Promise.reject(error);
+      }); // Add a response interceptor
+
+      axios.interceptors.response.use(function (response) {
+        _this.loading = false;
+        return response;
+      }, function (error) {
+        _this.loading = false;
+        return Promise.reject(error);
+      });
+      axios.post(this.$apipath + 'clientlogin', {
+        'email': this.email,
+        'password': this.password
+      }).then(function (res) {
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('loggedin', true);
+
+        if (res.data.isClient) {
+          console.log('Logged IN Successfully');
+
+          _this.$router.push('/client').then(function (res) {
+            return console.log('Logged IN Successfully');
+          })["catch"](function (err) {
+            return function (res) {
+              return console.log(err);
+            };
+          });
+        } else {
+          _this.txt = "You are not Authorize to Login Here";
+          _this.snackbar = true;
+        }
+      })["catch"](function (err) {
+        // console.log(err)
+        _this.txt = err.response.data.status;
+        _this.snackbar = true;
+      });
     }
   }
 });
@@ -3825,11 +4178,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       email: '',
       password: '',
+      name: '',
+      phone: '',
+      nameRule: [function (val) {
+        return (val || '').length > 3 || 'Please Enter Valid Name';
+      }],
       emailRules: [function (v) {
         return !!v || 'E-mail is required';
       }, function (v) {
@@ -3869,18 +4247,21 @@ __webpack_require__.r(__webpack_exports__);
         _this.loading = false;
         return Promise.reject(error);
       });
-      axios.post(this.$apipath + '/registerclient', {
+      axios.post(this.$apipath + 'registerclient', {
         'email': this.email,
-        'password': this.password
+        'password': this.password,
+        'name': this.name,
+        'phone': this.phone
       }).then(function (res) {
+        console.log(res);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('loggedin', true);
 
         if (res.data.isClient) {
-          console.log('Logged IN Successfully');
+          console.log('Logged Client IN Successfully');
 
           _this.$router.push('/client').then(function (res) {
-            return console.log('Logged IN Successfully');
+            return console.log('Logged IN Client Successfully');
           })["catch"](function (err) {
             return function (res) {
               return console.log(err);
@@ -3893,7 +4274,7 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {
         // console.log(err)
         _this.errortxt = "Please Enter Valid Email and Password";
-        _this.errortxt = err.response.data.status;
+        _this.errortxt = err.response.message;
         _this.snackbar = true;
       });
     }
@@ -3921,6 +4302,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Contact Us Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/ShowDesignComponent.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/ShowDesignComponent.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    console.log('Admin Home Component mounted.');
   }
 });
 
@@ -22718,262 +23120,295 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-data-table",
-    {
-      staticClass: "elevation-1",
-      attrs: {
-        "item-key": "name",
-        loading: _vm.loading,
-        "loading-text": "Loading... Please wait",
-        headers: _vm.headers,
-        items: _vm.user_roles,
-        "sort-by": "calories"
-      },
-      scopedSlots: _vm._u([
-        {
-          key: "top",
-          fn: function() {
-            return [
-              _c(
-                "v-toolbar",
-                { attrs: { flat: "", color: "dark" } },
-                [
-                  _c("v-toolbar-title", [_vm._v("Role Management System")]),
-                  _vm._v(" "),
-                  _c("v-divider", {
-                    staticClass: "mx-4",
-                    attrs: { inset: "", vertical: "" }
-                  }),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-dialog",
-                    {
-                      attrs: { "max-width": "500px" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function(ref) {
-                            var on = ref.on
-                            var attrs = ref.attrs
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  _vm._b(
+    "v-app",
+    { attrs: { id: "inspire" } },
+    [
+      _c("v-data-table", {
+        staticClass: "elevation-1",
+        attrs: {
+          "item-key": "name",
+          color: "error",
+          loading: _vm.loading,
+          "loading-text": "Loading... Please wait",
+          headers: _vm.headers,
+          options: _vm.options,
+          "server-items-length": _vm.roles.total,
+          items: _vm.roles.data,
+          "show-select": "",
+          "footer-props": {
+            itemsPerPageOptions: [5, 10, 15],
+            itemsPerPageText: "Roles Per Page",
+            "show-current-page": true,
+            "show-first-last-page": true
+          }
+        },
+        on: {
+          "update:options": function($event) {
+            _vm.options = $event
+          },
+          input: _vm.selectAll
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "top",
+            fn: function() {
+              return [
+                _c(
+                  "v-toolbar",
+                  { attrs: { flat: "", color: "dark" } },
+                  [
+                    _c("v-toolbar-title", [_vm._v("Role Management System")]),
+                    _vm._v(" "),
+                    _c("v-divider", {
+                      staticClass: "mx-4",
+                      attrs: { inset: "", vertical: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("v-spacer"),
+                    _vm._v(" "),
+                    _c(
+                      "v-dialog",
+                      {
+                        attrs: { "max-width": "500px" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "activator",
+                            fn: function(ref) {
+                              var on = ref.on
+                              return [
+                                _c(
+                                  "v-btn",
+                                  _vm._g(
                                     {
                                       staticClass: "mb-2",
                                       attrs: { color: "error", dark: "" }
                                     },
-                                    "v-btn",
-                                    attrs,
-                                    false
+                                    on
                                   ),
-                                  on
+                                  [_vm._v("Add New Role")]
                                 ),
-                                [_vm._v("Add New Role")]
-                              )
-                            ]
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "mb-2 mr-2",
+                                    attrs: { color: "error", dark: "" },
+                                    on: { click: _vm.deleteAll }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ]
+                            }
                           }
+                        ]),
+                        model: {
+                          value: _vm.dialog,
+                          callback: function($$v) {
+                            _vm.dialog = $$v
+                          },
+                          expression: "dialog"
                         }
-                      ]),
-                      model: {
-                        value: _vm.dialog,
-                        callback: function($$v) {
-                          _vm.dialog = $$v
-                        },
-                        expression: "dialog"
-                      }
-                    },
-                    [
-                      _vm._v(" "),
-                      _c(
-                        "v-card",
-                        [
-                          _c("v-card-title", [
-                            _c("span", { staticClass: "headline" }, [
-                              _vm._v(_vm._s(_vm.formTitle))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-text",
-                            [
-                              _c(
-                                "v-container",
-                                [
-                                  _c(
-                                    "v-row",
-                                    [
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "12",
-                                            md: "12"
-                                          }
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              color: "error",
-                                              required: "",
-                                              label: "Role Name"
-                                            },
-                                            model: {
-                                              value: _vm.editedItem.name,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "name",
-                                                  $$v
-                                                )
+                      },
+                      [
+                        _vm._v(" "),
+                        _c(
+                          "v-card",
+                          [
+                            _c("v-card-title", [
+                              _c("span", { staticClass: "headline" }, [
+                                _vm._v(_vm._s(_vm.formTitle))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "v-card-text",
+                              [
+                                _c(
+                                  "v-container",
+                                  [
+                                    _c(
+                                      "v-row",
+                                      [
+                                        _c(
+                                          "v-col",
+                                          { attrs: { cols: "12", sm: "12" } },
+                                          [
+                                            _c("v-text-field", {
+                                              attrs: {
+                                                autofocus: "",
+                                                color: "error",
+                                                label: "Role Name"
                                               },
-                                              expression: "editedItem.name"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "error darken-1", text: "" },
-                                  on: { click: _vm.close }
-                                },
-                                [_vm._v("Cancel")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "error darken-1", text: "" },
-                                  on: { click: _vm.save }
-                                },
-                                [_vm._v("Save")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ]
+                                              model: {
+                                                value: _vm.editedItem.name,
+                                                callback: function($$v) {
+                                                  _vm.$set(
+                                                    _vm.editedItem,
+                                                    "name",
+                                                    $$v
+                                                  )
+                                                },
+                                                expression: "editedItem.name"
+                                              }
+                                            })
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _c("v-col", {
+                                          attrs: { cols: "12", sm: "12" }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-card-actions",
+                              [
+                                _c("v-spacer"),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      color: "error darken-1",
+                                      text: ""
+                                    },
+                                    on: { click: _vm.close }
+                                  },
+                                  [_vm._v("Cancel")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    attrs: {
+                                      color: "error darken-1",
+                                      text: ""
+                                    },
+                                    on: { click: _vm.save }
+                                  },
+                                  [_vm._v("Save")]
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-row",
+                  [
+                    _c(
+                      "v-col",
+                      { attrs: { cols: "12" } },
+                      [
+                        _c("v-text-field", {
+                          staticClass: "mx-4",
+                          attrs: { label: "Search..." },
+                          on: { input: _vm.searchIt }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            },
+            proxy: true
           },
-          proxy: true
-        },
-        {
-          key: "item.actions",
-          fn: function(ref) {
-            var item = ref.item
-            return [
-              _c(
-                "v-icon",
-                {
-                  staticClass: "mr-2",
-                  attrs: { small: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.editItem(item)
-                    }
-                  }
-                },
-                [_vm._v("\r\n        mdi-pencil\r\n      ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-icon",
-                {
-                  attrs: { small: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteItem(item)
-                    }
-                  }
-                },
-                [_vm._v("\r\n        mdi-delete\r\n      ")]
-              )
-            ]
-          }
-        },
-        {
-          key: "no-data",
-          fn: function() {
-            return [
-              _c(
-                "v-btn",
-                { attrs: { color: "error" }, on: { click: _vm.initialize } },
-                [_vm._v("Reset")]
-              )
-            ]
-          },
-          proxy: true
-        }
-      ])
-    },
-    [
-      _vm._v(" "),
-      _vm._v(" "),
-      _vm._v(" "),
-      _c("v-snackbar", {
-        scopedSlots: _vm._u([
           {
-            key: "action",
+            key: "item.action",
             fn: function(ref) {
-              var attrs = ref.attrs
+              var item = ref.item
               return [
                 _c(
-                  "v-btn",
-                  _vm._b(
-                    {
-                      attrs: { color: "pink", text: "" },
-                      on: {
-                        click: function($event) {
-                          _vm.snackbar = false
-                        }
+                  "v-icon",
+                  {
+                    staticClass: "mr-2",
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editItem(item)
                       }
-                    },
-                    "v-btn",
-                    attrs,
-                    false
-                  ),
-                  [_vm._v("\r\n          Close\r\n        ")]
+                    }
+                  },
+                  [_vm._v("\n        mdi-content-save-edit-outline\n      ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-icon",
+                  {
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("\n        mdi-delete\n      ")]
                 )
               ]
             }
-          }
-        ]),
-        model: {
-          value: _vm.snackbar,
-          callback: function($$v) {
-            _vm.snackbar = $$v
           },
-          expression: "snackbar"
-        }
-      })
+          {
+            key: "no-data",
+            fn: function() {
+              return [
+                _c(
+                  "v-btn",
+                  { attrs: { color: "error" }, on: { click: _vm.initialize } },
+                  [_vm._v("Reset")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [
+          _vm._v("\n               " + _vm._s(_vm.text) + "\n                "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "error", text: "" },
+              on: {
+                click: function($event) {
+                  _vm.snackbar = false
+                }
+              }
+            },
+            [_vm._v("\n                  Close\n                ")]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -23001,262 +23436,621 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-data-table",
-    {
-      staticClass: "elevation-1",
-      attrs: {
-        "item-key": "name",
-        loading: _vm.loading,
-        "loading-text": "Loading... Please wait",
-        headers: _vm.headers,
-        items: _vm.user,
-        "sort-by": "calories"
-      },
-      scopedSlots: _vm._u([
-        {
-          key: "top",
-          fn: function() {
-            return [
-              _c(
-                "v-toolbar",
-                { attrs: { flat: "", color: "dark" } },
-                [
-                  _c("v-toolbar-title", [_vm._v("user Management System")]),
-                  _vm._v(" "),
-                  _c("v-divider", {
-                    staticClass: "mx-4",
-                    attrs: { inset: "", vertical: "" }
-                  }),
-                  _vm._v(" "),
-                  _c("v-spacer"),
-                  _vm._v(" "),
-                  _c(
-                    "v-dialog",
-                    {
-                      attrs: { "max-width": "500px" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "activator",
-                          fn: function(ref) {
-                            var on = ref.on
-                            var attrs = ref.attrs
-                            return [
-                              _c(
-                                "v-btn",
-                                _vm._g(
-                                  _vm._b(
+    "v-app",
+    { attrs: { id: "inspire" } },
+    [
+      _c("v-data-table", {
+        staticClass: "elevation-1",
+        attrs: {
+          "item-key": "name",
+          color: "error",
+          loading: _vm.loading,
+          "loading-text": "Loading... Please wait",
+          headers: _vm.headers,
+          "server-items-length": _vm.users.total,
+          options: _vm.options,
+          items: _vm.users.data,
+          "items-per-page": 5,
+          "show-select": "",
+          "footer-props": {
+            itemsPerPageOptions: [5, 10, 15],
+            itemsPerPageText: "users Per Page",
+            "show-current-page": true,
+            "show-first-last-page": true
+          }
+        },
+        on: {
+          pagination: _vm.paginate,
+          "update:options": function($event) {
+            _vm.options = $event
+          },
+          input: _vm.selectAll
+        },
+        scopedSlots: _vm._u([
+          {
+            key: "top",
+            fn: function() {
+              return [
+                _c(
+                  "v-toolbar",
+                  { attrs: { flat: "", color: "dark" } },
+                  [
+                    _c("v-toolbar-title", [_vm._v("User Management System")]),
+                    _vm._v(" "),
+                    _c("v-divider", {
+                      staticClass: "mx-4",
+                      attrs: { inset: "", vertical: "" }
+                    }),
+                    _vm._v(" "),
+                    _c("v-spacer"),
+                    _vm._v(" "),
+                    _c(
+                      "v-dialog",
+                      {
+                        attrs: { "max-width": "500px" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "activator",
+                            fn: function(ref) {
+                              var on = ref.on
+                              return [
+                                _c(
+                                  "v-btn",
+                                  _vm._g(
                                     {
                                       staticClass: "mb-2",
                                       attrs: { color: "error", dark: "" }
                                     },
-                                    "v-btn",
-                                    attrs,
-                                    false
+                                    on
                                   ),
-                                  on
+                                  [_vm._v("Add New user")]
                                 ),
-                                [_vm._v("Add New User")]
-                              )
-                            ]
+                                _vm._v(" "),
+                                _c(
+                                  "v-btn",
+                                  {
+                                    staticClass: "mb-2 mr-2",
+                                    attrs: { color: "error", dark: "" },
+                                    on: { click: _vm.deleteAll }
+                                  },
+                                  [_vm._v("Delete")]
+                                )
+                              ]
+                            }
                           }
+                        ]),
+                        model: {
+                          value: _vm.dialog,
+                          callback: function($$v) {
+                            _vm.dialog = $$v
+                          },
+                          expression: "dialog"
                         }
-                      ]),
-                      model: {
-                        value: _vm.dialog,
-                        callback: function($$v) {
-                          _vm.dialog = $$v
-                        },
-                        expression: "dialog"
-                      }
-                    },
-                    [
-                      _vm._v(" "),
-                      _c(
-                        "v-card",
-                        [
-                          _c("v-card-title", [
-                            _c("span", { staticClass: "headline" }, [
-                              _vm._v(_vm._s(_vm.formTitle))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-text",
-                            [
-                              _c(
-                                "v-container",
-                                [
-                                  _c(
-                                    "v-row",
-                                    [
-                                      _c(
-                                        "v-col",
-                                        {
-                                          attrs: {
-                                            cols: "12",
-                                            sm: "12",
-                                            md: "12"
-                                          }
-                                        },
-                                        [
-                                          _c("v-text-field", {
-                                            attrs: {
-                                              color: "error",
-                                              required: "",
-                                              label: "User Name"
-                                            },
-                                            model: {
-                                              value: _vm.editedItem.name,
-                                              callback: function($$v) {
-                                                _vm.$set(
-                                                  _vm.editedItem,
-                                                  "name",
-                                                  $$v
-                                                )
+                      },
+                      [
+                        _vm._v(" "),
+                        _c(
+                          "v-card",
+                          [
+                            _c("v-card-title", [
+                              _c("span", { staticClass: "headline" }, [
+                                _vm._v(_vm._s(_vm.formTitle))
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "v-form",
+                              {
+                                attrs: { method: "post" },
+                                on: {
+                                  sumbit: function($event) {
+                                    $event.stopPropagation()
+                                    $event.preventDefault()
+                                    return _vm.save($event)
+                                  }
+                                },
+                                model: {
+                                  value: _vm.valid,
+                                  callback: function($$v) {
+                                    _vm.valid = $$v
+                                  },
+                                  expression: "valid"
+                                }
+                              },
+                              [
+                                _c(
+                                  "v-card-text",
+                                  [
+                                    _c(
+                                      "v-container",
+                                      [
+                                        _c(
+                                          "v-row",
+                                          [
+                                            _c(
+                                              "v-col",
+                                              {
+                                                attrs: { cols: "12", sm: "12" }
                                               },
-                                              expression: "editedItem.name"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-card-actions",
-                            [
-                              _c("v-spacer"),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "error darken-1", text: "" },
-                                  on: { click: _vm.close }
-                                },
-                                [_vm._v("Cancel")]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: { color: "error darken-1", text: "" },
-                                  on: { click: _vm.save }
-                                },
-                                [_vm._v("Save")]
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ]
+                                              [
+                                                _c("v-text-field", {
+                                                  attrs: {
+                                                    color: "error",
+                                                    label: "Name",
+                                                    rules: [
+                                                      _vm.rules.required,
+                                                      _vm.rules.min
+                                                    ]
+                                                  },
+                                                  model: {
+                                                    value: _vm.editedItem.name,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        _vm.editedItem,
+                                                        "name",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "editedItem.name"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        ),
+                                        _vm._v(" "),
+                                        _vm.editedIndex == -1
+                                          ? _c(
+                                              "v-row",
+                                              [
+                                                _c(
+                                                  "v-col",
+                                                  {
+                                                    attrs: {
+                                                      cols: "12",
+                                                      sm: "12"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        rules: [
+                                                          _vm.rules.required
+                                                        ],
+                                                        type: "password",
+                                                        color: "error",
+                                                        label: "Type Password"
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.editedItem
+                                                            .password,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.editedItem,
+                                                            "password",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "editedItem.password"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-col",
+                                                  {
+                                                    attrs: {
+                                                      cols: "12",
+                                                      sm: "12"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        rules: [
+                                                          _vm.rules.required,
+                                                          _vm.passwordMatch
+                                                        ],
+                                                        type: "password",
+                                                        color: "error",
+                                                        label: "Retype Password"
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.editedItem
+                                                            .rpassword,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.editedItem,
+                                                            "rpassword",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "editedItem.rpassword"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                ),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "v-col",
+                                                  {
+                                                    attrs: {
+                                                      cols: "12",
+                                                      sm: "12"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("v-text-field", {
+                                                      attrs: {
+                                                        type: "email",
+                                                        "success-messages":
+                                                          _vm.success,
+                                                        "error-messages":
+                                                          _vm.error,
+                                                        rules: [
+                                                          _vm.rules.required,
+                                                          _vm.rules.validEmail
+                                                        ],
+                                                        color: "error",
+                                                        autocomplete: "off",
+                                                        label: "Email"
+                                                      },
+                                                      on: {
+                                                        blur: _vm.checkEmail
+                                                      },
+                                                      model: {
+                                                        value:
+                                                          _vm.editedItem.email,
+                                                        callback: function(
+                                                          $$v
+                                                        ) {
+                                                          _vm.$set(
+                                                            _vm.editedItem,
+                                                            "email",
+                                                            $$v
+                                                          )
+                                                        },
+                                                        expression:
+                                                          "editedItem.email"
+                                                      }
+                                                    })
+                                                  ],
+                                                  1
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          : _vm._e(),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-row",
+                                          [
+                                            _c(
+                                              "v-col",
+                                              {
+                                                attrs: { cols: "12", sm: "12" }
+                                              },
+                                              [
+                                                _c("v-select", {
+                                                  attrs: {
+                                                    rules: [_vm.rules.required],
+                                                    items: _vm.roles,
+                                                    color: "error",
+                                                    label: "Select Role"
+                                                  },
+                                                  model: {
+                                                    value: _vm.editedItem.role,
+                                                    callback: function($$v) {
+                                                      _vm.$set(
+                                                        _vm.editedItem,
+                                                        "role",
+                                                        $$v
+                                                      )
+                                                    },
+                                                    expression:
+                                                      "editedItem.role"
+                                                  }
+                                                })
+                                              ],
+                                              1
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-card-actions",
+                                  [
+                                    _c("v-spacer"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          color: "error darken-1",
+                                          text: ""
+                                        },
+                                        on: { click: _vm.close }
+                                      },
+                                      [_vm._v("Cancel")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "v-btn",
+                                      {
+                                        attrs: {
+                                          type: "submit",
+                                          disabled: !_vm.valid,
+                                          color: "error darken-1",
+                                          text: ""
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.save($event)
+                                          }
+                                        }
+                                      },
+                                      [_vm._v("Save")]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-row",
+                  [
+                    _c(
+                      "v-col",
+                      { attrs: { cols: "12" } },
+                      [
+                        _c("v-text-field", {
+                          staticClass: "mx-4",
+                          attrs: { color: "#ff5252", label: "Search..." },
+                          on: { input: _vm.searchIt }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            },
+            proxy: true
           },
-          proxy: true
-        },
-        {
-          key: "item.actions",
-          fn: function(ref) {
-            var item = ref.item
-            return [
-              _c(
-                "v-icon",
-                {
-                  staticClass: "mr-2",
-                  attrs: { small: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.editItem(item)
-                    }
-                  }
-                },
-                [_vm._v("\r\n        mdi-pencil\r\n      ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-icon",
-                {
-                  attrs: { small: "" },
-                  on: {
-                    click: function($event) {
-                      return _vm.deleteItem(item)
-                    }
-                  }
-                },
-                [_vm._v("\r\n        mdi-delete\r\n      ")]
-              )
-            ]
-          }
-        },
-        {
-          key: "no-data",
-          fn: function() {
-            return [
-              _c(
-                "v-btn",
-                { attrs: { color: "error" }, on: { click: _vm.initialize } },
-                [_vm._v("Reset")]
-              )
-            ]
-          },
-          proxy: true
-        }
-      ])
-    },
-    [
-      _vm._v(" "),
-      _vm._v(" "),
-      _vm._v(" "),
-      _c("v-snackbar", {
-        scopedSlots: _vm._u([
           {
-            key: "action",
+            key: "item.role",
             fn: function(ref) {
-              var attrs = ref.attrs
+              var item = ref.item
               return [
                 _c(
-                  "v-btn",
-                  _vm._b(
-                    {
-                      attrs: { color: "pink", text: "" },
-                      on: {
-                        click: function($event) {
-                          _vm.snackbar = false
-                        }
+                  "v-edit-dialog",
+                  {
+                    attrs: {
+                      large: "",
+                      block: "",
+                      persistent: "",
+                      "return-value": item.role
+                    },
+                    on: {
+                      "update:returnValue": function($event) {
+                        return _vm.$set(item, "role", $event)
+                      },
+                      "update:return-value": function($event) {
+                        return _vm.$set(item, "role", $event)
+                      },
+                      save: function($event) {
+                        return _vm.updateRole(item)
                       }
                     },
-                    "v-btn",
-                    attrs,
-                    false
-                  ),
-                  [_vm._v("\r\n          Close\r\n        ")]
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "input",
+                          fn: function() {
+                            return [
+                              _c("h4", [_vm._v("Change Role")]),
+                              _vm._v(" "),
+                              _c("v-select", {
+                                attrs: {
+                                  rules: [_vm.rules.required],
+                                  items: _vm.roles,
+                                  color: "error",
+                                  label: "Select Role"
+                                },
+                                model: {
+                                  value: item.role,
+                                  callback: function($$v) {
+                                    _vm.$set(item, "role", $$v)
+                                  },
+                                  expression: "item.role"
+                                }
+                              })
+                            ]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      true
+                    )
+                  },
+                  [_vm._v("\n        " + _vm._s(item.role) + "\n        ")]
                 )
               ]
             }
-          }
-        ]),
-        model: {
-          value: _vm.snackbar,
-          callback: function($$v) {
-            _vm.snackbar = $$v
           },
-          expression: "snackbar"
-        }
-      })
+          {
+            key: "item.photo",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c(
+                  "v-edit-dialog",
+                  {
+                    scopedSlots: _vm._u(
+                      [
+                        {
+                          key: "input",
+                          fn: function() {
+                            return [
+                              _c("v-file-input", {
+                                attrs: {
+                                  label: "Select File",
+                                  placeholder: "Upload Avatar",
+                                  accept:
+                                    "image/jpg, image/png, image/bmp, image/jpeg"
+                                },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.uploadPhoto(item)
+                                  }
+                                },
+                                model: {
+                                  value: _vm.editedItem.photo,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "photo", $$v)
+                                  },
+                                  expression: "editedItem.photo"
+                                }
+                              })
+                            ]
+                          },
+                          proxy: true
+                        }
+                      ],
+                      null,
+                      true
+                    )
+                  },
+                  [
+                    _c(
+                      "v-list-item-avatar",
+                      [
+                        _c("v-img", {
+                          staticClass: "grey lighten-2",
+                          attrs: { src: item.photo, "aspect-ratio": "1" }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            }
+          },
+          {
+            key: "item.action",
+            fn: function(ref) {
+              var item = ref.item
+              return [
+                _c(
+                  "v-icon",
+                  {
+                    staticClass: "mr-2",
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-content-save-edit-outline")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-icon",
+                  {
+                    attrs: { small: "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.deleteItem(item)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-delete")]
+                )
+              ]
+            }
+          },
+          {
+            key: "no-data",
+            fn: function() {
+              return [
+                _c(
+                  "v-btn",
+                  { attrs: { color: "error" }, on: { click: _vm.initialize } },
+                  [_vm._v("Reset")]
+                )
+              ]
+            },
+            proxy: true
+          }
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "v-snackbar",
+        {
+          model: {
+            value: _vm.snackbar,
+            callback: function($$v) {
+              _vm.snackbar = $$v
+            },
+            expression: "snackbar"
+          }
+        },
+        [
+          _vm._v("\n    " + _vm._s(_vm.text) + "\n    "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "error", text: "" },
+              on: {
+                click: function($event) {
+                  _vm.snackbar = false
+                }
+              }
+            },
+            [_vm._v("Close")]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -23425,54 +24219,83 @@ var render = function() {
                         attrs: { cols: "12", sm: "6", md: "4", lg: "3" }
                       },
                       [
-                        _c(
-                          "v-card",
-                          [
-                            _c(
-                              "v-card-title",
-                              { staticClass: "subheading font-weight-bold" },
-                              [_vm._v(_vm._s(item.name))]
-                            ),
-                            _vm._v(" "),
-                            _c("v-divider"),
-                            _vm._v(" "),
-                            _c(
-                              "v-list",
-                              { attrs: { dense: "" } },
-                              _vm._l(_vm.filteredKeys, function(key, index) {
-                                return _c(
-                                  "v-list-item",
-                                  { key: index },
-                                  [
+                        _c("v-hover", {
+                          scopedSlots: _vm._u(
+                            [
+                              {
+                                key: "default",
+                                fn: function(ref) {
+                                  var hover = ref.hover
+                                  return [
                                     _c(
-                                      "v-list-item-content",
+                                      "v-card",
                                       {
-                                        class: {
-                                          "blue--text": _vm.sortBy === key
-                                        }
+                                        staticClass: "mx-auto",
+                                        attrs: { "max-width": "344" }
                                       },
-                                      [_vm._v(_vm._s(key) + ":")]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "v-list-item-content",
-                                      {
-                                        staticClass: "align-end",
-                                        class: {
-                                          "blue--text": _vm.sortBy === key
-                                        }
-                                      },
-                                      [_vm._v(_vm._s(item[key.toLowerCase()]))]
+                                      [
+                                        _c("v-img", {
+                                          attrs: {
+                                            src:
+                                              "https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("v-card-text", [
+                                          _c(
+                                            "h2",
+                                            {
+                                              staticClass: "title primary--text"
+                                            },
+                                            [_vm._v(_vm._s(item.name))]
+                                          )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "v-fade-transition",
+                                          [
+                                            hover
+                                              ? _c(
+                                                  "v-overlay",
+                                                  {
+                                                    attrs: {
+                                                      absolute: "",
+                                                      color: "#036358"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c(
+                                                      "v-btn",
+                                                      {
+                                                        attrs: {
+                                                          to: {
+                                                            name: "show",
+                                                            query: {
+                                                              id: item.id
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      [_vm._v("Open")]
+                                                    )
+                                                  ],
+                                                  1
+                                                )
+                                              : _vm._e()
+                                          ],
+                                          1
+                                        )
+                                      ],
+                                      1
                                     )
-                                  ],
-                                  1
-                                )
-                              }),
-                              1
-                            )
-                          ],
-                          1
-                        )
+                                  ]
+                                }
+                              }
+                            ],
+                            null,
+                            true
+                          )
+                        })
                       ],
                       1
                     )
@@ -23855,7 +24678,30 @@ var render = function() {
                         1
                       )
                 ]
-              })
+              }),
+              _vm._v(" "),
+              _c(
+                "v-list-item",
+                { attrs: { link: "" }, on: { click: _vm.logout } },
+                [
+                  _c(
+                    "v-list-item-action",
+                    [
+                      _c("v-icon", { attrs: { color: "grey darken-1" } }, [
+                        _vm._v("mdi-cog")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item-title",
+                    { staticClass: "grey--text text--darken-1" },
+                    [_vm._v("Logout")]
+                  )
+                ],
+                1
+              )
             ],
             2
           )
@@ -23949,7 +24795,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("v-list-item-subtitle", [
-                        _vm._v("Is Your Remaining Balance")
+                        _vm._v("This is Your DP balance You can load anytime")
                       ])
                     ],
                     1
@@ -24019,7 +24865,7 @@ var render = function() {
                     "v-list-item-content",
                     [
                       _c("div", { staticClass: "overline mb-2" }, [
-                        _vm._v("Add Designs")
+                        _vm._v("Send Designs")
                       ]),
                       _vm._v(" "),
                       _c(
@@ -24029,7 +24875,11 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c("v-list-item-subtitle", [_vm._v("Add Yours Designs")])
+                      _c("v-list-item-subtitle", [
+                        _vm._v(
+                          "Your Order will be auto created Price will be based on desing complexity"
+                        )
+                      ])
                     ],
                     1
                   ),
@@ -24068,7 +24918,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("Add Designs")]
+                    [_vm._v("Upload Designs")]
                   )
                 ],
                 1
@@ -24108,7 +24958,11 @@ var render = function() {
                         1
                       ),
                       _vm._v(" "),
-                      _c("v-list-item-subtitle", [_vm._v("See All Invoices")])
+                      _c("v-list-item-subtitle", [
+                        _vm._v(
+                          "See All Invoices Paid or Unpaid for New invoice Visit Payment Section "
+                        )
+                      ])
                     ],
                     1
                   ),
@@ -24520,6 +25374,16 @@ var render = function() {
                           _c(
                             "v-card-text",
                             [
+                              _c("v-progress-linear", {
+                                attrs: {
+                                  active: _vm.loading,
+                                  indeterminate: _vm.loading,
+                                  absolute: "",
+                                  top: "",
+                                  color: "deep-purple accent-4"
+                                }
+                              }),
+                              _vm._v(" "),
                               _c(
                                 "v-form",
                                 [
@@ -24527,8 +25391,16 @@ var render = function() {
                                     attrs: {
                                       label: "Login Email",
                                       name: "login",
+                                      rules: _vm.emailRules,
                                       "prepend-icon": "mdi-account",
                                       type: "text"
+                                    },
+                                    model: {
+                                      value: _vm.email,
+                                      callback: function($$v) {
+                                        _vm.email = $$v
+                                      },
+                                      expression: "email"
                                     }
                                   }),
                                   _vm._v(" "),
@@ -24537,8 +25409,16 @@ var render = function() {
                                       id: "password",
                                       label: "Password",
                                       name: "password",
+                                      rules: _vm.passwordRules,
                                       "prepend-icon": "mdi-lock",
                                       type: "password"
+                                    },
+                                    model: {
+                                      value: _vm.password,
+                                      callback: function($$v) {
+                                        _vm.password = $$v
+                                      },
+                                      expression: "password"
                                     }
                                   })
                                 ],
@@ -24562,14 +25442,61 @@ var render = function() {
                                 [_vm._v("Register")]
                               ),
                               _vm._v(" "),
-                              _c("v-btn", { attrs: { color: "amber" } }, [
-                                _vm._v("Login")
-                              ])
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { color: "amber" },
+                                  on: { click: _vm.login }
+                                },
+                                [_vm._v("Login")]
+                              )
                             ],
                             1
                           )
                         ],
                         1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-snackbar",
+                        {
+                          attrs: { color: "amber" },
+                          scopedSlots: _vm._u([
+                            {
+                              key: "action",
+                              fn: function(ref) {
+                                var attrs = ref.attrs
+                                return [
+                                  _c(
+                                    "v-btn",
+                                    _vm._b(
+                                      {
+                                        attrs: { color: "primary", text: "" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.snackbar = false
+                                          }
+                                        }
+                                      },
+                                      "v-btn",
+                                      attrs,
+                                      false
+                                    ),
+                                    [_vm._v("\n        Close\n      ")]
+                                  )
+                                ]
+                              }
+                            }
+                          ]),
+                          model: {
+                            value: _vm.snackbar,
+                            callback: function($$v) {
+                              _vm.snackbar = $$v
+                            },
+                            expression: "snackbar"
+                          }
+                        },
+                        [_vm._v("\n    " + _vm._s(_vm.txt) + "\n\n    ")]
                       )
                     ],
                     1
@@ -24700,6 +25627,41 @@ var render = function() {
                                 [
                                   _c("v-text-field", {
                                     attrs: {
+                                      color: "error",
+                                      label: "Name",
+                                      name: "name",
+                                      rules: _vm.nameRule,
+                                      required: "",
+                                      "prepend-icon":
+                                        "mdi-account-circle-outline"
+                                    },
+                                    model: {
+                                      value: _vm.name,
+                                      callback: function($$v) {
+                                        _vm.name = $$v
+                                      },
+                                      expression: "name"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
+                                      color: "error",
+                                      label: "Phone No",
+                                      name: "phone",
+                                      "prepend-icon": "mdi-cellphone"
+                                    },
+                                    model: {
+                                      value: _vm.phone,
+                                      callback: function($$v) {
+                                        _vm.phone = $$v
+                                      },
+                                      expression: "phone"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-text-field", {
+                                    attrs: {
                                       label: "Email",
                                       name: "email",
                                       "prepend-icon": "mdi-account",
@@ -24805,6 +25767,30 @@ render._withStripped = true
 /*!****************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/ContactUsComponent.vue?vue&type=template&id=490dbf68&scoped=true& ***!
   \****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/client/ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -84644,6 +85630,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/client/ShowDesignComponent.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/client/ShowDesignComponent.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ShowDesignComponent_vue_vue_type_template_id_76314349_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true& */ "./resources/js/components/client/ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true&");
+/* harmony import */ var _ShowDesignComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShowDesignComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/client/ShowDesignComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ShowDesignComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ShowDesignComponent_vue_vue_type_template_id_76314349_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ShowDesignComponent_vue_vue_type_template_id_76314349_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "76314349",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/client/ShowDesignComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/client/ShowDesignComponent.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/client/ShowDesignComponent.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowDesignComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowDesignComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/ShowDesignComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowDesignComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/client/ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/client/ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowDesignComponent_vue_vue_type_template_id_76314349_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/client/ShowDesignComponent.vue?vue&type=template&id=76314349&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowDesignComponent_vue_vue_type_template_id_76314349_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ShowDesignComponent_vue_vue_type_template_id_76314349_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/router.js":
 /*!********************************!*\
   !*** ./resources/js/router.js ***!
@@ -84667,6 +85722,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_UserComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/UserComponent */ "./resources/js/components/UserComponent.vue");
 /* harmony import */ var _components_client_ClientLoginComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/client/ClientLoginComponent */ "./resources/js/components/client/ClientLoginComponent.vue");
 /* harmony import */ var _components_client_ClientRegisterComponent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/ClientRegisterComponent */ "./resources/js/components/client/ClientRegisterComponent.vue");
+/* harmony import */ var _components_client_ShowDesignComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/ShowDesignComponent */ "./resources/js/components/client/ShowDesignComponent.vue");
 
  //import { component } from 'vue/types/umd';
 
@@ -84681,11 +85737,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var routes = [{
-  path: '/client',
-  redirect: '/client/login'
-}, {
   path: '/client/register',
   component: _components_client_ClientRegisterComponent__WEBPACK_IMPORTED_MODULE_12__["default"],
   name: 'ClientRegisterLogin'
@@ -84694,7 +85748,7 @@ var routes = [{
   component: _components_client_ClientLoginComponent__WEBPACK_IMPORTED_MODULE_11__["default"],
   name: 'ClientLogin'
 }, {
-  path: '/client/home',
+  path: '/client',
   component: _components_client_ClientComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
   name: 'Client',
   redirect: '/client/home',
@@ -84702,6 +85756,11 @@ var routes = [{
     path: 'home',
     component: _components_client_ClientHomeComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
     name: 'home'
+  }, {
+    path: 'show',
+    component: _components_client_ShowDesignComponent__WEBPACK_IMPORTED_MODULE_13__["default"],
+    props: true,
+    name: 'show'
   }, {
     path: 'contactus',
     component: _components_client_ContactUsComponent__WEBPACK_IMPORTED_MODULE_8__["default"],

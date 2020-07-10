@@ -1,14 +1,27 @@
 <template>
-<v-data-table item-key="name" class="elevation-1" 
-:loading ="loading"
-loading-text="Loading... Please wait"
- :headers="headers"
-    :items="user_roles"
-    sort-by="calories"
-   >
+<v-app id="inspire">
+  <v-data-table 
+  	item-key="name" 
+  	class="elevation-1" 
+  	color="error"
+  	:loading = "loading"
+  	loading-text="Loading... Please wait"
+	  :headers="headers"
+    :options.sync="options"
+    :server-items-length="roles.total"
+    :items="roles.data"
+    show-select
+    @input="selectAll"
+    :footer-props="{
+      itemsPerPageOptions: [5,10,15],
+      itemsPerPageText: 'Roles Per Page',
+      'show-current-page': true,
+      'show-first-last-page': true
+    }"
+  >
 
-
- <template v-slot:top>
+  	<template v-slot:top>
+      
       <v-toolbar flat color="dark">
         <v-toolbar-title>Role Management System</v-toolbar-title>
         <v-divider
@@ -17,16 +30,13 @@ loading-text="Loading... Please wait"
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+
         <v-dialog v-model="dialog" max-width="500px">
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="error"
-              dark
-              class="mb-2"
-              v-bind="attrs"
-              v-on="on"
-            >Add New Role</v-btn>
+          <template v-slot:activator="{ on }">
+            <v-btn color="error" dark class="mb-2" v-on="on">Add New Role</v-btn>
+            <v-btn color="error" dark class="mb-2 mr-2" @click="deleteAll">Delete</v-btn>
           </template>
+
           <v-card>
             <v-card-title>
               <span class="headline">{{ formTitle }}</span>
@@ -35,23 +45,14 @@ loading-text="Loading... Please wait"
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col cols="12" sm="12" md="12">
-                    <v-text-field color="error" required  v-model="editedItem.name" label="Role Name"></v-text-field>
+                  <v-col cols="12" sm="12" >
+                    <v-text-field autofocus color="error" v-model="editedItem.name" label="Role Name"></v-text-field>
                   </v-col>
-
-                  <!-- <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                  </v-col>
-                  <v-col cols="12" sm="6" md="4">
-                    <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                  </v-col> -->
+                <v-col cols="12" sm="12">
+                 
+                </v-col>
                 </v-row>
+
               </v-container>
             </v-card-text>
 
@@ -63,14 +64,19 @@ loading-text="Loading... Please wait"
           </v-card>
         </v-dialog>
       </v-toolbar>
+      <v-row>
+        <v-col cols="12">
+          <v-text-field @input="searchIt" label="Search..." class="mx-4" ></v-text-field>
+        </v-col>
+      </v-row>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:item.action="{ item }">
       <v-icon
         small
         class="mr-2"
         @click="editItem(item)"
       >
-        mdi-pencil
+        mdi-content-save-edit-outline
       </v-icon>
       <v-icon
         small
@@ -82,65 +88,55 @@ loading-text="Loading... Please wait"
     <template v-slot:no-data>
       <v-btn color="error" @click="initialize">Reset</v-btn>
     </template>
-        <v-snackbar
-      v-model="snackbar"
-    >
-     
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="pink"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          Close
-        </v-btn>
-      </template>
-             </v-snackbar>
-</v-data-table>
-
-
-
-
-
+           
+  </v-data-table>
+    <v-snackbar v-model="snackbar" >
+               {{text}}
+                <v-btn
+                  color="error"
+                  text
+                  @click="snackbar = false"
+                >
+                  Close
+                </v-btn>
+              </v-snackbar>    
+</v-app>
 </template>
-
 <script>
   export default {
+    
     data: () => ({
       dialog: false,
-      loading:false,
-      snackbar:false,
-      test:'',
+      loading: false,
+      snackbar: false,
+      selected: [],
+      text: '',
+      options:{
+        itemsPerPage: 5,
+        sortBy:['id'],
+        sortDesc: [false]
+      },
       headers: [
-        {
-          text: '#',
-          align: 'left',
-          sortable: false,
-          value: 'id',
-        },
+        {text: '#',align: 'left', sortable: false,value: 'id'},
         { text: 'Name', value: 'name' },
         { text: 'Created At', value: 'created_at' },
-        { text: 'Updated At', value: 'updated_at' },
-        { text: 'Actions', value: 'actions', sortable: false },
+        { text: 'Updated At', value: 'updated_at' },   
+        { text: 'Actions', value: 'action'},
       ],
-      user_roles: [],
+      roles: [],
+      path:'/digitizingplace/public/api/',
       editedIndex: -1,
-      
       editedItem: {
-          id:'',
+        id: '',
         name: '',
-        created_at:'',
-        updated_at:'',
-        
+        created_at: '',
+        updated_at: '',
       },
       defaultItem: {
-            id:'',
+        id: '',
         name: '',
-        created_at:'',
-        updated_at:'',
-        
+        created_at: '',
+        updated_at: '',
       },
     }),
 
@@ -154,6 +150,24 @@ loading-text="Loading... Please wait"
       dialog (val) {
         val || this.close()
       },
+      options:{
+        handler(e){
+        console.dir(e);
+        const sortBy = e.sortBy.length>0 ? e.sortBy[0].trim() : 'id';
+        const orderBy = e.sortDesc[0] ? 'desc' : 'asc';
+
+        axios.get(`${this.path}roles`,{params:{'page':e.page, 'per_page':e.itemsPerPage, 'sort_by': sortBy, 'order_by': orderBy}})
+          .then(res => {
+            this.roles = res.data.roles
+          })
+          .catch(err => {
+            if(err.response.status == 401)
+              localStorage.removeItem('token');
+              this.$router.push('/login');
+          } )
+        },
+        deep: true
+      }
     },
 
     created () {
@@ -161,120 +175,138 @@ loading-text="Loading... Please wait"
     },
 
     methods: {
-      initialize () {
-      
-
-    // Add a request interceptor
-axios.interceptors.request.use((config)=> {
-    this.loading=true;
-    return config;
-  },  (error) =>{
-   this.loading=false;
-    return Promise.reject(error);
-  });
-
-// Add a response interceptor
-axios.interceptors.response.use( (response) =>{
-    this.loading=false;
-    return response;
-  },  (error) =>{
-    this.loading=false;
-    return Promise.reject(error);
-  });
-
-      axios.get(this.$apipath+'roles',{})
-        .then(res=>this.user_roles=res.data.roles)
-        .catch(err=>{
-            if(err.response.status==401)
-            localStorage.removeItem('token');
-            this.$router.push('/login');
-            
+      selectAll(e){
+        this.selected = [];
+        if(e.length > 0){
+          this.selected = e.map(val => val.id)
+        }
+      },
+      deleteAll(){
+        let decide = confirm('Are you sure you want to delete these items?')
+        if(decide){
+             axios.post(this.path+'roles/delete', {'roles': this.selected})
+            .then(res => {
+                this.text = "Records Deleted Successfully!";
+                this.selected.map(val => {
+                   const index = this.roles.data.indexOf(val)
+                   this.roles.data.splice(index, 1)
+                })
+               this.snackbar = true
+            }).catch(err => {
+              console.log(err.response)
+              this.text = "Error Deleting Record"
+              this.snackbar=true
             })
-      }
-,
+        }        
+      },
+      searchIt(e){
+        if(e.length > 3){
+          axios.get(`${path}roles/${e}`)
+              .then(res => this.roles = res.data.roles)
+              .catch(err => console.dir(err.response))
+        }
+        if(e.length<=0){
+          axios.get(`${path}roles`)
+              .then(res => this.roles = res.data.roles)
+              .catch(err => console.dir(err.response))
+        }
+      },
+      paginate(e){
+        const sortBy = e.sortBy.length>0 ? e.sortBy[0].trim() : 'name';
+        const orderBy = e.sortDesc[0] ? 'desc' : 'asc';
+        axios.get(`${this.path}roles`,{params:{'page':e.page, 'per_page':e.itemsPerPage, 'sort_by': sortBy, 'order_by': orderBy}})
+          .then(res => {
+            this.roles = res.data.roles
+          })
+          .catch(err => {
+            if(err.response.status == 401)
+              localStorage.removeItem('token');
+              this.$router.push('/login');
+          } )
+      },
+      initialize () {
+        // Add a request interceptor
+
+       
+        axios.interceptors.request.use((config) => {
+            this.loading = true;
+            return config;
+          },  (error) => {
+            this.loading = false;
+            return Promise.reject(error);
+          });
+        // Add a response interceptor
+        axios.interceptors.response.use( (response) => {
+           this.loading = false;
+            return response;
+          },  (error) => {
+           this.loading = false
+            return Promise.reject(error);
+          });
+
+      },
+      
       editItem (item) {
-          //console.log(item);
-        this.editedIndex = this.user_roles.indexOf(item)
-        //  console.log(this.editedIndex);
+        this.editedIndex = this.roles.data.indexOf(item)
         this.editedItem = Object.assign({}, item)
-       //  console.log(this.editedItem);
         this.dialog = true
       },
-
       deleteItem (item) {
-          const index = this.user_roles.indexOf(item)
-
-          let isdeleted=confirm('Are you sure you want to delete this item?'+index)
-          if(isdeleted){
-               
-            axios.delete(this.$apipath+'roles/'+item.id,item.id)
-            .then(res=>{
-              this.text="Record Deleted Successfully!";
+        const index = this.roles.data.indexOf(item)
+        let decide = confirm('Are you sure you want to delete this item?')
+        if(decide){
+             axios.delete(this.path+'roles/'+item.id)
+            .then(res => {
+                this.text = "Record Deleted Successfully!";
+                this.snackbar = true
+                this.roles.data.splice(index, 1)
+            }).catch(err => {
+              console.log(err.response)
+              this.text = "Error Deleting Record"
               this.snackbar=true
-              this.user_roles.splice(index, 1)
-              
-              })
-          .catch(err=>{
-            this.text="Error Deleting Record!";
-              this.snackbar=true
-            console.log(err.response)
             })
-          }
-          
-        
-    
+        }
+
+       
       },
 
       close () {
         this.dialog = false
-        this.$nextTick(() => {
+        setTimeout(() => {
           this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
-        })
+        }, 300)
       },
 
       save () {
-      
+       
         if (this.editedIndex > -1) {
-               // console.log(this.editedIndex)
-               // console.log(this.editedItem.id)
-               const ei=this.editedIndex
-        
-            axios.put(this.$apipath+'roles/'+this.editedItem.id,{'name':this.editedItem.name})
-            .then(res=> {
-                // console.log(this.ei)
-             this.text="Record Updated Successfully!";
-             this.snackbar=true;
-                // console.log(res.data.role)
-                // console.log(res.data.role.id)
-                // console.log(this.user_roles[res.data.role.id-1])
- 
-                // console.log(this.user_roles[this.editedIndex])
-                //   console.log(this.user_roles[this.editedItem.id])
-                 Object.assign(this.user_roles[ei], res.data.role)
-            })
-            .catch(err=>{
-              
-                this.text="Error Updating Roles!";
-             this.snackbar=true;
-              console.log(err)})
-        //  Object.assign(this.user_roles[this.editedIndex], this.editedItem)
-
+          const index = this.editedIndex
+          axios.put(this.path+'roles/'+this.editedItem.id, {'name': this.editedItem.name})
+          .then(res => {
+            this.text = "Record Updated Successfully!";
+            this.snackbar = true;
+            Object.assign(this.roles.data[index], res.data.role)
+            
+          })
+          .catch(err => {
+            console.log(err.response)
+             this.text = "Error Updating Record"
+              this.snackbar=true
+          })
+          // Object.assign(this.roles[this.editedIndex], this.editedItem)
         } else {
-                axios.post(this.$apipath+'roles',{'name':this.editedItem.name})
-          .then(res=> {
-             this.text="Record Added Successfully!";
-             this.snackbar=true;
-            this.user_roles.push(res.data.role)
-            
-            
-            
-            })
-          .catch(err=>{
-              
-                this.text="Error Adding Roles!";
-             this.snackbar=true;
-              console.log(err)})
+           axios.post(this.path+'roles',{'name': this.editedItem.name})
+          .then(res =>  {
+            this.text = "Record Added Successfully!";
+            this.snackbar=true;
+            this.roles.data.push(res.data.role)
+          })
+          .catch(err => {
+            console.dir(err.response)
+             this.text = "Error Inserting Record"
+              this.snackbar=true
+          })
          
         }
         this.close()
@@ -282,6 +314,4 @@ axios.interceptors.response.use( (response) =>{
     },
   }
 </script>
-<style scoped>
-
-</style>
+<style scoped></style>

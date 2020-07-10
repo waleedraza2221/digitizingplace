@@ -38,10 +38,23 @@
                 </v-tooltip>
               </v-toolbar>
               <v-card-text>
+
+                  <v-progress-linear
+                    :active="loading"
+                    :indeterminate="loading"
+                     absolute
+                      top
+                      color="deep-purple accent-4"
+                  ></v-progress-linear>
                 <v-form>
+
+
+
                   <v-text-field
                     label="Login Email"
                     name="login"
+                     v-model="email"
+                    :rules="emailRules"
                     prepend-icon="mdi-account"
                     type="text"
                   ></v-text-field>
@@ -50,6 +63,8 @@
                     id="password"
                     label="Password"
                     name="password"
+                     v-model="password"
+                     :rules="passwordRules"
                     prepend-icon="mdi-lock"
                     type="password"
                   ></v-text-field>
@@ -58,9 +73,27 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                  <v-btn color="amber" @click="register">Register</v-btn>
-                <v-btn color="amber">Login</v-btn>
+                <v-btn color="amber" @click="login">Login</v-btn>
               </v-card-actions>
             </v-card>
+                     <v-snackbar
+      v-model="snackbar"
+      color="amber"
+    >
+      {{ txt }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="primary"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+             </v-snackbar>
+
           </v-col>
         </v-row>
       </v-container>
@@ -70,6 +103,25 @@
 </template>
 <script>
 export default {
+  
+  data(){
+
+  return {
+    email:'',
+    password:'',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+      ],
+      passwordRules:[
+        v => !!v || 'Password is required',
+      ],
+    loading:false,
+    snackbar:false,
+    txt:"",
+      valid: true,
+  }
+},
     mounted() {
             console.log('Login Home Component mounted.')
         },
@@ -77,7 +129,51 @@ export default {
         methods: {
             register:function(){
                  this.$router.push('/client/register')
-            }
+            },
+
+ 
+  login: function(){
+      // Add a request interceptor
+axios.interceptors.request.use((config)=> {
+    this.loading=true;
+    return config;
+  },  (error) =>{
+   this.loading=false;
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use( (response) =>{
+    this.loading=false;
+    return response;
+  },  (error) =>{
+    this.loading=false;
+    return Promise.reject(error);
+  });
+    axios.post(this.$apipath+'clientlogin',{'email':this.email,'password':this.password}).then(res=>{
+   localStorage.setItem('token',res.data.token)
+   localStorage.setItem('loggedin',true)
+
+   if(res.data.isClient)
+   {
+      console.log('Logged IN Successfully')
+       this.$router.push('/client').then(res=>console.log('Logged IN Successfully')).catch(err=>res=>console.log(err))
+    }else{
+      this.txt="You are not Authorize to Login Here"
+      this.snackbar=true
+    }
+
+  })
+  .catch(err=>{
+   // console.log(err)
+   this.txt=err.response.data.status
+   this.snackbar=true;
+    })
+ 
+  }
+
+
+
         }
 }
 </script>

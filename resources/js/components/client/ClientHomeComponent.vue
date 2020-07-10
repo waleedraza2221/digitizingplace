@@ -16,7 +16,7 @@
       <v-list-item-content>
         <div class="overline mb-2">DP Balance</div>
         <v-list-item-title class="headline mb-1">{{amount}} $</v-list-item-title>
-        <v-list-item-subtitle>Is Your Remaining Balance</v-list-item-subtitle>
+        <v-list-item-subtitle>This is Your DP balance You can load anytime</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
@@ -45,9 +45,9 @@
   >
     <v-list-item three-line>
       <v-list-item-content>
-        <div class="overline mb-2">Add Designs</div>
+        <div class="overline mb-2">Send Designs</div>
         <v-list-item-title class="headline mb-1">  <v-icon>mdi-file-upload</v-icon></v-list-item-title>
-        <v-list-item-subtitle>Add Yours Designs</v-list-item-subtitle>
+        <v-list-item-subtitle>Your Order will be auto created Price will be based on desing complexity</v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar
@@ -60,7 +60,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text shaped outlined color="error" block  dressed   @click="designadd = true" >Add Designs</v-btn>
+      <v-btn text shaped outlined color="error" block  dressed   @click="designadd = true" >Upload Designs</v-btn>
       
     </v-card-actions>
   </v-card>
@@ -79,7 +79,7 @@
       <v-list-item-content>
         <div class="overline mb-2">See All Invoices</div>
         <v-list-item-title class="headline mb-1"><v-icon>mdi-text-box</v-icon></v-list-item-title>
-        <v-list-item-subtitle>See All Invoices</v-list-item-subtitle>
+        <v-list-item-subtitle>See All Invoices Paid or Unpaid for New invoice Visit Payment Section </v-list-item-subtitle>
       </v-list-item-content>
 
       <v-list-item-avatar

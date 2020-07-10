@@ -24,8 +24,13 @@ route::group(['middleware'=>['auth:api'],'namespace'=>'Api'],function(){
     Route::post('users/delete','UserController@deleteAll');
     Route::get('/verify', 'UserController@verify');
     Route::resource('design','DesignController');
+    Route::post('email/verify', 'UserController@verifyEmail');
+    Route::post('roles/delete', 'RoleController@deleteAll');
+    Route::post('user/role', 'UserController@changeRole');
+    Route::post('user/photo', 'UserController@changePhoto');
 
 });
 Route::post('login','Api\UserController@login')->name('login');
+Route::post('clientlogin','Api\UserController@clientlogin')->name('clientlogin');
 Route::post('registerclient','Api\UserController@registerclient')->name('registerclient');
 

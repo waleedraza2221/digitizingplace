@@ -105,8 +105,21 @@
 
           
 
+          
+
         </template>
+
+
+          <v-list-item link @click='logout'>
+          <v-list-item-action>
+            <v-icon color="grey darken-1">mdi-cog</v-icon>
+          </v-list-item-action>
+          <v-list-item-title class="grey--text text--darken-1">Logout</v-list-item-title>
+        </v-list-item>
       </v-list>
+
+
+
     </v-navigation-drawer>
 
     <v-main>
@@ -182,8 +195,18 @@
         { icon: 'cog', text: 'Settings' },
        
         { icon: 'help', text: 'Contact Us' , action:'/client/contactus' },
+
       ],
     }),
+
+
+     methods:{
+      logout:function(){
+localStorage.removeItem('token');
+localStorage.removeItem('loggedin');
+ this.$router.push('/client/login').then(res=>console.log('LoggedOut Successfully')).catch(err=>res=>console.log(err))
+      }
+    }
   }
 </script>
 
