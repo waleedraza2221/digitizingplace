@@ -80,7 +80,7 @@
         class="mx-auto"
         max-width="344"
       >
-        <v-img src="https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"></v-img>
+        <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" height="250"></v-parallax></v-parallax>
 
         <v-card-text>
           <h2 class="title primary--text">{{item.name}}</h2>
@@ -215,6 +215,111 @@
             image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
             id:2
           },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          },
+           {
+            name: 'KitKat',
+            image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+            id:2
+          }
         ],
       }
     },

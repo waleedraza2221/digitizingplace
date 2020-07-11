@@ -3382,6 +3382,90 @@ __webpack_require__.r(__webpack_exports__);
         name: 'KitKat',
         image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
         id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
+      }, {
+        name: 'KitKat',
+        image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
+        id: 2
       }]
     };
   },
@@ -3419,6 +3503,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
 //
 //
 //
@@ -4320,9 +4406,164 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Admin Home Component mounted.');
+    console.log('Show Design Component mounted.');
+  },
+  data: function data() {
+    return {
+      tab: null,
+      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+      icons: false,
+      centered: false,
+      grow: false,
+      vertical: false,
+      prevIcon: false,
+      nextIcon: false,
+      right: false,
+      tabs: 3,
+      items: [{
+        color: '#1F7087',
+        src: 'https://cdn.vuetifyjs.com/images/cards/foster.jpg',
+        title: 'Supermodel',
+        artist: 'Foster the People'
+      }, {
+        color: '#952175',
+        src: 'https://cdn.vuetifyjs.com/images/cards/halcyon.png',
+        title: 'Halcyon Days',
+        artist: 'Ellie Goulding'
+      }]
+    };
   }
 });
 
@@ -24234,10 +24475,11 @@ var render = function() {
                                         attrs: { "max-width": "344" }
                                       },
                                       [
-                                        _c("v-img", {
+                                        _c("v-parallax", {
                                           attrs: {
                                             src:
-                                              "https://cdn.vuetifyjs.com/images/cards/forest-art.jpg"
+                                              "https://cdn.vuetifyjs.com/images/parallax/material.jpg",
+                                            height: "250"
                                           }
                                         }),
                                         _vm._v(" "),
@@ -25802,7 +26044,229 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    [
+      _c(
+        "v-tabs",
+        {
+          staticClass: "elevation-2",
+          attrs: {
+            "background-color": "amber accent-4",
+            dark: "",
+            centered: "",
+            grow: "",
+            color: "dark",
+            "prev-icon": _vm.prevIcon
+              ? "mdi-arrow-left-bold-box-outline"
+              : undefined,
+            "next-icon": _vm.nextIcon
+              ? "mdi-arrow-right-bold-box-outline"
+              : undefined,
+            "icons-and-text": _vm.icons
+          },
+          model: {
+            value: _vm.tab,
+            callback: function($$v) {
+              _vm.tab = $$v
+            },
+            expression: "tab"
+          }
+        },
+        [
+          _c("v-tabs-slider"),
+          _vm._v(" "),
+          _c(
+            "v-tab",
+            { attrs: { href: _vm.deliveryfiles } },
+            [
+              _vm._v("\n       Delivery Files\n       "),
+              _vm.icons ? _c("v-icon", [_vm._v("mdi-phone")]) : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab-item",
+            { attrs: { value: _vm.deliveryfiles } },
+            [
+              _c(
+                "v-row",
+                [
+                  _vm._l(_vm.items, function(item, i) {
+                    return _c(
+                      "v-col",
+                      { key: i, attrs: { cols: "12" } },
+                      [
+                        _c(
+                          "v-card",
+                          { attrs: { color: item.color, dark: "" } },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "d-flex flex-no-wrap justify-space-between"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  [
+                                    _c("v-card-title", {
+                                      staticClass: "headline",
+                                      domProps: {
+                                        textContent: _vm._s(item.title)
+                                      }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("v-card-subtitle", {
+                                      domProps: {
+                                        textContent: _vm._s(item.artist)
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-avatar",
+                                  {
+                                    staticClass: "ma-3",
+                                    attrs: { size: "125", tile: "" }
+                                  },
+                                  [_c("v-img", { attrs: { src: item.src } })],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-col",
+                    { attrs: { cols: "12" } },
+                    [
+                      _c("v-textarea", {
+                        attrs: {
+                          outlined: "",
+                          name: "input-7-4",
+                          label:
+                            "Please Enter Message If Needs to Done Anything on this design",
+                          value:
+                            "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "11" } },
+                            [
+                              _c("v-file-input", {
+                                attrs: {
+                                  "small-chips": "",
+                                  multiple: "",
+                                  label: "File input w/ small chips"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "1" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticClass: "ma-2",
+                                  attrs: {
+                                    outlined: "",
+                                    large: "",
+                                    fab: "",
+                                    color: "indigo"
+                                  }
+                                },
+                                [_c("v-icon", [_vm._v("mdi-send")])],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab",
+            { attrs: { href: _vm.invoice } },
+            [
+              _vm._v("\n       Invoice\n       "),
+              _vm.icons ? _c("v-icon", [_vm._v("mdi-text-box")]) : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab-item",
+            { attrs: { value: _vm.invoice } },
+            [
+              _c(
+                "v-card",
+                { attrs: { flat: "", tile: "" } },
+                [_c("v-card-text", [_vm._v("Invoice Here")])],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab",
+            { attrs: { href: _vm.sourcefiles } },
+            [
+              _vm._v("\n       Source Files\n       "),
+              _vm.icons ? _c("v-icon", [_vm._v("mdi-phone")]) : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tab-item",
+            { attrs: { value: _vm.sourcefiles } },
+            [
+              _c(
+                "v-card",
+                { attrs: { flat: "", tile: "" } },
+                [_c("v-card-text", [_vm._v("Source FIles")])],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
