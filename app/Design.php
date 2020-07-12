@@ -8,7 +8,9 @@ class Design extends Model
 {
     //
 
-
+    protected $fillable = [
+        'description', 'isvector', 'user_id', 'status','budget'
+    ];
     public function User()
     {
         return $this->belongsTo('App\User');

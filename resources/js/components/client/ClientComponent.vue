@@ -112,7 +112,7 @@
 
           <v-list-item link @click='logout'>
           <v-list-item-action>
-            <v-icon color="grey darken-1">mdi-cog</v-icon>
+            <v-icon color="grey darken-1">mdi-logout</v-icon>
           </v-list-item-action>
           <v-list-item-title class="grey--text text--darken-1">Logout</v-list-item-title>
         </v-list-item>
@@ -172,11 +172,16 @@
      
       items: [
         { icon: 'monitor', text: 'Dashboard', action:'/client/home' },
+          { icon: 'upload', text: 'Direct Order'},
+           { icon: 'currency-usd-circle', text: 'Get Quote' ,action:'/client/getquote'},
         { divider: true },
       
 
-        { icon: 'file-document', text: 'My Designs' , action:'/client/alldesigns' },
-        { icon: 'upload', text: 'Send Designs'},
+        { icon: 'image-multiple', text: 'My Designs' , action:'/client/alldesigns' },
+        { icon: 'progress-clock', text: 'Working On' , action:'/client/alldesigns' },
+         { icon: 'clock-time-five', text: 'Awaiting Payment' , action:'/client/alldesigns' },
+      
+
         { divider: true },
 
           {
@@ -185,8 +190,8 @@
           text: 'Payments',
           model: false,
           children: [
-            { text: 'All Invoices' ,icon: 'text-box' },
-            { text: 'Get Estimates',icon: 'beaker-question' },
+            { text: 'Transactions History' ,icon: 'text-box' },
+           
           
           ],
         },

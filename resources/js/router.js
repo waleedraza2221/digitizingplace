@@ -14,6 +14,7 @@ import UserComponent from './components/UserComponent';
 import ClientLoginComponent from './components/client/ClientLoginComponent';
 import ClientRegisterComponent from './components/client/ClientRegisterComponent';
 import ShowDesignComponent from './components/client/ShowDesignComponent'
+import GetQuoteComponent from './components/client/GetQuoteComponent'
 
 Vue.use(VueRouter)
 
@@ -56,6 +57,16 @@ const routes=[
             component:ShowDesignComponent,
             props: true,
             name:'show'
+
+        },
+
+        {
+            
+
+
+            path:'getquote',
+            component:GetQuoteComponent,
+            name:'getquote'
 
         },
 

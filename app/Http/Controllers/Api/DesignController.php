@@ -36,14 +36,10 @@ class DesignController extends Controller
     public function store(Request $request)
     {
         //
-
-            echo $request;
-            $path = $request->file('avatar')->storeAs(
-                'avatars',
-                $request->user()->id,
-                's3'
-            );
-            return response()->json(['data'=>$path],200);
+        echo $request;
+        $description = $request->description;
+    
+            return response()->json(['description'=>$description],200);
 
     }
 

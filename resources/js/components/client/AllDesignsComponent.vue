@@ -80,7 +80,7 @@
         class="mx-auto"
         max-width="344"
       >
-        <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" height="250"></v-parallax></v-parallax>
+        <v-parallax src="https://cdn.vuetifyjs.com/images/parallax/material.jpg" height="250"></v-parallax>
 
         <v-card-text>
           <h2 class="title primary--text">{{item.name}}</h2>
