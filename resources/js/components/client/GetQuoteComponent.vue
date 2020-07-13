@@ -37,8 +37,9 @@
                 v-model="valid">
                  <v-col cols="12"  >
                <v-file-input
+                 @change="changefile"
                 :rules="filesRules"
-                 v-model="files"
+                 
                 small-chips multiple label="Upload your Designs" ></v-file-input>
               </v-col>
               <v-row justify="space-around">
@@ -108,6 +109,7 @@ export default {
          digitizing:true,
          vector:false,
          files:[],
+        
         descriptionRules: [
         v => !!v || 'Description is required',
         v => (v && v.length >= 5) || 'Description must be greater than 5 characters',
@@ -122,6 +124,17 @@ export default {
 
     }),
     methods:{
+          changefile:function(e){
+        //  console.log(e)
+       let selectedFiles=e;
+                if(!e.length){
+                    return false;
+                }
+                for(let i=0;i<e.length;i++){
+                    this.files.push(e[i]);
+                }
+                console.log(this.files);
+  },
         	upload: function(){
         
         // Add a request interceptor
@@ -143,17 +156,24 @@ export default {
           });
 
  if( this.$refs.form.validate()){
-         let formData = new FormData();
+        
 
-        formData.append("sourcefiles", this.files)
-        formData.append("description",this.description)
-         formData.append("isvector",this.vector)
-         formData.append("budget",this.budget)
-         // console.log(formData)
+       let formData = new FormData();
+         for(let i=0; i<this.files.length;i++){
+                  formData.append('sourcefiles[]',this.files[i]);
+                }
+
+     // formData.append("sourcefiles", this.files)
+       formData.append("description",this.description)
+      //    formData.append("isvector",this.vector)
+      //    formData.append("budget",this.budget)
+       // console.log(formData)
+
+
           axios.post(this.$apipath+'design', formData)
           .then(res =>  {
-            console.log(res.description)
-            this.text = "Record Added Successfully!";
+          console.log(res.message);
+            this.text =res.message;
             this.snackbar=true;
                     
           })

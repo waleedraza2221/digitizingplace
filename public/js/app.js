@@ -4506,6 +4506,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Get Quote Component mounted.');
@@ -4532,6 +4533,20 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    changefile: function changefile(e) {
+      //  console.log(e)
+      var selectedFiles = e;
+
+      if (!e.length) {
+        return false;
+      }
+
+      for (var i = 0; i < e.length; i++) {
+        this.files.push(e[i]);
+      }
+
+      console.log(this.files);
+    },
     upload: function upload() {
       var _this = this;
 
@@ -4554,14 +4569,19 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$refs.form.validate()) {
         var formData = new FormData();
-        formData.append("sourcefiles", this.files);
-        formData.append("description", this.description);
-        formData.append("isvector", this.vector);
-        formData.append("budget", this.budget); // console.log(formData)
+
+        for (var i = 0; i < this.files.length; i++) {
+          formData.append('sourcefiles[]', this.files[i]);
+        } // formData.append("sourcefiles", this.files)
+
+
+        formData.append("description", this.description); //    formData.append("isvector",this.vector)
+        //    formData.append("budget",this.budget)
+        // console.log(formData)
 
         axios.post(this.$apipath + 'design', formData).then(function (res) {
-          console.log(res.description);
-          _this.text = "Record Added Successfully!";
+          console.log(res.message);
+          _this.text = res.message;
           _this.snackbar = true;
         })["catch"](function (err) {
           console.dir(err);
@@ -23770,7 +23790,11 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n        mdi-content-save-edit-outline\n      ")]
+                  [
+                    _vm._v(
+                      "\r\n        mdi-content-save-edit-outline\r\n      "
+                    )
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
@@ -23783,7 +23807,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\n        mdi-delete\n      ")]
+                  [_vm._v("\r\n        mdi-delete\r\n      ")]
                 )
               ]
             }
@@ -23816,7 +23840,9 @@ var render = function() {
           }
         },
         [
-          _vm._v("\n               " + _vm._s(_vm.text) + "\n                "),
+          _vm._v(
+            "\r\n               " + _vm._s(_vm.text) + "\r\n                "
+          ),
           _c(
             "v-btn",
             {
@@ -23827,7 +23853,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n                  Close\n                ")]
+            [_vm._v("\r\n                  Close\r\n                ")]
           )
         ],
         1
@@ -26289,13 +26315,7 @@ var render = function() {
                                   multiple: "",
                                   label: "Upload your Designs"
                                 },
-                                model: {
-                                  value: _vm.files,
-                                  callback: function($$v) {
-                                    _vm.files = $$v
-                                  },
-                                  expression: "files"
-                                }
+                                on: { change: _vm.changefile }
                               })
                             ],
                             1
@@ -85612,7 +85632,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 
-Vue.prototype.$apipath = "/digitizingplace/public/api/";
+Vue.prototype.$apipath = "/api/";
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DesignController extends Controller
 {
@@ -35,11 +36,25 @@ class DesignController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        echo $request;
-        $description = $request->description;
+          //  dd($request->all());
+        $ext = $request->description;
+    $hasfiles = request()->hasFile('sourcefiles');
+
+          if ($hasfiles) {
+
+               $files = request()->file('sourcefiles');
+         
+           foreach ($files as $file)
+             {
+                $path = Storage::disk('s3')->put('sourcefiles', $file);
+                
+       }
+
+    }
+            
+        
     
-            return response()->json(['description'=>$description],200);
+        return response()->json(['message', 'Records Deleted Successfully'], 200);
 
     }
 
