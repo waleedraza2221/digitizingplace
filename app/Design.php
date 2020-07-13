@@ -9,7 +9,7 @@ class Design extends Model
     //
 
     protected $fillable = [
-        'description', 'isvector', 'user_id', 'status','budget'
+        'description', 'isvector', 'user_id', 'status','budget','isdigitizing'
     ];
     public function User()
     {
@@ -19,5 +19,5 @@ class Design extends Model
 
         return $this->hasMany('App\SourceFiles');
     }
-    protected $dateFormat = 'm.d.Y';
+  
 }

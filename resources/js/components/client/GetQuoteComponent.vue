@@ -39,12 +39,13 @@
                <v-file-input
                  @change="changefile"
                 :rules="filesRules"
+               
                  
                 small-chips multiple label="Upload your Designs" ></v-file-input>
               </v-col>
               <v-row justify="space-around">
                 
-                   <v-checkbox readonly="" class="ma-4" v-model="digitizing" label="Digitizing"></v-checkbox>
+                   <v-checkbox class="ma-4" v-model="digitizing" label="Digitizing"></v-checkbox>
                     <v-checkbox   class="ma-4" v-model="vector" label="Vector"></v-checkbox>
                 
                </v-row>
@@ -126,6 +127,7 @@ export default {
     methods:{
           changefile:function(e){
         //  console.log(e)
+        this.files=[]
        let selectedFiles=e;
                 if(!e.length){
                     return false;
@@ -133,7 +135,7 @@ export default {
                 for(let i=0;i<e.length;i++){
                     this.files.push(e[i]);
                 }
-                console.log(this.files);
+               
   },
         	upload: function(){
         
@@ -165,16 +167,20 @@ export default {
 
      // formData.append("sourcefiles", this.files)
        formData.append("description",this.description)
-      //    formData.append("isvector",this.vector)
-      //    formData.append("budget",this.budget)
+       formData.append("isvector",this.vector)
+       formData.append("budget",this.budget)
+        formData.append("budget",this.budget)
+        formData.append("isdigitizing",this.digitizing)
        // console.log(formData)
 
 
           axios.post(this.$apipath+'design', formData)
           .then(res =>  {
           console.log(res.message);
-            this.text =res.message;
+            this.text ='Thanks for your query you will shortly get email for this';
             this.snackbar=true;
+             this.$refs.form.reset()
+         
                     
           })
           .catch(err => {

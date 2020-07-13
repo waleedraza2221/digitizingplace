@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Auth;
+use App\Design;
+use App\SourceFiles;
 class DesignController extends Controller
 {
     /**
@@ -36,25 +38,47 @@ class DesignController extends Controller
      */
     public function store(Request $request)
     {
-          //  dd($request->all());
-        $ext = $request->description;
+        $id = Auth::user()->id;
+        // dd($request->all());
+        //  dd($id);
+        //'name' =>$request->name,
+          
+
+        $design = Design::create([
+            'description'=>$request->description,
+            'isdigitizing'=>($request->isdigitizing=='true')? 1:0,
+            'isvector'=>($request->isvector=='true')? 1:0,
+            'user_id'=>$id,
+             'status'=>'New',
+             'budget'=>$request->budget
+        ]);
+
     $hasfiles = request()->hasFile('sourcefiles');
-
           if ($hasfiles) {
-
                $files = request()->file('sourcefiles');
-         
            foreach ($files as $file)
              {
-                $path = Storage::disk('s3')->put('sourcefiles', $file);
-                
-       }
 
+                $fileName = $file->getClientOriginalName();
+                $filePath = "/sourcefiles/" . date("YMD") . "/" . rand(10,100000);
+                //dd($filePath);
+                $path = $file->storeAs($filePath,$fileName, 's3');
+               // $path = Storage::disk('s3')->put('uploads/'. date("Y") . '/' . date("m") . '/',  $fileName);
+              //  dd($path);
+             // 'filename', 'design_id','filepath'
+              $sourcefile= SourceFiles::create([
+                'filename'=>$fileName,
+                'filepath'=>$path,
+                'design_id'=>$design->id
+
+              ]);
+       }
+       return response()->json(['message', 'Records Added Successfully'], 200);
     }
             
         
     
-        return response()->json(['message', 'Records Deleted Successfully'], 200);
+    return response()->json(['Error', 'Records Adding Erro'], 403);
 
     }
 

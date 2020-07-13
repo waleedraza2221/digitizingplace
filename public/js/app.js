@@ -4507,6 +4507,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Get Quote Component mounted.');
@@ -4535,6 +4536,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     changefile: function changefile(e) {
       //  console.log(e)
+      this.files = [];
       var selectedFiles = e;
 
       if (!e.length) {
@@ -4544,8 +4546,6 @@ __webpack_require__.r(__webpack_exports__);
       for (var i = 0; i < e.length; i++) {
         this.files.push(e[i]);
       }
-
-      console.log(this.files);
     },
     upload: function upload() {
       var _this = this;
@@ -4575,14 +4575,18 @@ __webpack_require__.r(__webpack_exports__);
         } // formData.append("sourcefiles", this.files)
 
 
-        formData.append("description", this.description); //    formData.append("isvector",this.vector)
-        //    formData.append("budget",this.budget)
-        // console.log(formData)
+        formData.append("description", this.description);
+        formData.append("isvector", this.vector);
+        formData.append("budget", this.budget);
+        formData.append("budget", this.budget);
+        formData.append("isdigitizing", this.digitizing); // console.log(formData)
 
         axios.post(this.$apipath + 'design', formData).then(function (res) {
           console.log(res.message);
-          _this.text = res.message;
+          _this.text = 'Thanks for your query you will shortly get email for this';
           _this.snackbar = true;
+
+          _this.$refs.form.reset();
         })["catch"](function (err) {
           console.dir(err);
           _this.text = "Error Inserting Record";
@@ -23790,11 +23794,7 @@ var render = function() {
                       }
                     }
                   },
-                  [
-                    _vm._v(
-                      "\r\n        mdi-content-save-edit-outline\r\n      "
-                    )
-                  ]
+                  [_vm._v("\n        mdi-content-save-edit-outline\n      ")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -23807,7 +23807,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("\r\n        mdi-delete\r\n      ")]
+                  [_vm._v("\n        mdi-delete\n      ")]
                 )
               ]
             }
@@ -23840,9 +23840,7 @@ var render = function() {
           }
         },
         [
-          _vm._v(
-            "\r\n               " + _vm._s(_vm.text) + "\r\n                "
-          ),
+          _vm._v("\n               " + _vm._s(_vm.text) + "\n                "),
           _c(
             "v-btn",
             {
@@ -23853,7 +23851,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\r\n                  Close\r\n                ")]
+            [_vm._v("\n                  Close\n                ")]
           )
         ],
         1
@@ -26327,7 +26325,7 @@ var render = function() {
                             [
                               _c("v-checkbox", {
                                 staticClass: "ma-4",
-                                attrs: { readonly: "", label: "Digitizing" },
+                                attrs: { label: "Digitizing" },
                                 model: {
                                   value: _vm.digitizing,
                                   callback: function($$v) {
@@ -85632,7 +85630,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 
-Vue.prototype.$apipath = "/api/";
+Vue.prototype.$apipath = "/digitizingplace/public/api/";
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

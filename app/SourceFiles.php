@@ -8,7 +8,7 @@ class SourceFiles extends Model
 {
     //
     protected $fillable = [
-        'filename', 'design_id'
+        'filename', 'design_id','filepath'
     ];
 
     public function Design()
