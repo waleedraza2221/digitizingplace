@@ -5,7 +5,7 @@
 <script>
 export default {
     mounted() {
-            console.log('Admin Home Component mounted.')
+            console.log('Admin Homcxdse Component mounted.')
         }
 }
 </script>
