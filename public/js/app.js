@@ -2125,7 +2125,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Admin Home Component mounted.');
+    console.log('Admin Homcxdse Component mounted.');
   }
 });
 
@@ -86838,7 +86838,7 @@ var routes = [{
   }
 }, {
   path: '/',
-  redirect: '/login'
+  redirect: '/client/login'
 }, {
   path: '/login',
   component: _components_LoginComponent__WEBPACK_IMPORTED_MODULE_2__["default"],

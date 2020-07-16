@@ -9,7 +9,7 @@
     outlined
     shaped
     raised
-    color="amber lighten-5"
+    
     
   >
     <v-list-item three-line>

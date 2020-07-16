@@ -100,12 +100,12 @@ const routes=[
     {
 
         path:'/',
-        redirect:'/login',
+        redirect:'/client/login',
        
     },
     {
 
-        path:'/login',
+        path:'/admin/login',
         component:LoginComponent,
         name:'Login'
     },
