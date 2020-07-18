@@ -4401,35 +4401,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Contact Us Component mounted.');
@@ -25256,8 +25227,7 @@ var render = function() {
                 "max-width": "344",
                 outlined: "",
                 shaped: "",
-                raised: "",
-                color: "amber lighten-5"
+                raised: ""
               }
             },
             [
@@ -26262,53 +26232,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-container",
-    { attrs: { fluid: "" } },
-    [
-      _c(
-        "v-row",
-        { attrs: { align: "center", justify: "center" } },
-        [
-          _c(
-            "v-col",
-            { attrs: { cols: "12", sm: "8", md: "6" } },
-            [
-              _c(
-                "v-card",
-                [
-                  _c(
-                    "v-toolbar",
-                    { attrs: { flat: "" } },
-                    [
-                      _c("v-toolbar-title", [_vm._v("Quick Chat")]),
-                      _vm._v(" "),
-                      _c("v-spacer")
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("v-card-text", [
-                    _c("iframe", {
-                      staticStyle: { width: "100%", height: "100%" },
-                      attrs: {
-                        src:
-                          "https://tawk.to/chat/5ebb15a28ee2956d73a08954/default"
-                      }
-                    })
-                  ])
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _c("v-container", { attrs: { fluid: "" } }, [
+    _c("iframe", {
+      attrs: { src: "https://tawk.to/chat/5ebb15a28ee2956d73a08954/default" }
+    })
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -86840,7 +86768,7 @@ var routes = [{
   path: '/',
   redirect: '/client/login'
 }, {
-  path: '/login',
+  path: '/admin/login',
   component: _components_LoginComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
   name: 'Login'
 }, {
