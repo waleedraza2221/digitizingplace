@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Auth;
 use App\Design;
 use App\SourceFiles;
-use app\Mail\TestAmazonSes;
+
 class DesignController extends Controller
 {
     /**
@@ -16,11 +16,11 @@ class DesignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
 
+        public function index(Request $request)
+        {  
+        }
+  
     /**
      * Show the form for creating a new resource.
      *
@@ -41,41 +41,41 @@ class DesignController extends Controller
     {
 
 
-        $id = Auth::user()->id;
+    $id = Auth::user()->id;
         // dd($request->all());
         //  dd($id);
         //'name' =>$request->name,
           
       Mail::to('waleedraza221@gmail.com')->send(new TestAmazonSes('It works!'));
-    //     $design = Design::create([
-    //         'description'=>$request->description,
-    //         'isdigitizing'=>($request->isdigitizing=='true')? 1:0,
-    //         'isvector'=>($request->isvector=='true')? 1:0,
-    //         'user_id'=>$id,
-    //          'status'=>'New',
-    //          'budget'=>$request->budget
-    //     ]);
+        $design = Design::create([
+            'description'=>$request->description,
+            'isdigitizing'=>($request->isdigitizing=='true')? 1:0,
+            'isvector'=>($request->isvector=='true')? 1:0,
+            'user_id'=>$id,
+             'status'=>'New',
+             'budget'=>$request->budget
+        ]);
 
-    // $hasfiles = request()->hasFile('sourcefiles');
-    //       if ($hasfiles) {
-    //            $files = request()->file('sourcefiles');
-    //        foreach ($files as $file)
-    //          {
+    $hasfiles = request()->hasFile('sourcefiles');
+          if ($hasfiles) {
+               $files = request()->file('sourcefiles');
+           foreach ($files as $file)
+             {
 
-    //             $fileName = $file->getClientOriginalName();
-    //             $filePath = "/sourcefiles/" . date("YMD") . "/" . rand(10,100000);
-    //             //dd($filePath);
-    //             $path = $file->storeAs($filePath,$fileName, 's3');
-    //            // $path = Storage::disk('s3')->put('uploads/'. date("Y") . '/' . date("m") . '/',  $fileName);
-    //           //  dd($path);
-    //          // 'filename', 'design_id','filepath'
-    //           $sourcefile= SourceFiles::create([
-    //             'filename'=>$fileName,
-    //             'filepath'=>$path,
-    //             'design_id'=>$design->id
+                $fileName = $file->getClientOriginalName();
+                $filePath = "/sourcefiles/" . date("YMD") . "/" . rand(10,100000);
+                //dd($filePath);
+                $path = $file->storeAs($filePath,$fileName, 's3');
+               // $path = Storage::disk('s3')->put('uploads/'. date("Y") . '/' . date("m") . '/',  $fileName);
+              //  dd($path);
+             // 'filename', 'design_id','filepath'
+              $sourcefile= SourceFiles::create([
+                'filename'=>$fileName,
+                'filepath'=>$path,
+                'design_id'=>$design->id
 
-    //           ]);
-    //    }
+              ]);
+       }
        return response()->json(['message', 'Records Added Successfully'], 200);
     }
             

@@ -11,7 +11,9 @@ use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordResetEmail;
+use App\Mail\passwordchanged;
 class UserController extends Controller
 {
     /**
@@ -28,6 +30,76 @@ class UserController extends Controller
             'users' => new UserCollection(User::orderBy($sortBy, $orderBy)->paginate($per_page)),
             'roles' => Role::pluck('name')->all()
         ], 200);
+    }
+
+
+
+
+    public function resetpassword(Request $request)
+    {
+
+        if ($request->ajax()) {
+
+           $user= User::where('email', $request->email)->first();
+      
+           if($user!==null){
+
+                
+           $resettoken= Str::random(80);
+           $emailencryption= bcrypt($request->email);
+           $user->api_token=$resettoken;
+           $user->save();
+            $data = ['message' => 'asse='.$emailencryption.'&assett='.$resettoken];
+
+            Mail::to($request->email)->send(new PasswordResetEmail($data));
+
+            return response()->json(['status'=> 'A Passowrd Reset Link has been sent to your mail Kindly Check your mailbox '], 200);
+
+           }
+       
+
+               
+        
+        }
+
+        return response()->json(['status'=> 'Email does not exist Please enter Correct Email'], 403);
+    
+    }
+
+
+
+    public function resetsetpassword(Request $request)
+    {
+
+        if ($request->ajax()) {
+
+           $user= User::where('api_token', $request->t)->first();
+           
+           if($user!==null){
+
+         
+                    $user->password=bcrypt($request->password);
+                    $user->save();
+
+                    $data = ['message' => 'Password has sucessfully changed'];
+
+                    Mail::to($user->email)->send(new passwordchanged($data));
+        
+                    return response()->json(['status'=> 'Password has been changed kindly Login here'], 200);
+         
+         
+         
+           
+
+           }
+       
+
+               
+        
+        }
+
+        return response()->json(['status'=> 'Error Occur Kindly Contact Admin'], 403);
+    
     }
 
     /**

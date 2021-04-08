@@ -68,6 +68,10 @@
                     prepend-icon="mdi-lock"
                     type="password"
                   ></v-text-field>
+
+                   <v-btn @click="forgotpassword" text>
+      Forgot Password ?
+    </v-btn>
                 </v-form>
               </v-card-text>
               <v-card-actions>
@@ -131,7 +135,11 @@ export default {
                  this.$router.push('/client/register')
             },
 
- 
+ forgotpassword:function(){
+ this.$router.push('/client/forgotpassword')
+
+
+},
   login: function(){
       // Add a request interceptor
 axios.interceptors.request.use((config)=> {

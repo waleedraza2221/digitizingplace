@@ -174,12 +174,13 @@
         { icon: 'monitor', text: 'Dashboard', action:'/client/home' },
           { icon: 'upload', text: 'Direct Order'},
            { icon: 'currency-usd-circle', text: 'Get Quote' ,action:'/client/getquote'},
+            { icon: 'dots-grid', text: 'My Quotes' ,action:'/client/myquotes'},
         { divider: true },
       
 
         { icon: 'image-multiple', text: 'My Designs' , action:'/client/alldesigns' },
-        { icon: 'progress-clock', text: 'Working On' , action:'/client/alldesigns' },
-         { icon: 'clock-time-five', text: 'Awaiting Payment' , action:'/client/alldesigns' },
+        { icon: 'progress-clock', text: 'Working On' , action:'/client/#' },
+         { icon: 'clock-time-five', text: 'Awaiting Payment' , action:'/client/#' },
       
 
         { divider: true },

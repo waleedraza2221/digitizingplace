@@ -13,8 +13,12 @@ import AllDesignsComponent from './components/client/AllDesignsComponent';
 import UserComponent from './components/UserComponent';
 import ClientLoginComponent from './components/client/ClientLoginComponent';
 import ClientRegisterComponent from './components/client/ClientRegisterComponent';
-import ShowDesignComponent from './components/client/ShowDesignComponent'
-import GetQuoteComponent from './components/client/GetQuoteComponent'
+import ShowDesignComponent from './components/client/ShowDesignComponent';
+import GetQuoteComponent from './components/client/GetQuoteComponent';
+import ClientforgotpasswordComponent from './components/client/ClientforgotpasswordComponent';
+import ClientresetpasswordComponent from './components/client/ClientresetpasswordComponent';
+import ClientMyQuotesComponent from './components/client/ClientMyQuotesComponent';
+
 
 Vue.use(VueRouter)
 
@@ -27,6 +31,20 @@ const routes=[
         component:ClientRegisterComponent,
         name:'ClientRegisterLogin'
        
+    },
+    {
+        path:'/client/forgotpassword',
+        component:ClientforgotpasswordComponent,
+        name:'Clientforgotpassword'
+      
+
+    },
+    {
+        path:'/client/resetpassword',
+        component:ClientresetpasswordComponent,
+        name:'Clientresetpassword'
+      
+
     },
     {
 
@@ -59,7 +77,16 @@ const routes=[
             name:'show'
 
         },
+        
+        {
+            
 
+
+            path:'myquotes',
+            component:ClientMyQuotesComponent,
+            name:'myquotes'
+
+        },
         {
             
 

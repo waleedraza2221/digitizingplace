@@ -29,7 +29,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text shaped outlined color="error" block  dressed @click="dialog = true">Top Up</v-btn>
+      <v-btn text shaped outlined color="error" block  dressed @click="ddd">Top Up</v-btn>
       
     </v-card-actions>
   </v-card>
@@ -219,7 +219,17 @@ export default {
     }),
 
      methods: {
-  
+  ddd(){
+TwoCoInlineCart.setup.setMerchant('250278707506');
+ TwoCoInlineCart.products.add({
+    code: "HTCLUYEMTV",
+    quantity: 5
+
+  });
+  //TwoCoInlineCart.cart.setTest(true);
+  TwoCoInlineCart.cart.checkout();
+
+  },
    initialize () {
       
 
