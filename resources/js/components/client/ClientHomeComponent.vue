@@ -1,6 +1,12 @@
 <template>
 
  <v-container fluid>
+
+      <v-progress-linear
+        :active="loading"
+        :indeterminate="loading"
+        color="yellow darken-2"
+      ></v-progress-linear>
       <v-row dense>
        
         <v-card
@@ -12,26 +18,40 @@
     
     
   >
+
+
+<v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+  > 
     <v-list-item three-line>
       <v-list-item-content>
         <div class="overline mb-2">DP Balance</div>
-        <v-list-item-title class="headline mb-1">{{amount}} $</v-list-item-title>
-        <v-list-item-subtitle>This is Your DP balance You can load anytime</v-list-item-subtitle>
+        <v-list-item-title class="headline mb-1">{{balance}} $  <v-text-field
+            v-model="amount"
+            label="Add More Balance"
+            :rules="amountRules"
+          ></v-text-field>      </v-list-item-title>
+       
       </v-list-item-content>
 
       <v-list-item-avatar
     
         size="80"
-        color="blue"
+        color="lime"
       >
         <v-icon dark>mdi-currency-usd</v-icon>
       </v-list-item-avatar>
     </v-list-item>
 
     <v-card-actions>
-      <v-btn text shaped outlined color="error" block  dressed @click="ddd">Top Up</v-btn>
+      <v-btn tile color="lime" block :disabled="!valid"  @click="ddd()">Top Up</v-btn>
       
     </v-card-actions>
+
+</v-form>
+
   </v-card>
 
    <v-card
@@ -98,33 +118,6 @@
   </v-card>
 
 
-   <v-dialog v-model="dialog"  persistent max-width="600px">
-     
-      <v-card>
-        <v-card-title>
-          <span class="headline">Payment</span>
-        </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row>
-   
-           
-            <v-btn block color="light"
-             :href="`https://secure.2checkout.com/checkout/buy?merchant=250278707506&return-url=https%3A%2F%2Fwww.digitizingplace.com%2Fthank-you%2F%3Femail%3DEmail&return-type=redirect&tpl=default&prod=A2845B0F9D&qty=${amount}&signature=f72cf391bc08abcbdb21b71c292637e57978469540213fd7176deec72f546eff`"
-            target="_blank"
-             >Pay Now </v-btn>
-            
-            </v-row>
-          </v-container>
-      
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <!-- <v-btn color="blue darken-1" text @click="dialog = true">Save</v-btn> -->
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
 
 
 
@@ -201,41 +194,78 @@
 export default {
     mounted() {
             console.log('CLient Home Component mounted.')
+
         },
 
     data: () => ({
+      
       dialog: false,
+        balance:0,
         amount:50,
          designadd: false,
          digitizing:true,
          files:[],
+         valid:true,
         currentFile: undefined,
       progress: 0,
+      loading:false,
       message: "",
- 
+         amountRules: [
+        v => !!v || 'Amount is required',
+        v => (v && v >= 20) || 'Amount must be Greater then 20 $',
+      ],
 
       fileInfos: []
 
     }),
 
-     methods: {
-  ddd(){
-TwoCoInlineCart.setup.setMerchant('250278707506');
- TwoCoInlineCart.products.add({
-    code: "HTCLUYEMTV",
-    quantity: 5
 
-  });
-  //TwoCoInlineCart.cart.setTest(true);
+  created () {
+  
+    this.initialize();
+ 
+    },
+
+
+     methods: {
+       
+  ddd(){
+    if(this.$refs.form.validate()){
+
+
+     axios.post(this.$apipath+'users/getamount',{'amount':this.amount}).then(res=>{  
+         
+    TwoCoInlineCart.setup.setMode('DYNAMIC');
+    TwoCoInlineCart.cart.setCurrency('USD');
+    TwoCoInlineCart.products.add({
+    name: 'Digitizing Place Top Up',
+    quantity: 1,
+    price: this.amount,
+    });
+    TwoCoInlineCart.cart.setReturnMethod({
+    type: 'redirect',
+    url : 'http:\/\/localhost:3000\/digitizingplace/public\/#\/client\/thankyou'
+      });
+  TwoCoInlineCart.cart.setTest(true);
   TwoCoInlineCart.cart.checkout();
 
+      
+            })
+        .catch(err=>{
+
+          alert('Error Occur Please try reloading page ');
+           })
+
+  }
   },
+  
+  
    initialize () {
       
 
     // Add a request interceptor
 axios.interceptors.request.use((config)=> {
- 
+  this.loading=true
     return config;
   },  (error) =>{
 
@@ -244,12 +274,37 @@ axios.interceptors.request.use((config)=> {
 
 // Add a response interceptor
 axios.interceptors.response.use( (response) =>{
-  
+  this.loading=false
     return response;
   },  (error) =>{
   
     return Promise.reject(error);
   });
+  axios.post(this.$apipath+'users/getBalance').then(res=>{
+            this.balance=res.data.balance
+  })
+  .catch(err=>{
+    })
+  axios.get(this.$apipath+'design').then(res=>{
+
+            this.designs=res.data.designs
+
+   //localStorage.setItem('token',res.data.token)
+   //localStorage.setItem('loggedin',true)
+
+
+  })
+  .catch(err=>{
+   // console.log(err)
+    
+   
+  // this.errortxt=err.response.message
+ 
+    })
+
+
+
+
 
      
       }
@@ -264,7 +319,6 @@ axios.interceptors.response.use( (response) =>{
  
 
 
- 
 
 }
 

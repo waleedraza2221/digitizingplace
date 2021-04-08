@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddFilePathToSourceFiles extends Migration
+class AddAmountToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddFilePathToSourceFiles extends Migration
      */
     public function up()
     {
-        Schema::table('source_files', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('filepath');
+            $table->float('amount', 8, 2)->default(0.00);
         });
     }
 
@@ -26,9 +26,9 @@ class AddFilePathToSourceFiles extends Migration
      */
     public function down()
     {
-        Schema::table('source_files', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColum('filepath');
+            $table->dropColum('amount');
         });
     }
 }

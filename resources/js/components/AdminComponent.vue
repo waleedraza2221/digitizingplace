@@ -20,8 +20,28 @@
               {{ item.text }}
             </v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item> 
+        
+        <v-subheader class="mt-4 grey--text text--darken-1">Quotes</v-subheader>
+         <v-list-item
+          v-for="item in Quotes"
+          :key="item.text"
+          link
+          :to="item.action"
+        >
+          <v-list-item-action>
+            <v-icon>mdi-{{ item.icon }}</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ item.text }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item> 
+        
+
         <v-subheader class="mt-4 grey--text text--darken-1">SUBSCRIPTIONS</v-subheader>
+        
         <v-list>
           <v-list-item
             v-for="item in items2"
@@ -142,6 +162,13 @@ export default{
         { icon: 'briefcase-edit-outline', text: 'Categories',action:'#' },
         { icon: 'account-hard-hat', text: 'Roles',action:'/admin/roles' },
       ],
+      Quotes: [
+        { icon: 'cash', text: 'Awaiting Quote',action:'/admin/awaitingquote' },
+        { icon: 'post-outline', text: 'Posts',action:'#' },
+        { icon: 'circle-edit-outline', text: 'Pages', action:'#' },
+        { icon: 'briefcase-edit-outline', text: 'Categories',action:'#' },
+        { icon: 'account-hard-hat', text: 'Roles',action:'/admin/roles' },
+      ],
       items2: [
         { picture: 28, text: 'Joseph' },
         { picture: 38, text: 'Apple' },
@@ -151,7 +178,7 @@ export default{
       ],
     }),
     created () {
-      this.$vuetify.theme.dark = true
+      this.$vuetify.theme.dark = false
     
     },
     watch:{

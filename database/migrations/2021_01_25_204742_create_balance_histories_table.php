@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSourceFilesTable extends Migration
+class CreateBalanceHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateSourceFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('source_files', function (Blueprint $table) {
+        Schema::create('balance_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('filename');
-            $table->unsignedBigInteger('design_id')->default(0);
-            $table->string('filepath');
+            $table->unsignedBigInteger('user_id')->default(0);
+            $table->float('amount', 8, 2)->default(0.00);
             $table->timestamps();
         });
     }
@@ -29,7 +28,6 @@ class CreateSourceFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('source_files');
-        $table->dropColum('design_id');
+        Schema::dropIfExists('balance_histories');
     }
 }

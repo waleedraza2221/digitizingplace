@@ -72,6 +72,7 @@
                     name="email"
                     prepend-icon="mdi-account"
                     type="text"
+                     @blur="checkEmail"
                      :rules="emailRules"
                     v-model="email"
                   ></v-text-field>
@@ -139,6 +140,19 @@ return{
             console.log('Register Client')
         },
         methods:{
+             checkEmail(){
+        if (/.+@.+\..+/.test(this.email)){
+          axios.post('/api/email/verify', {'email': this.email})
+          .then(res => {
+            this.success = res.data.message
+            this.errors = '';
+          })
+          .catch(err => {
+            this.success = '';
+            this.errors = 'Email Already Exists'
+          })
+        }
+      },
             login:function(){
 
                this.$router.push('/client/login');

@@ -169,8 +169,7 @@ return{
             },
 
             reset:function(){
-             console.log(this.$route.query.asse)
-             console.log(this.$route.query.assett)
+            
                     axios.interceptors.request.use((config)=> {
     this.loading=true;
     return config;

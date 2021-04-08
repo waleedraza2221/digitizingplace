@@ -18,19 +18,19 @@ import GetQuoteComponent from './components/client/GetQuoteComponent';
 import ClientforgotpasswordComponent from './components/client/ClientforgotpasswordComponent';
 import ClientresetpasswordComponent from './components/client/ClientresetpasswordComponent';
 import ClientMyQuotesComponent from './components/client/ClientMyQuotesComponent';
-
-
+import ViewQuoteComponent from './components/client/ViewQuoteComponent';
+import SettingComponent from './components/client/SettingComponent';
+import ThankYouComponent from './components/client/ThankYouComponent';
+import TopUpHistoryComponent from './components/client/TopUpHistoryComponent';
+import BalanceHistoryComponent from './components/client/BalanceHistoryComponent';
+import AwaitingQuoteComponent from './components/admin/AwaitingQuoteComponent';
+import adminViewQuoteComponent from './components/admin/adminViewQuoteComponent';
 Vue.use(VueRouter)
-
-
-const routes=[
-   
+const routes=[ 
     {
-
         path:'/client/register',
         component:ClientRegisterComponent,
-        name:'ClientRegisterLogin'
-       
+        name:'ClientRegisterLogin'      
     },
     {
         path:'/client/forgotpassword',
@@ -43,76 +43,83 @@ const routes=[
         path:'/client/resetpassword',
         component:ClientresetpasswordComponent,
         name:'Clientresetpassword'
-      
-
     },
     {
-
         path:'/client/login',
         component:ClientLoginComponent,
         name:'ClientLogin'
     },
     {
-
         path:'/client',
         component:ClientComponent,
         name:'Client',
         redirect:'/client/home',
         children:[{
-            
-
-
             path:'home',
             component:ClientHomeComponent,
             name:'home'
 
         },
         {
-            
-
-
             path:'show',
             component:ShowDesignComponent,
             props: true,
             name:'show'
+        },
+        {
+            path:'topuphistory',
+            component:TopUpHistoryComponent,
+            name:'topuphistory',
+            
+        },
+        {
+            path:'balancehistory',
+            component:BalanceHistoryComponent,
+            name:'balancehistory',
+            props: true,
+        },
 
+        {
+            path:'thankyou',
+            component:ThankYouComponent,
+            props: true,
+            name:'thankyou'
         },
         
+
+       
         {
-            
-
-
+            path:'setting',
+            component:SettingComponent,
+            props: true,
+            name:'setting'
+        },
+        {
             path:'myquotes',
             component:ClientMyQuotesComponent,
             name:'myquotes'
 
         },
         {
-            
+            path:'viewquote',
+            component:ViewQuoteComponent,
+            name:'viewquote'
+        },
 
-
+        {
             path:'getquote',
             component:GetQuoteComponent,
             name:'getquote'
-
         },
-
-
         {
-           
-
             path:'contactus',
             component:ContactUsComponent,
             name:'contactus'
-
         },
         {
-           
-
             path:'alldesigns',
             component:AllDesignsComponent,
             name:'alldesigns'
-
         }
     
     ],
@@ -120,63 +127,53 @@ const routes=[
         axios.get('api/verify')
         .then(res=>next())
         .catch(err=>next('/client/login'))
-
-        }
-  
+    }
     },
     {
-
         path:'/',
-        redirect:'/client/login',
-       
+        redirect:'/client/login',   
     },
     {
-
-        path:'/admin/login',
+        path:'/login',
         component:LoginComponent,
         name:'Login'
     },
     {
-
         path:'/admin',
         component:AdminComponent,
         name:'Admin',
         redirect:'/admin/home',
         children:[{
-            
-
-
             path:'roles',
             component:RolesComponent,
             name:'Roles'
-
         },
         {
-            
-
-
             path:'users',
             component:UserComponent,
             name:'Users'
-
-        }
+        },
+        {
+            path:'awaitingquote',
+            component:AwaitingQuoteComponent,
+            name:'awaitingquote'
+        },
+        {
+            path:'adminviewquote',
+            component:adminViewQuoteComponent,
+            name:'adminviewquote'
+        },
         ,{
-
-
             path:'home',
             component:AdminHomeComponent,
             name:'Home'
         }
-    
-    
     ],
         beforeEnter: (to, from, next) => {
           axios.get('api/verify')
           .then(res=>next())
           .catch(err=>next('/login'))
-
           }
-
     }
   
 

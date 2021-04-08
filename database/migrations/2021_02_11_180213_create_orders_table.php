@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSourceFilesTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreateSourceFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('source_files', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('filename');
+            $table->longText('description');
             $table->unsignedBigInteger('design_id')->default(0);
-            $table->string('filepath');
+            $table->string('status');
+            $table->string('refno',100)->require();
+            $table->float('amount', 8, 2)->default(0.00);
+            $table->dateTime('paid_on');
             $table->timestamps();
         });
     }
@@ -29,7 +32,6 @@ class CreateSourceFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('source_files');
-        $table->dropColum('design_id');
+        Schema::dropIfExists('orders');
     }
 }

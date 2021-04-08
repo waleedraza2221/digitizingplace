@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use App\Role;
+use App\BalanceHistory;
+use App\BillingInfo;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -17,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'name', 'email','phone','password', 'role_id','amount','balance'
     ];
 
     /**
@@ -42,6 +44,11 @@ class User extends Authenticatable
 
         return $this->belongsTo(Role::class);
     }
+
+    public function balancehistory()
+    {
+        return $this->hasMany(BalanceHistory::class);
+    }
     public function designs(){
 
         return $this->hasMany('App\Design');
@@ -50,6 +57,12 @@ class User extends Authenticatable
 	 public function profile(){
         return $this->hasOne(Profile::class)->withDefault();
     }
+    public function BillingInfo(){
+
+        return $this->hasOne(BillingInfo::class)->withDefault();
+    }
+
+
     public function isAdmin(){
         return strtolower($this->role->name)==='admin';
     }

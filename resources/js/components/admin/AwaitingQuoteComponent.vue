@@ -9,7 +9,7 @@
       <v-progress-linear
         :active="loading"
         :indeterminate="loading"
-        color="yellow darken-2"
+        color="darken-2"
       ></v-progress-linear>
       
       <v-col md="auto">
@@ -60,7 +60,6 @@
           <td>{{ item.source_files.length }}</td>
           <td><v-btn
       tile
-      color="amber"
       @click="redirecttoget(item.id)"
     >
       <v-icon left>
@@ -96,7 +95,7 @@
 
       redirecttoget(e){
 
-        this.$router.push('/client/viewquote?id='+e)
+        this.$router.push('/admin/adminviewquote?id='+e)
 
       },
 
@@ -119,23 +118,15 @@
             return Promise.reject(error);
           });
         
-        axios.get(this.$apipath+'design').then(res=>{
+        axios.post(this.$apipath+'design/getallawaitingquote').then(res=>{
 
             this.designs=res.data.designs
-           
             this.loading=false
-  
-   //localStorage.setItem('token',res.data.token)
-   //localStorage.setItem('loggedin',true)
 
 
   })
   .catch(err=>{
-   // console.log(err)
-    
-   
-  // this.errortxt=err.response.message
- 
+
     })
         }
       

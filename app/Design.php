@@ -16,6 +16,10 @@ class Design extends Model
     {
         return $this->belongsTo('App\User');
     }
+    public function Order()
+    {
+        return $this->belongsTo('App\Order');
+    }
     public function SourceFiles(){
 
         return $this->hasMany('App\SourceFiles');

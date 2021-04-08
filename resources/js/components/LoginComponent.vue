@@ -127,12 +127,12 @@ axios.interceptors.response.use( (response) =>{
     return Promise.reject(error);
   });
     axios.post(this.$apipath+'login',{'email':this.email,'password':this.password}).then(res=>{
-   localStorage.setItem('token',res.data.token)
-   localStorage.setItem('loggedin',true)
+   
 
    if(res.data.isAdmin)
    {
-      console.log('Logged IN Successfully')
+     localStorage.setItem('token',res.data.token)
+      localStorage.setItem('loggedin',true)
        this.$router.push('/admin').then(res=>console.log('Logged IN Successfully')).catch(err=>res=>console.log(err))
     }else{
       this.txt="You are not Authorize to Login Here"

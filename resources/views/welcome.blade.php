@@ -7,7 +7,6 @@
         <title>Digitizing Place</title>
         
         <link rel="stylesheet" href="{{asset('css/app.css')}}" >
-      
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -39,7 +38,7 @@ s0.parentNode.insertBefore(s1,s0);
         firstScriptElement.parentNode.insertBefore(script, firstScriptElement);
     })(document, 'https://secure.avangate.com/checkout/client/twoCoInlineCart.js', 'TwoCoInlineCart',{"app":{"merchant":"250278707506","iframeLoad":"checkout"},"cart":{"host":"https:\/\/secure.2checkout.com","customization":"inline"}});
 </script>
-    </head>
+   </head>
     <body>
       <div id="app">
             <app />

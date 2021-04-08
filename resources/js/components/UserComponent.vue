@@ -355,8 +355,8 @@ export default {
           this.roles = res.data.roles;
         })
         .catch(err => {
-          if (err.response.status == 401) localStorage.removeItem("token");
-          this.$router.push("/login");
+         // if (err.response.status == 401) localStorage.removeItem("token");
+         // this.$router.push("/login");
         });
     },
     initialize() {

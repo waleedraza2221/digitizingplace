@@ -8,12 +8,17 @@ use App\Http\Resources\UserCollection;
 use App\Profile;
 use App\Role;
 use App\User;
+use App\BillingInfo;
+use App\BalanceHistory;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\PasswordResetEmail;
 use App\Mail\passwordchanged;
+use Illuminate\Support\Facades\Hash;
+use App\Providers\HashValidationTool;
+
 class UserController extends Controller
 {
     /**
@@ -32,6 +37,103 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function getBalance(Request $request)
+    {
+        return  response()->json(['balance'=>User::find(Auth::user()->id)->balance], 200);
+    }
+
+
+    const SHA_256 = 'sha256';
+    
+    public function savepaymentinfo(Request $request){
+     $merchantCode = "250278707506";   
+     $key = "Z%^H@GwDVIQAny=3O!8?"; 
+     $apiVersion = '6.0'; 
+     $resource = 'orders';
+     $host = "https://api.2checkout.com/rest/".$apiVersion."/".$resource."/".$request->params['refno'];
+     $date = gmdate('Y-m-d H:i:s');
+     $string = strlen($merchantCode) . $merchantCode . strlen($date) . $date; 
+     $hash = hash_hmac('md5', $string, $key);
+     $payload = '';
+     $ch = curl_init();
+     $headerArray = array(
+     
+         "Content-Type: application/json",
+     
+         "Accept: application/json",
+    
+         "X-Avangate-Authentication: code=\"{$merchantCode}\" date=\"{$date}\" hash=\"{$hash}\"",
+     
+         'Cookie: XDEBUG_SESSION=PHPSTORM'
+     
+     );
+     
+      
+     
+     curl_setopt($ch, CURLOPT_URL, $host);
+     
+     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+     
+     curl_setopt($ch, CURLOPT_HEADER, FALSE);
+     
+     curl_setopt($ch, CURLOPT_POST, FALSE);
+     
+     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+     
+     curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+     
+     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+     
+     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+     
+     curl_setopt($ch, CURLOPT_SSLVERSION, 0);
+     
+     curl_setopt($ch, CURLOPT_HTTPHEADER, $headerArray);
+    
+      
+    
+     $response = curl_exec($ch);
+     $data = json_decode($response);
+     if($data->Status=='COMPLETE'){
+        $user=User::find(Auth::user()->id);
+        $balHistory= BalanceHistory::where('refid',$request->params['refno'])->first();
+        if(is_null($balHistory)){
+            $bh=new BalanceHistory([
+                'refid' =>$request->params['refno'],
+                'amount'=>$user->amount,
+                'user_id'=>$user->id
+            ]);
+          $bh->save();   
+          $user->balance=$user->balance+$user->amount;
+          $user->save();
+         $mess = ['message' => $user->amount];
+          Mail::to($user->email)->send(new PasswordResetEmail($mess));
+          return  response()->json(['message'=>'success'], 200);
+       }
+
+
+
+     }
+     return  response()->json(['message'=>'Error'], 403);
+        
+
+    }
+
+
+
+
+
+    public function getpersonalinfo(Request $request){
+
+        $user = Auth::user();
+       
+        $u=User::where('email',$user->email)->first();
+   
+        $billing= BillingInfo::where('user_id',$user->id)->first();
+       
+          return response()->json(['billing'=>$billing,'name'=>$u->name,'phone'=>$u->phone,'email'=>$u->email], 200);
+
+    }
 
 
 
@@ -131,6 +233,81 @@ class UserController extends Controller
         $user->profile()->save(new Profile);
         return response()->json(['user'=> new UserResource($user)], 200);
     }
+ public function savepersonalinfo(Request $request){
+    if(isset($request->name) && isset($request->phone)){
+        $user = Auth::user();      
+        $u=User::where('email',$user->email)->first();
+        $u->name=$request->name;
+        $u->phone=$request->phone;
+        $u->save();
+
+    return response()->json(['message'=> 'Settings changed Successfully :)'], 200);
+    }else{
+        return response()->json(['message'=> 'Unable to change Settings'], 403);
+    } 
+}
+
+
+//savebillinginfo
+public function savebillinginfo(Request $request){
+
+  
+    if(isset($request->billing)){
+  
+       
+        $billing = BillingInfo::find($request['billing']['id']);
+        $billing->name=$request['billing']['name'];
+        $billing->phone=$request['billing']['phone'];
+        $billing->email=$request['billing']['email'];
+        $billing->address1=$request['billing']['address1'];
+        $billing->address2=$request['billing']['address2'];
+        $billing->postalcode=$request['billing']['postalcode'];
+        $billing->city=$request['billing']['city'];
+        $billing->state=$request['billing']['state'];
+        $billing->country=$request['billing']['country'];
+
+        $billing->save();
+      
+
+    return response()->json(['message'=> 'Billing Info changed Successfully :)'], 200);
+    }else{
+        return response()->json(['message'=> 'Unable to change Settings'], 403);
+    } 
+}
+
+
+//getamount
+public function getamount(Request $request){
+    
+    $user=User::find(Auth::user()->id);
+     $user->fill([
+        'amount' => $request->amount
+        ])->save();
+    return response()->json(['succress'=> 'true'], 200);
+}
+//Update Password
+
+
+public function savepassword(Request $request){
+    
+    $user = Auth::user();
+    $usr = User::findOrFail($user->id);   
+    if (Hash::check($request->oldpassword, $usr->password)) {
+
+        $user->fill([
+            'password' => Hash::make($request->newpassword)
+            ])->save();
+
+            return response()->json(['message'=> 'Password has changed successfully'], 200);
+     }
+   
+        
+            return response()->json(['message'=> 'Old password is wrong please try again'], 403);
+        
+        }
+
+
+
 
 //Client Register
     public function registerclient(Request $request)
@@ -145,7 +322,11 @@ class UserController extends Controller
         $user->role()->associate($role);
         $user->save();
         $user->profile()->save(new Profile);
-        
+        $user->BillingInfo()->save(new BillingInfo([
+            'name'=>$user->name,
+            'email'=>$user->email,
+            'phone'=>$user->phone
+    ]));
         if ($request->ajax()) {
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
@@ -261,6 +442,13 @@ class UserController extends Controller
         echo $request;
         return $request->user()->only('name', 'email');
     }
+    public function verifyRole(Request $request)
+    {
+        $client = Auth::user()->isAdmin();
+        return response()->json(['isAdmin'=> $client], 200);
+    }
+
+    //verifyRole
     public function changeRole(Request $request)
     {
         $user = User::find($request->user);

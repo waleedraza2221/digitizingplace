@@ -3,7 +3,7 @@
     <v-app-bar
       app
       clipped-left
-      color="amber"
+      color="lime"
     >
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <span class="title ml-3 mr-5">DP&nbsp;<span class="font-weight-light">Client</span></span>
@@ -73,13 +73,14 @@
               v-for="(child, i) in item.children"
               :key="i"
               link
+              :to="child.action"
             >
               <v-list-item-action v-if="child.icon">
                 <v-icon>mdi-{{ child.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>
-                  {{ child.text }}
+                 {{ child.text }}
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -127,6 +128,7 @@
         fluid
         class="grey lighten-4"
       >
+      
          <router-view>
              
          </router-view>
@@ -155,10 +157,12 @@
  
 
         </v-row>
-        
+
       </v-container>
  
     </v-main>
+
+
   </v-app>
 </template>
 
@@ -173,14 +177,16 @@
       items: [
         { icon: 'monitor', text: 'Dashboard', action:'/client/home' },
           { icon: 'upload', text: 'Direct Order'},
+            { divider: true },
            { icon: 'currency-usd-circle', text: 'Get Quote' ,action:'/client/getquote'},
-            { icon: 'dots-grid', text: 'My Quotes' ,action:'/client/myquotes'},
+            { icon: 'dots-grid', text: 'Awaiting Quotes' ,action:'/client/myquotes'},
+            { icon: 'clock-time-five', text: 'Awaiting Payments' ,action:'/client/#'},
         { divider: true },
       
 
-        { icon: 'image-multiple', text: 'My Designs' , action:'/client/alldesigns' },
-        { icon: 'progress-clock', text: 'Working On' , action:'/client/#' },
-         { icon: 'clock-time-five', text: 'Awaiting Payment' , action:'/client/#' },
+        { icon: 'image-multiple', text: 'All Designs' , action:'/client/alldesigns' },
+        { icon: 'progress-clock', text: 'In Progress' , action:'/client/#' },
+        
       
 
         { divider: true },
@@ -192,6 +198,7 @@
           model: false,
           children: [
             { text: 'Transactions History' ,icon: 'text-box' },
+             { text: 'TopUp History' ,icon: 'text-box' ,  action:'/client/topuphistory' },
            
           
           ],
@@ -200,7 +207,7 @@
      
       
         { divider: true },
-        { icon: 'cog', text: 'Settings' },
+        { icon: 'cog', text: 'Settings'  , action:'/client/setting'  },
        
         { icon: 'help', text: 'Contact Us' , action:'/client/contactus' },
 
