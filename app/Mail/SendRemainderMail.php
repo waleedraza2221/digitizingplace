@@ -29,7 +29,7 @@ class SendRemainderMail extends Mailable
      */
     public function build()
     {
-        $address = 'sales@digitizingplace.com';
+        $address = 'admin@digitizingplace.com';
         $subject = 'Cinet is Waiting For Quote';
         $name = 'Digitizing Place';
 

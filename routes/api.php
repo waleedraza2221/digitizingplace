@@ -37,6 +37,8 @@ route::group(['middleware'=>['auth:api'],'namespace'=>'Api'],function(){
     Route::post('design/sendremainder', 'DesignController@sendremainder');
     Route::post('design/getallawaitingquote', 'DesignController@getallawaitingquote');
     Route::post('design/viewquote', 'DesignController@viewquote');
+  
+    
     
 
     
@@ -56,7 +58,9 @@ route::group(['middleware'=>['auth:api'],'namespace'=>'Api'],function(){
     Route::post('user/photo', 'UserController@changePhoto');
  
 });
+Route::post('quote','Api\UserController@quote')->name('quote');
 Route::post('login','Api\UserController@login')->name('login');
+
 Route::post('clientlogin','Api\UserController@clientlogin')->name('clientlogin');
 Route::post('registerclient','Api\UserController@registerclient')->name('registerclient');
 Route::post('resetpassword','Api\UserController@resetpassword')->name('resetpassword');

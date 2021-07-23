@@ -2166,7 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    console.log('Admin Homcxdse Component mounted.');
+    console.log('Admin Home Component mounted.');
   }
 });
 
@@ -2192,6 +2192,1094 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HomeComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    source: String
+  },
+  data: function data() {
+    return {
+      snackbar: false,
+      drawer: null,
+      loading: false,
+      valid: true,
+      name: '',
+      email: '',
+      phone: '',
+      text: '',
+      description: '',
+      files: [],
+      nameRule: [function (val) {
+        return (val || '').length > 3 || 'Please Enter Valid Name';
+      }],
+      emailRules: [function (v) {
+        return !!v || 'E-mail is required';
+      }, function (v) {
+        return /.+@.+\..+/.test(v) || 'E-mail must be valid';
+      }],
+      descriptionRules: [function (v) {
+        return !!v || 'Description is required';
+      }, function (v) {
+        return v && v.length >= 5 || 'Description must be greater than 5 characters';
+      }],
+      filesRules: [function (v) {
+        return !!v || 'Files are required';
+      }]
+    };
+  },
+  methods: {
+    changefile: function changefile(e) {
+      //  console.log(e)
+      this.files = [];
+      var selectedFiles = e;
+
+      if (!e.length) {
+        return false;
+      }
+
+      for (var i = 0; i < e.length; i++) {
+        this.files.push(e[i]);
+      }
+    },
+    upload: function upload() {
+      var _this = this;
+
+      // Add a request interceptor
+      axios.interceptors.request.use(function (config) {
+        _this.loading = true;
+        return config;
+      }, function (error) {
+        _this.loading = false;
+        return Promise.reject(error);
+      }); // Add a response interceptor
+
+      axios.interceptors.response.use(function (response) {
+        _this.loading = false;
+        return response;
+      }, function (error) {
+        _this.loading = false;
+        return Promise.reject(error);
+      });
+
+      if (this.$refs.form.validate()) {
+        var formData = new FormData();
+
+        for (var i = 0; i < this.files.length; i++) {
+          formData.append('sourcefiles[]', this.files[i]);
+        }
+
+        formData.append("description", this.description);
+        formData.append("name", this.name);
+        formData.append("email", this.email);
+        formData.append("phone", this.phone);
+        axios.put(this.$apipath + 'quote', formData).then(function (res) {
+          console.log(res.message);
+          snackbar = true;
+          _this.text = 'Thanks for your query you will shortly get email for this';
+
+          _this.$refs.form.reset();
+        })["catch"](function (err) {
+          console.dir(err);
+          snackbar = true;
+          _this.text = "Error Inserting Record Please send your design directly at admin@digitizingplace.com";
+        });
+      }
+    }
   }
 });
 
@@ -47076,6 +48164,1911 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("router-view")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-app",
+    [
+      _c(
+        "v-app-bar",
+        { attrs: { app: "", color: "white", height: "100" } },
+        [
+          _c(
+            "v-avatar",
+            {
+              staticClass: "mr-3",
+              attrs: { color: "grey lighten-5", size: "70" }
+            },
+            [
+              _c("v-img", {
+                attrs: {
+                  contain: "",
+                  "max-height": "70%",
+                  src:
+                    "https://digitizingplaceassets.s3.us-east-2.amazonaws.com/SoloS.png"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-toolbar-title", { staticClass: "font-weight-black headline" }, [
+            _vm._v("\n        Digitizing Place\n      ")
+          ]),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-tooltip",
+            {
+              attrs: { bottom: "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    var attrs = ref.attrs
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g(
+                          _vm._b(
+                            {
+                              staticClass: "ma-2",
+                              attrs: {
+                                link: "",
+                                to: "/getquote",
+                                outlined: "",
+                                large: "",
+                                fab: "",
+                                color: "indigo"
+                              }
+                            },
+                            "v-btn",
+                            attrs,
+                            false
+                          ),
+                          on
+                        ),
+                        [
+                          _c("v-icon", [
+                            _vm._v("\n          mdi-currency-usd\n        ")
+                          ])
+                        ],
+                        1
+                      )
+                    ]
+                  }
+                }
+              ])
+            },
+            [_vm._v(" "), _c("span", [_vm._v("Get Free Quote")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-tooltip",
+            {
+              attrs: { bottom: "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    var attrs = ref.attrs
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g(
+                          _vm._b(
+                            {
+                              attrs: {
+                                link: "",
+                                to: "/client/login",
+                                outlined: "",
+                                large: "",
+                                fab: "",
+                                color: "indigo"
+                              }
+                            },
+                            "v-btn",
+                            attrs,
+                            false
+                          ),
+                          on
+                        ),
+                        [
+                          _c("v-icon", [
+                            _vm._v("\n          mdi-account\n        ")
+                          ])
+                        ],
+                        1
+                      )
+                    ]
+                  }
+                }
+              ])
+            },
+            [_vm._v(" "), _c("span", [_vm._v("Login/SignUp")])]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-main",
+        [
+          _c(
+            "section",
+            { attrs: { id: "hero" } },
+            [
+              _c(
+                "v-row",
+                { attrs: { "no-gutters": "" } },
+                [
+                  _c(
+                    "v-img",
+                    {
+                      attrs: {
+                        "min-height":
+                          "calc(100vh - " +
+                          _vm.$vuetify.application.top +
+                          "px)",
+                        src:
+                          "https://digitizingplaceassets.s3.us-east-2.amazonaws.com/Background.png"
+                      }
+                    },
+                    [
+                      _c(
+                        "v-theme-provider",
+                        { attrs: { dark: "" } },
+                        [
+                          _c(
+                            "v-container",
+                            { attrs: { "fill-height": "" } },
+                            [
+                              _c(
+                                "v-row",
+                                {
+                                  staticClass: "white--text mx-auto",
+                                  attrs: { align: "center", justify: "center" }
+                                },
+                                [
+                                  _c("v-col", {
+                                    staticClass: "white--text text-center",
+                                    attrs: { cols: "12", tag: "h1" }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      staticClass: "align-self-end",
+                                      attrs: {
+                                        "x-large": "",
+                                        color: "warning",
+                                        outlined: ""
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.$vuetify.goTo("#contact")
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                    Get Free Quote / Estimates \n                  "
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "section",
+            { attrs: { id: "about-me" } },
+            [
+              _c("div", { staticClass: "py-12" }),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                { staticClass: "text-center" },
+                [
+                  _c("h2", { staticClass: "display-2 font-weight-bold mb-3" }, [
+                    _vm._v("About DIGITIZING PLACE")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-responsive",
+                    { staticClass: "mx-auto mb-8", attrs: { width: "56" } },
+                    [
+                      _c("v-divider", { staticClass: "mb-1" }),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-responsive",
+                    {
+                      staticClass: "mx-auto title font-weight-light mb-8",
+                      attrs: { "max-width": "720" }
+                    },
+                    [
+                      _vm._v(
+                        "\n          Our great digitization administrations guarantee improved detail, less string dispersing, more clear plans and less material waste bringing about quicker creation. We work rapidly to meet our customers on schedule. \n          We have spent more then 15 years in this field and many Happy clients so we developed complete  portal to easily manage your designs. "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("iframe", {
+                    attrs: {
+                      width: "560",
+                      height: "315",
+                      src: "https://www.youtube.com/embed/E5-IuSAqApc",
+                      title: "YouTube video player",
+                      frameborder: "0",
+                      allow:
+                        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+                      allowfullscreen: ""
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("div")
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "py-12" })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "section",
+            { attrs: { id: "statss" } },
+            [
+              _c("v-parallax", {
+                attrs: {
+                  height: _vm.$vuetify.breakpoint.smAndDown ? 700 : 500,
+                  src:
+                    "https://digitizingplaceassets.s3.us-east-2.amazonaws.com/embroidery.png"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "section",
+            { staticClass: "grey lighten-3", attrs: { id: "Embroidery" } },
+            [
+              _c("div", { staticClass: "py-12" }),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                { staticClass: "text-center" },
+                [
+                  _c("h2", { staticClass: "display-2 font-weight-bold mb-3" }, [
+                    _vm._v("Embroidery Digitizing")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-responsive",
+                    { staticClass: "mx-auto mb-8", attrs: { width: "56" } },
+                    [
+                      _c("v-divider", { staticClass: "mb-1" }),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        [
+                          _c(
+                            "v-tabs",
+                            {
+                              attrs: {
+                                vertical: "",
+                                "background-color": "transparent"
+                              }
+                            },
+                            [
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Digitizing Place Services\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Qualified Embroidery Digitizer\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Lowest Rates\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Online Embroidery Digitizing Services\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Quick Turnaround\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Left Chest Digitizing\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Pocket Embroidery Punch\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Cap Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Hat Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Jacket Back Digitizing\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Sleeve Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Towel Punch Digitizing\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Gloves Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Napkin Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Beanies Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Visor Embroidery Digitizing\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        3d Puff Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Logo Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Custom Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Patch Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Applique Digitizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n        Letters / Font Digitizing\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                {
+                                  attrs: { "background-color": "transparent" }
+                                },
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n             Digitizing Place, Based in Pakistan , Provices Great Embroidery Digitizing Services in best rates in the world. We don't charge based on stitched becasue that become costly more then you think.\n             Our Flat rates would be best for you becasue your can get even 1Lac stitches in the price of 40$ Instead of 100$ which mostly other companies offer \n            "
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n           Vector Digitizing Starts From 5$ to 60$ Max based on the design complexity, Which is lowest base price in market\n            "
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", { staticClass: "mb-0" }, [
+                                                _vm._v(
+                                                  "\n           No Compromise On Quality We offer Free edits untill your satisfaction and Full Refund in case of dispute and offer 2 free designs in case of dispute\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n           Our top rated embroidery digitizers in the PAK know the best ways to convert artwork into a vector art and how to digitize logo for embroidery machine without tampering or compromising with the original design during the process. Thanks to the expertise as well as innovative and creative abilities of each of our professional digitizer working in-house, you can get your custom artwork and embroidery logo digitizing into a machine ready file. Though we usually provide digitized files in the DST format, we can also provide them in EXP, EMB, CND, DSZ, DSB, KSM, XXX, T09, T05, T04, T03, T01, TAP, EMT, SEW, HUS, JEF, PCS, PCD, PES, PEC, CSD and PCQ formats in case our clients mention their specific needs while placing their orders."
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c("p", { staticClass: "mb-0" }, [
+                                                _vm._v(
+                                                  "\n        Whether you need embroidery digitization for tiny letters, digitizing for embroidery design for Puff and 3D effects or want vector art conversion to resize your image without distortion, our digitizing artwork for embroidery services can handle them all.   "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n            We intend to revolutionize the digital world by providing the best conversion and digitized results with no compromise on rates. The following would give you an idea about how less you have to pay: "
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "p",
+                                                {
+                                                  staticClass:
+                                                    "font-weight-light mb-10 text-center"
+                                                },
+                                                [
+                                                  _vm._v(
+                                                    "\n          Fast Embroidery Digitizing Artwork done at low prices with no set up charges\n          Get free estimates or place order by registering the account!\n          Quick turnaround time within 24 hours. You do not have to worry about your Rush Jobs.\n          Open 7 days a week.(24 Hours)\n          Flat to cap and cap to flat conversion at low cost\n          Moderate editing and machine format conversion are FREE\n            "
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n           Converting the most intricate artwork with utmost precision and detail,\n            affordable rates and timely delivery are our hallmarks, \n            which our customers love to talk about.\n             With constantly updated technology and state of the art digitization software run by our skilled experts, \n             we help our clients stay ahead of the race, irrespective of whether they need embroidered uniforms, logos, or apparel.\n              We can even digitize image for embroidery. With our diverse machine embroidery digitizing jobs that enable customization and conversion to the minutest detail, we ensure top-notch quality for every dime spent.\n           "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n        We help speed up your productivity by offering the quickest turnaround time of 24 hours, while a most jobs can be finished smoothly with in 8 to 24 hours with the perfection and eye on detail.\n        Absolutely amazing digitised embroidery designs – is what our customers have to say.  "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n    We specialize in logo and small letter digitising. Left chest digitizing on your staff uniform is a great way of advertising and distinguishing your brand. If you are an emerging clothing brand, a coffee shop, a bakery or a pharmacy chain, you must ensure every worker gets a logo embroidered on their uniform. "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n  Pocket digitising is the latest trend in small and medium businesses. We are expert digitisers having sound knowledge and vast experience of digitizing all sorts of logos for pockets. We offer the fastest turnaround time even for complex designs at affordable prices. Inquire today for an amazing and professional digitizing service.\n     "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n Need cap digitization services? You have reached the right place because we are capable of providing you error free digitized files in a very short time. We completely understand how to digitise for caps as we have already delivered thousands of files. If you wish for flawless digitised designs, place your order today.   "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n                We provide professional hat digitising services internationally. We are a leading company that excels in offering unblemished digitized files at throwaway prices. We have a team of experts with extensive hands-on experience and industry related background. Digitising for hats can be daunting and challenging but we handle it with care.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n           With a wide and ample space available to show our skills, we are sure to win your appreciation with our jacket back digitising service. Get your league name or any artwork digitized on the back of your jackets. We understand the intricacies of different kinds of jacket fabrics thus you don’t have to worry about anything. Just mention any special instructions and leave the rest to us. "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n          A new trend in the fashion industry and also the digitizing world. Your business logo gets one more place to shine through sleeve digitising. Machine embroidery can give you unlimited opportunities and we are here to help you try out new ways to explore branding or style. Let’s connect and get something awesome digitized today.\n            \n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n        Do you want Towel Punch done in a rush? We can give you high quality error free files ready to put up for production in your desired time. Our team of experts is available whenever you need digitizing services. Towel brands, hotels and spas can get their logos digitised for the perfect branding opportunity we make possible for your business.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n       Gloves digitisation is possible with our services and it gives your brand a new fashionable meaning. Your logo or design can be punched perfectly by our experts in any size for placement in any position. We deliver within the shortest possible time after ensuring our work is in total adherence to your given instructions.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n      Undoubtedly, one of the greatest need for hotels, bars, casinos, in short the hospitality industry is napkins digitisation. Owing to the small size and the fineness of the fabric, not every digitiser is able to punch embroidery for napkins. We are proud to say that we have the skills and expertise to give you the quality you need. Place your order today and let us give you something to be proud of.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n    Punch on Beanies is only possible by an expert who understands not only the software, but also the fabric properties. Without properly digitized files, it can be a mess on the production floor and our experience makes us the perfect choice for such a task. Get quality work without waiting for days, we deliver in 2 – 24 hours only.\n           "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n  Many digitisers claiming to be experts have failed at visor digitising but this is not the case with us. The extremely limited space and exact positioning is a huge challenge that can break digitizers. We are experts in visor embroidery punch and have already worked on hundreds of designs with success. We can give you that excellent result you are looking for.\n           "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\nYour search for the perfect 3D Puff Digitising service ends here. We are pioneers and industry leaders with a long history of successful deliveries and happy customers. We have over 20 Wilcom and Pulse experts in our team, each of them having expertise in puff digitising. We use the latest technology to give you digitised files ready for production.         "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\nWe can perfectly convert your artwork, logos and designs to machine ready files. We are experts in logo digitizing and even our customers are proud to endorse it. We work manually on all designs because we believe in delivering only the best quality. We will never send you anything that we can’t stitch ourselves.\n"
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\nAre you looking for a company that is affordable, delivers really quick and can fulfill your custom digitising needs? If your answer is ‘Yes’, then you don’t need to look any further. We have decades of experience in digitizing pictures for embroidery and have overcome every kind of challenge thrown at us. The years of experience has polished our skills that benefits our customers."
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\nPatch digitisation is probably the commonest form of embroidery. But when given a professional touch by the experts, it can become a masterpiece in seconds. You don’t have to worry about the high prices to get our services because we are extremely affordable. Also, we have the shortest delivery time.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\nAdding appliques to your embroidery can be fun and rewarding at the same time. Our applique digitising service will give you the punched embroidery files that can stitch out the designs perfectly. Even if you are not going for commercial projects, we perfectly fit in your budget. Place your order with us and stitch beautiful designs.\n        "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\nSome say you cannot get the perfect Monogram custom embroidery digitising services online these days. We don’t believe it because in all our years of professional working, we have never got any complaints in Monograming or Font Embroidery Punch. We use the latest technology to produce high quality files to digitalize embroidery manually. Because we don’t go for automated shortcuts, our work is free of all errors and you too will agree to it after giving us a try.        "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "py-12" })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "section",
+            { attrs: { id: "statss" } },
+            [
+              _c(
+                "v-parallax",
+                {
+                  attrs: {
+                    height: _vm.$vuetify.breakpoint.smAndDown ? 700 : 500,
+                    src:
+                      "https://digitizingplaceassets.s3.us-east-2.amazonaws.com/Vector.png"
+                  }
+                },
+                [
+                  _c(
+                    "v-container",
+                    { attrs: { "fill-height": "" } },
+                    [
+                      _c(
+                        "v-row",
+                        { staticClass: "mx-auto" },
+                        _vm._l(_vm.stats, function(ref) {
+                          var value = ref[0]
+                          var title = ref[1]
+                          return _c(
+                            "v-col",
+                            { key: title, attrs: { cols: "12", md: "3" } },
+                            [
+                              _c("div", { staticClass: "text-center" }, [
+                                _c("div", {
+                                  staticClass:
+                                    "display-3 font-weight-black mb-4",
+                                  domProps: { textContent: _vm._s(value) }
+                                }),
+                                _vm._v(" "),
+                                _c("div", {
+                                  staticClass:
+                                    "title font-weight-regular text-uppercase",
+                                  domProps: { textContent: _vm._s(title) }
+                                })
+                              ])
+                            ]
+                          )
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "section",
+            { staticClass: "lighten-3", attrs: { id: "features" } },
+            [
+              _c("div", { staticClass: "py-12" }),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                { staticClass: "text-center" },
+                [
+                  _c("h2", { staticClass: "display-2 font-weight-bold mb-3" }, [
+                    _vm._v("Vector Tracing")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-responsive",
+                    { staticClass: "mx-auto mb-12", attrs: { width: "56" } },
+                    [
+                      _c("v-divider", { staticClass: "mb-1" }),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-col",
+                        [
+                          _c(
+                            "v-tabs",
+                            { attrs: { vertical: "" } },
+                            [
+                              _c("v-tab", [
+                                _vm._v("\n        Vector Art Services\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Vector Conversion\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n        Raster to Vector Art\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n       Vectorizing\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n       Vectorization\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v("\n       Vector Images Free\n      ")
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n       Vector Art on Illustrator\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-tab", [
+                                _vm._v(
+                                  "\n      Convert a Logo to Vector\n      "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n           Vector art has an imperative role to play in marketing and branding a business. Not only vector art looks high quality, which encourages its use, the fact that it is scalable further acts as a fascinating prospect. Scalability means that vector graphics can be easily manipulated, re-sized and modified without distorting the image quality. But not all images are intrinsically vector artwork and this is where our raster to vector service comes in.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n          Raster is an image that is composed of numerous small rectangular or square elements called pixels. These pixels entail image details and together make up the raster. It will be wrong to say that raster images are of ‘poor-quality”. No, they are not and they have their own uses where they serve the purpose better than the vectors. But when we are considering use in promotional and branding material, vectors have no parallel to them.\n\nWhen an image is in a bitmap or raster format like JPG, JPEG, BMP, GIF or PDF, it cannot be easily manipulated for use on a range of promotional materials. Pixels that formulate this image while resizing will be distorted, losing the crispiness of the graphic art. Consequently, these images render a blurred and jaggy outlook which obviously doesn’t look nice throughout your promotions.  "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n              Our Vector Services can be used to convert a most complex raster to vector format like EPS, CDR or AI. It can be used for printing on T-shirts, caps, signboards or any promotional material. They can be easily resized, keeping the integrity of the artwork intact. With one suitable format, you can now replicate your business logos and graphics on almost anything.\n\nIsn’t that amazing? It is but before you go any further, it is important to know that not all vectors are created equal. Like any skill, there are rookies, experienced and then the professionals.\n\nFor this truly great service, you are required to pay a pretty nominal fee. To your surprise, our professional vector services start at extremely low prices for artwork, logos and graphics. Don’t believe that you can get quality at cheap prices? Why not give it a shot? Get a quote today and we assure that you will not be disappointed.\n\nEven after receiving your vector art, you can still ask for free edits. Yes, free edits to the first submission until you are completely satisfied. On top of it, all this is absolutely quick. With our absolutely amazing service, place your orders now and receive it in less than 24 hours.\n\nA business logo says a lot about your company and plays a key role in corporate branding. Therefore, it is necessary to have a perfectly converted vector image of the same. This is where our raster to vector conversion services can help.\n\nAt Absolute Digitizing, we possess the most creative artists who are well versed in all perplexities of art forms to convert all your raster images into vector images. With adequate experience and expertise in converting JPEG, bitmap, GIF and other raster files into vector graphics quickly, these professionals can handle such conversions competently.\n\nIf you’ve been looking for quality raster to vector conversion services, your search ends here.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n              Vectorizing in short is the process of converting a raster image into a computer graphic which can be used in unusually small or large sizes. The advertisement industry needs graphic designers to do vectorizing for them so they can use an image in any size they want and fulfill their customer’s need.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n           Since then, we have learned a lot and our experience now proves rewarding for our clients. Today, we have the best team of graphic designers in the Pakistan. Our excellent services have earned us appreciation from our customers. If you are looking for the best results within a budget, get a free quote now. "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n        We are a professional company that honors its clients beyond everything else. We take responsibility of our work and are committed to give you our 100%. If required, we can provide a rework on our delivered vector images free of any additional charges in case of any needed edits. Customer satisfaction is our top priority.\n            "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n     We use the two major software of the graphics industry. Creating vector art on Illustrator by Adobe or using Corel Draw enables us to deliver our best. Since both these software are regularly updated, they help us to keep improving and as a result, our customers get the added benefit. We use the latest technology and up to date computer programs to do the required jobs.\n           "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-tab-item",
+                                [
+                                  _c(
+                                    "v-card",
+                                    { attrs: { flat: "" } },
+                                    [
+                                      _c(
+                                        "v-card-text",
+                                        [
+                                          _c(
+                                            "v-responsive",
+                                            {
+                                              staticClass:
+                                                " title font-weight-light mb-8 text-left"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n   Vector artwork is scalable and you can enlarge it to any extent without losing quality. As raster images are built out of pixels, they have a very limited flexibility. If you try to stretch a raster image to make it bigger than its actual size, or shrink it to make it small, you will notice that it  pixelates very quickly. Thus, it becomes impossible to use a raster image for promotional campaigns.       "
+                                                )
+                                              ])
+                                            ]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "py-12" })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "section",
+            { staticClass: "grey lighten-3", attrs: { id: "portfolio" } },
+            [
+              _c("div", { staticClass: "py-12" }),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "h2",
+                    {
+                      staticClass:
+                        "display-2 font-weight-bold mb-3 text-uppercase text-center"
+                    },
+                    [_vm._v("Portfolio")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-responsive",
+                    { staticClass: "mx-auto mb-12", attrs: { width: "56" } },
+                    [
+                      _c("v-divider", { staticClass: "mb-1" }),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-row",
+                    [
+                      _c(
+                        "v-row",
+                        _vm._l(9, function(n) {
+                          return _c(
+                            "v-col",
+                            {
+                              key: n + 1,
+                              staticClass: "d-flex child-flex",
+                              attrs: { cols: "4" }
+                            },
+                            [
+                              _c("v-img", {
+                                staticClass: "grey lighten-2",
+                                attrs: {
+                                  src:
+                                    "https://digitizingplaceassets.s3.us-east-2.amazonaws.com/portfolio/A" +
+                                    n +
+                                    ".PNG",
+                                  "lazy-src":
+                                    "https://digitizingplaceassets.s3.us-east-2.amazonaws.com/portfolio/A" +
+                                    n +
+                                    ".PNG",
+                                  "aspect-ratio": "1"
+                                },
+                                scopedSlots: _vm._u(
+                                  [
+                                    {
+                                      key: "placeholder",
+                                      fn: function() {
+                                        return [
+                                          _c(
+                                            "v-row",
+                                            {
+                                              staticClass: "fill-height ma-0",
+                                              attrs: {
+                                                align: "center",
+                                                justify: "center"
+                                              }
+                                            },
+                                            [
+                                              _c("v-progress-circular", {
+                                                attrs: {
+                                                  indeterminate: "",
+                                                  color: "grey lighten-5"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ]
+                                      },
+                                      proxy: true
+                                    }
+                                  ],
+                                  null,
+                                  true
+                                )
+                              })
+                            ],
+                            1
+                          )
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "py-12" })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-sheet",
+            {
+              attrs: {
+                id: "contact",
+                color: "#333333",
+                dark: "",
+                tag: "section",
+                tile: ""
+              }
+            },
+            [
+              _c("div", { staticClass: "py-12" }),
+              _vm._v(" "),
+              _c(
+                "v-container",
+                [
+                  _c(
+                    "h2",
+                    {
+                      staticClass:
+                        "display-2 font-weight-bold mb-3 text-uppercase text-center"
+                    },
+                    [_vm._v("Get Free Quote")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-responsive",
+                    { staticClass: "mx-auto mb-12", attrs: { width: "56" } },
+                    [
+                      _c("v-divider", { staticClass: "mb-1" }),
+                      _vm._v(" "),
+                      _c("v-divider")
+                    ],
+                    1
+                  ),
+                  _vm._v(
+                    "\n          Please Send your Files at admin@digitizingplace.com or Live Chat Us\n "
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("v-progress-linear", {
+                attrs: {
+                  active: _vm.loading,
+                  indeterminate: _vm.loading,
+                  color: "amber",
+                  rounded: "",
+                  height: "6"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-snackbar",
+                {
+                  model: {
+                    value: _vm.snackbar,
+                    callback: function($$v) {
+                      _vm.snackbar = $$v
+                    },
+                    expression: "snackbar"
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n               " +
+                      _vm._s(_vm.text) +
+                      "\n                "
+                  ),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "error", text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.snackbar = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n                  Close\n                ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "py-12" })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-footer",
+        {
+          staticClass: "justify-center",
+          attrs: { color: "#292929", height: "100" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "title font-weight-light grey--text text--lighten-1 text-center"
+            },
+            [
+              _vm._v(
+                "\n        © " +
+                  _vm._s(new Date().getFullYear()) +
+                  " — Digitizing Place, Developed by "
+              ),
+              _c(
+                "a",
+                { attrs: { href: "https://www.fiverr.com/waleedraza2221" } },
+                [_vm._v("Waleed Raza")]
+              )
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -112086,6 +115079,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/HomeComponent.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/HomeComponent.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _HomeComponent_vue_vue_type_template_id_782dcf83_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true& */ "./resources/js/components/HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true&");
+/* harmony import */ var _HomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HomeComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/HomeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HomeComponent_vue_vue_type_template_id_782dcf83_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HomeComponent_vue_vue_type_template_id_782dcf83_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "782dcf83",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/HomeComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/HomeComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/HomeComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./HomeComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_template_id_782dcf83_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeComponent.vue?vue&type=template&id=782dcf83&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_template_id_782dcf83_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeComponent_vue_vue_type_template_id_782dcf83_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/LoginComponent.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/LoginComponent.vue ***!
@@ -113565,31 +116627,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_LoginComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/LoginComponent */ "./resources/js/components/LoginComponent.vue");
-/* harmony import */ var _components_RolesComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/RolesComponent */ "./resources/js/components/RolesComponent.vue");
-/* harmony import */ var _components_AdminComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/AdminComponent */ "./resources/js/components/AdminComponent.vue");
-/* harmony import */ var _components_AdminHomeComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/AdminHomeComponent */ "./resources/js/components/AdminHomeComponent.vue");
-/* harmony import */ var _components_client_ClientComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/client/ClientComponent */ "./resources/js/components/client/ClientComponent.vue");
-/* harmony import */ var _components_client_ClientHomeComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/client/ClientHomeComponent */ "./resources/js/components/client/ClientHomeComponent.vue");
-/* harmony import */ var _components_client_ContactUsComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/client/ContactUsComponent */ "./resources/js/components/client/ContactUsComponent.vue");
-/* harmony import */ var _components_client_AllDesignsComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/client/AllDesignsComponent */ "./resources/js/components/client/AllDesignsComponent.vue");
-/* harmony import */ var _components_UserComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/UserComponent */ "./resources/js/components/UserComponent.vue");
-/* harmony import */ var _components_client_ClientLoginComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/client/ClientLoginComponent */ "./resources/js/components/client/ClientLoginComponent.vue");
-/* harmony import */ var _components_client_ClientRegisterComponent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/ClientRegisterComponent */ "./resources/js/components/client/ClientRegisterComponent.vue");
-/* harmony import */ var _components_client_ShowDesignComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/ShowDesignComponent */ "./resources/js/components/client/ShowDesignComponent.vue");
-/* harmony import */ var _components_client_GetQuoteComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/client/GetQuoteComponent */ "./resources/js/components/client/GetQuoteComponent.vue");
-/* harmony import */ var _components_client_ClientforgotpasswordComponent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/client/ClientforgotpasswordComponent */ "./resources/js/components/client/ClientforgotpasswordComponent.vue");
-/* harmony import */ var _components_client_ClientresetpasswordComponent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/client/ClientresetpasswordComponent */ "./resources/js/components/client/ClientresetpasswordComponent.vue");
-/* harmony import */ var _components_client_ClientMyQuotesComponent__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/client/ClientMyQuotesComponent */ "./resources/js/components/client/ClientMyQuotesComponent.vue");
-/* harmony import */ var _components_client_ViewQuoteComponent__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/client/ViewQuoteComponent */ "./resources/js/components/client/ViewQuoteComponent.vue");
-/* harmony import */ var _components_client_SettingComponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/client/SettingComponent */ "./resources/js/components/client/SettingComponent.vue");
-/* harmony import */ var _components_client_ThankYouComponent__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/client/ThankYouComponent */ "./resources/js/components/client/ThankYouComponent.vue");
-/* harmony import */ var _components_client_TopUpHistoryComponent__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/client/TopUpHistoryComponent */ "./resources/js/components/client/TopUpHistoryComponent.vue");
-/* harmony import */ var _components_client_BalanceHistoryComponent__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/client/BalanceHistoryComponent */ "./resources/js/components/client/BalanceHistoryComponent.vue");
-/* harmony import */ var _components_admin_AwaitingQuoteComponent__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/admin/AwaitingQuoteComponent */ "./resources/js/components/admin/AwaitingQuoteComponent.vue");
-/* harmony import */ var _components_admin_adminViewQuoteComponent__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/admin/adminViewQuoteComponent */ "./resources/js/components/admin/adminViewQuoteComponent.vue");
+/* harmony import */ var _components_HomeComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/HomeComponent */ "./resources/js/components/HomeComponent.vue");
+/* harmony import */ var _components_LoginComponent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/LoginComponent */ "./resources/js/components/LoginComponent.vue");
+/* harmony import */ var _components_RolesComponent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/RolesComponent */ "./resources/js/components/RolesComponent.vue");
+/* harmony import */ var _components_AdminComponent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/AdminComponent */ "./resources/js/components/AdminComponent.vue");
+/* harmony import */ var _components_AdminHomeComponent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/AdminHomeComponent */ "./resources/js/components/AdminHomeComponent.vue");
+/* harmony import */ var _components_client_ClientComponent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/client/ClientComponent */ "./resources/js/components/client/ClientComponent.vue");
+/* harmony import */ var _components_client_ClientHomeComponent__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/client/ClientHomeComponent */ "./resources/js/components/client/ClientHomeComponent.vue");
+/* harmony import */ var _components_client_ContactUsComponent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/client/ContactUsComponent */ "./resources/js/components/client/ContactUsComponent.vue");
+/* harmony import */ var _components_client_AllDesignsComponent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/client/AllDesignsComponent */ "./resources/js/components/client/AllDesignsComponent.vue");
+/* harmony import */ var _components_UserComponent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/UserComponent */ "./resources/js/components/UserComponent.vue");
+/* harmony import */ var _components_client_ClientLoginComponent__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/client/ClientLoginComponent */ "./resources/js/components/client/ClientLoginComponent.vue");
+/* harmony import */ var _components_client_ClientRegisterComponent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/client/ClientRegisterComponent */ "./resources/js/components/client/ClientRegisterComponent.vue");
+/* harmony import */ var _components_client_ShowDesignComponent__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/client/ShowDesignComponent */ "./resources/js/components/client/ShowDesignComponent.vue");
+/* harmony import */ var _components_client_GetQuoteComponent__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./components/client/GetQuoteComponent */ "./resources/js/components/client/GetQuoteComponent.vue");
+/* harmony import */ var _components_client_ClientforgotpasswordComponent__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./components/client/ClientforgotpasswordComponent */ "./resources/js/components/client/ClientforgotpasswordComponent.vue");
+/* harmony import */ var _components_client_ClientresetpasswordComponent__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/client/ClientresetpasswordComponent */ "./resources/js/components/client/ClientresetpasswordComponent.vue");
+/* harmony import */ var _components_client_ClientMyQuotesComponent__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/client/ClientMyQuotesComponent */ "./resources/js/components/client/ClientMyQuotesComponent.vue");
+/* harmony import */ var _components_client_ViewQuoteComponent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/client/ViewQuoteComponent */ "./resources/js/components/client/ViewQuoteComponent.vue");
+/* harmony import */ var _components_client_SettingComponent__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./components/client/SettingComponent */ "./resources/js/components/client/SettingComponent.vue");
+/* harmony import */ var _components_client_ThankYouComponent__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./components/client/ThankYouComponent */ "./resources/js/components/client/ThankYouComponent.vue");
+/* harmony import */ var _components_client_TopUpHistoryComponent__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./components/client/TopUpHistoryComponent */ "./resources/js/components/client/TopUpHistoryComponent.vue");
+/* harmony import */ var _components_client_BalanceHistoryComponent__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/client/BalanceHistoryComponent */ "./resources/js/components/client/BalanceHistoryComponent.vue");
+/* harmony import */ var _components_admin_AwaitingQuoteComponent__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./components/admin/AwaitingQuoteComponent */ "./resources/js/components/admin/AwaitingQuoteComponent.vue");
+/* harmony import */ var _components_admin_adminViewQuoteComponent__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./components/admin/adminViewQuoteComponent */ "./resources/js/components/admin/adminViewQuoteComponent.vue");
 
  //import { component } from 'vue/types/umd';
+
 
 
 
@@ -113617,72 +116681,72 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 var routes = [{
   path: '/client/register',
-  component: _components_client_ClientRegisterComponent__WEBPACK_IMPORTED_MODULE_12__["default"],
+  component: _components_client_ClientRegisterComponent__WEBPACK_IMPORTED_MODULE_13__["default"],
   name: 'ClientRegisterLogin'
 }, {
   path: '/client/forgotpassword',
-  component: _components_client_ClientforgotpasswordComponent__WEBPACK_IMPORTED_MODULE_15__["default"],
+  component: _components_client_ClientforgotpasswordComponent__WEBPACK_IMPORTED_MODULE_16__["default"],
   name: 'Clientforgotpassword'
 }, {
   path: '/client/resetpassword',
-  component: _components_client_ClientresetpasswordComponent__WEBPACK_IMPORTED_MODULE_16__["default"],
+  component: _components_client_ClientresetpasswordComponent__WEBPACK_IMPORTED_MODULE_17__["default"],
   name: 'Clientresetpassword'
 }, {
   path: '/client/login',
-  component: _components_client_ClientLoginComponent__WEBPACK_IMPORTED_MODULE_11__["default"],
+  component: _components_client_ClientLoginComponent__WEBPACK_IMPORTED_MODULE_12__["default"],
   name: 'ClientLogin'
 }, {
   path: '/client',
-  component: _components_client_ClientComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
+  component: _components_client_ClientComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
   name: 'Client',
   redirect: '/client/home',
   children: [{
     path: 'home',
-    component: _components_client_ClientHomeComponent__WEBPACK_IMPORTED_MODULE_7__["default"],
+    component: _components_client_ClientHomeComponent__WEBPACK_IMPORTED_MODULE_8__["default"],
     name: 'home'
   }, {
     path: 'show',
-    component: _components_client_ShowDesignComponent__WEBPACK_IMPORTED_MODULE_13__["default"],
+    component: _components_client_ShowDesignComponent__WEBPACK_IMPORTED_MODULE_14__["default"],
     props: true,
     name: 'show'
   }, {
     path: 'topuphistory',
-    component: _components_client_TopUpHistoryComponent__WEBPACK_IMPORTED_MODULE_21__["default"],
+    component: _components_client_TopUpHistoryComponent__WEBPACK_IMPORTED_MODULE_22__["default"],
     name: 'topuphistory'
   }, {
     path: 'balancehistory',
-    component: _components_client_BalanceHistoryComponent__WEBPACK_IMPORTED_MODULE_22__["default"],
+    component: _components_client_BalanceHistoryComponent__WEBPACK_IMPORTED_MODULE_23__["default"],
     name: 'balancehistory',
     props: true
   }, {
     path: 'thankyou',
-    component: _components_client_ThankYouComponent__WEBPACK_IMPORTED_MODULE_20__["default"],
+    component: _components_client_ThankYouComponent__WEBPACK_IMPORTED_MODULE_21__["default"],
     props: true,
     name: 'thankyou'
   }, {
     path: 'setting',
-    component: _components_client_SettingComponent__WEBPACK_IMPORTED_MODULE_19__["default"],
+    component: _components_client_SettingComponent__WEBPACK_IMPORTED_MODULE_20__["default"],
     props: true,
     name: 'setting'
   }, {
     path: 'myquotes',
-    component: _components_client_ClientMyQuotesComponent__WEBPACK_IMPORTED_MODULE_17__["default"],
+    component: _components_client_ClientMyQuotesComponent__WEBPACK_IMPORTED_MODULE_18__["default"],
     name: 'myquotes'
   }, {
     path: 'viewquote',
-    component: _components_client_ViewQuoteComponent__WEBPACK_IMPORTED_MODULE_18__["default"],
+    component: _components_client_ViewQuoteComponent__WEBPACK_IMPORTED_MODULE_19__["default"],
     name: 'viewquote'
   }, {
     path: 'getquote',
-    component: _components_client_GetQuoteComponent__WEBPACK_IMPORTED_MODULE_14__["default"],
+    component: _components_client_GetQuoteComponent__WEBPACK_IMPORTED_MODULE_15__["default"],
     name: 'getquote'
   }, {
     path: 'contactus',
-    component: _components_client_ContactUsComponent__WEBPACK_IMPORTED_MODULE_8__["default"],
+    component: _components_client_ContactUsComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
     name: 'contactus'
   }, {
     path: 'alldesigns',
-    component: _components_client_AllDesignsComponent__WEBPACK_IMPORTED_MODULE_9__["default"],
+    component: _components_client_AllDesignsComponent__WEBPACK_IMPORTED_MODULE_10__["default"],
     name: 'alldesigns'
   }],
   beforeEnter: function beforeEnter(to, from, next) {
@@ -113694,36 +116758,38 @@ var routes = [{
   }
 }, {
   path: '/',
-  redirect: '/client/login'
+  component: _components_HomeComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+  name: 'Home' // redirect:'/client/login',   
+
 }, {
   path: '/login',
-  component: _components_LoginComponent__WEBPACK_IMPORTED_MODULE_2__["default"],
+  component: _components_LoginComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
   name: 'Login'
 }, {
   path: '/admin',
-  component: _components_AdminComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
+  component: _components_AdminComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
   name: 'Admin',
   redirect: '/admin/home',
   children: [{
     path: 'roles',
-    component: _components_RolesComponent__WEBPACK_IMPORTED_MODULE_3__["default"],
+    component: _components_RolesComponent__WEBPACK_IMPORTED_MODULE_4__["default"],
     name: 'Roles'
   }, {
     path: 'users',
-    component: _components_UserComponent__WEBPACK_IMPORTED_MODULE_10__["default"],
+    component: _components_UserComponent__WEBPACK_IMPORTED_MODULE_11__["default"],
     name: 'Users'
   }, {
     path: 'awaitingquote',
-    component: _components_admin_AwaitingQuoteComponent__WEBPACK_IMPORTED_MODULE_23__["default"],
+    component: _components_admin_AwaitingQuoteComponent__WEBPACK_IMPORTED_MODULE_24__["default"],
     name: 'awaitingquote'
   }, {
     path: 'adminviewquote',
-    component: _components_admin_adminViewQuoteComponent__WEBPACK_IMPORTED_MODULE_24__["default"],
+    component: _components_admin_adminViewQuoteComponent__WEBPACK_IMPORTED_MODULE_25__["default"],
     name: 'adminviewquote'
   },, {
-    path: 'home',
-    component: _components_AdminHomeComponent__WEBPACK_IMPORTED_MODULE_5__["default"],
-    name: 'Home'
+    path: 'adminhome',
+    component: _components_AdminHomeComponent__WEBPACK_IMPORTED_MODULE_6__["default"],
+    name: 'adminhome'
   }],
   beforeEnter: function beforeEnter(to, from, next) {
     axios.get('api/verify').then(function (res) {

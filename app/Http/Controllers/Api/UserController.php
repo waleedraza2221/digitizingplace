@@ -204,6 +204,48 @@ class UserController extends Controller
     
     }
 
+
+
+    public function quote(Request $request)
+    {
+
+         dd($request->all());
+        //  dd($id);
+        //'name' =>$request->name,
+          
+    //  Mail::to('waleedraza221@gmail.com')->send(new TestAmazonSes('It works!'));
+
+    $hasfiles = request()->hasFile('sourcefiles');
+          if ($hasfiles) {
+               $files = request()->file('sourcefiles');
+           foreach ($files as $file)
+             {
+
+                $fileName = $file->getClientOriginalName();
+                $filePath = "/mainquote/" . date("YMD") . "/" . rand(10,100000);
+                //dd($filePath);
+               $path = $file->storeAs($filePath,$fileName, 's3');
+
+
+               // $path = Storage::disk('s3')->put('uploads/'. date("Y") . '/' . date("m") . '/',  $fileName);
+              //  dd($path);
+             // 'filename', 'design_id','filepath'
+            //  $sourcefile= SourceFiles::create([
+              //  'filename'=>$fileName,
+              //  'filepath'=>$path,
+               // 'design_id'=>$design->id
+
+              //]);
+       }
+       return response()->json(['message', 'Records Added Successfully'], 200);
+    }
+            
+        
+    
+    return response()->json(['Error', 'Records Adding Error'], 403);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *

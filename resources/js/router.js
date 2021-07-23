@@ -2,6 +2,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 //import { component } from 'vue/types/umd';
+import HomeComponent from './components/HomeComponent';
 import LoginComponent from './components/LoginComponent';
 import RolesComponent from './components/RolesComponent';
 import AdminComponent from './components/AdminComponent';
@@ -131,7 +132,9 @@ const routes=[
     },
     {
         path:'/',
-        redirect:'/client/login',   
+        component:HomeComponent,
+        name:'Home'
+       // redirect:'/client/login',   
     },
     {
         path:'/login',
@@ -164,9 +167,9 @@ const routes=[
             name:'adminviewquote'
         },
         ,{
-            path:'home',
+            path:'adminhome',
             component:AdminHomeComponent,
-            name:'Home'
+            name:'adminhome'
         }
     ],
         beforeEnter: (to, from, next) => {

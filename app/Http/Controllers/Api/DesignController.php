@@ -54,10 +54,11 @@ class DesignController extends Controller
         
         $users = User::where('role_id',2)->get();
         $data = ['message' => $request->id];
+
             foreach($users  as $user){
                 
-               // Mail::to($user->email)->send(new SendRemainderMail($data));
-              
+             Mail::mailer('ses')->to('admin@digitizingplace.com')->send(new SendRemainderMail($data));
+            
             }
     
         return response()->json(['message'=> 'Thanks for Remind Us we will send link for Payment as soon as possible Thank you :)'], 200);
@@ -74,6 +75,9 @@ class DesignController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+   
+
     public function store(Request $request)
     {
 
@@ -120,7 +124,7 @@ class DesignController extends Controller
             
         
     
-    return response()->json(['Error', 'Records Adding Erro'], 403);
+    return response()->json(['Error', 'Records Adding Error'], 403);
 
     }
 

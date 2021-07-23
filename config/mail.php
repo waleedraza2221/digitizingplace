@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'default' => env('MAIL_MAILER', 'smtp'),
+ 'default' => env('MAIL_MAILER', 'ses'),
+   // 'default' => env('MAIL_MAILER', 'ses'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,19 +35,22 @@ return [
     */
 
     'mailers' => [
-        'smtp' => [
+       'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+            'host' => env('MAIL_HOST'),
+            'port' => env('MAIL_PORT'),
+            'encryption' => env('MAIL_ENCRYPTION'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
-            'auth_mode' => null,
+            // 'timeout' => null,
+            // 'auth_mode' => null,
         ],
 
         'ses' => [
-            'transport' => 'ses',
+          'transport' => 'ses',
+           'key' => env('SES_KEY'),
+            'secret' => env('SES_KEY_SECRET'),
+            'region' => env('SES_REGION'),
         ],
 
         'mailgun' => [
@@ -84,8 +88,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', 'admin@digitizingplace.com'),
+        'name' => env('MAIL_FROM_NAME', 'Digitizing Place'),
     ],
 
     /*
