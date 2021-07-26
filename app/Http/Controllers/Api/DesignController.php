@@ -22,12 +22,17 @@ class DesignController extends Controller
 
         public function index(Request $request)
         {  
+           
            $user = User::where('email',$request->user()->only('email'))->first();
 
-          
-            $designs=Design::where('user_id', $user->id)->where('status','New')->with('SourceFiles')->orderby('id','desc')->get();
-            
+           if($request->isAwaiting){
+            $designs=Design::where('user_id', $user->id)->where('status','Awaiting Payment')->with('SourceFiles')->orderby('id','desc')->get();
             return response()->json(['designs' => $designs],200);
+        }
+            $designs=Design::where('user_id', $user->id)->where('status','New')->with('SourceFiles')->orderby('id','desc')->get();
+            return response()->json(['designs' => $designs],200);
+           
+           
         }
         
         public function getallawaitingquote(){

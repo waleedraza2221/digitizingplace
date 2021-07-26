@@ -20,6 +20,11 @@ import ClientforgotpasswordComponent from './components/client/Clientforgotpassw
 import ClientresetpasswordComponent from './components/client/ClientresetpasswordComponent';
 import ClientMyQuotesComponent from './components/client/ClientMyQuotesComponent';
 import ViewQuoteComponent from './components/client/ViewQuoteComponent';
+
+import AwaitingPaymentComponent from './components/client/AwaitingPaymentComponent';
+import MakeOrderComponent from './components/client/MakeOrderComponent';
+
+
 import SettingComponent from './components/client/SettingComponent';
 import ThankYouComponent from './components/client/ThankYouComponent';
 import TopUpHistoryComponent from './components/client/TopUpHistoryComponent';
@@ -96,6 +101,12 @@ const routes=[
             name:'setting'
         },
         {
+            path:'makeorder',
+            component:MakeOrderComponent,
+            props: true,
+            name:'makeorder'
+        },
+        {
             path:'myquotes',
             component:ClientMyQuotesComponent,
             name:'myquotes'
@@ -111,6 +122,11 @@ const routes=[
             path:'getquote',
             component:GetQuoteComponent,
             name:'getquote'
+        },
+        {
+            path:'awaitingpayment',
+            component:AwaitingPaymentComponent,
+            name:'awaitingpayment'
         },
         {
             path:'contactus',

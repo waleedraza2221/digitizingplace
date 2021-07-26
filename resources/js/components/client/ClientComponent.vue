@@ -180,7 +180,7 @@
             { divider: true },
            { icon: 'currency-usd-circle', text: 'Get Quote' ,action:'/client/getquote'},
             { icon: 'dots-grid', text: 'Awaiting Quotes' ,action:'/client/myquotes'},
-            { icon: 'clock-time-five', text: 'Awaiting Payments' ,action:'/client/#'},
+            { icon: 'clock-time-five', text: 'Awaiting Payments' ,action:'/client/awaitingpayment'},
         { divider: true },
       
 
