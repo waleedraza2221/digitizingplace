@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 //import { component } from 'vue/types/umd';
 import HomeComponent from './components/HomeComponent';
-import LoginComponent from './components/LoginComponent';
+import AdminLoginComponent from './components/AdminLoginComponent';
 import RolesComponent from './components/RolesComponent';
 import AdminComponent from './components/AdminComponent';
 import AdminHomeComponent from './components/AdminHomeComponent';
@@ -137,9 +137,9 @@ const routes=[
        // redirect:'/client/login',   
     },
     {
-        path:'/login',
-        component:LoginComponent,
-        name:'Login'
+        path:'/admin/login',
+        component:AdminLoginComponent,
+        name:'adminLogin'
     },
     {
         path:'/admin',

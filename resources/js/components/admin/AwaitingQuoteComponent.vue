@@ -39,6 +39,9 @@
           <th class="text-left">
             Date
           </th>
+            <th class="text-left">
+            Id
+          </th>
            <th class="text-left">
             Estimate Budget $
           </th>
@@ -56,6 +59,7 @@
           :key="item.id"
         >
           <td>{{  item.created_at | formatDate   }}</td>
+          <td>{{  item.id   }}</td>
           <td>{{ item.budget }}</td>
           <td>{{ item.source_files.length }}</td>
           <td><v-btn
